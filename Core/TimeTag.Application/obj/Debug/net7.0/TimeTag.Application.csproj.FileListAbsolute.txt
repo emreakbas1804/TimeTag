@@ -1,0 +1,17 @@
+/Users/emre/Documents/Projelerim/TimeTag/Core/TimeTag.Application/bin/Debug/net7.0/TimeTag.Application.deps.json
+/Users/emre/Documents/Projelerim/TimeTag/Core/TimeTag.Application/bin/Debug/net7.0/TimeTag.Application.runtimeconfig.json
+/Users/emre/Documents/Projelerim/TimeTag/Core/TimeTag.Application/bin/Debug/net7.0/TimeTag.Application.dll
+/Users/emre/Documents/Projelerim/TimeTag/Core/TimeTag.Application/bin/Debug/net7.0/TimeTag.Application.pdb
+/Users/emre/Documents/Projelerim/TimeTag/Core/TimeTag.Application/bin/Debug/net7.0/TimeTag.Domain.dll
+/Users/emre/Documents/Projelerim/TimeTag/Core/TimeTag.Application/bin/Debug/net7.0/TimeTag.Domain.pdb
+/Users/emre/Documents/Projelerim/TimeTag/Core/TimeTag.Application/obj/Debug/net7.0/TimeTag.Application.csproj.AssemblyReference.cache
+/Users/emre/Documents/Projelerim/TimeTag/Core/TimeTag.Application/obj/Debug/net7.0/TimeTag.Application.GeneratedMSBuildEditorConfig.editorconfig
+/Users/emre/Documents/Projelerim/TimeTag/Core/TimeTag.Application/obj/Debug/net7.0/TimeTag.Application.AssemblyInfoInputs.cache
+/Users/emre/Documents/Projelerim/TimeTag/Core/TimeTag.Application/obj/Debug/net7.0/TimeTag.Application.AssemblyInfo.cs
+/Users/emre/Documents/Projelerim/TimeTag/Core/TimeTag.Application/obj/Debug/net7.0/TimeTag.Application.csproj.CoreCompileInputs.cache
+/Users/emre/Documents/Projelerim/TimeTag/Core/TimeTag.Application/obj/Debug/net7.0/TimeTag.Application.csproj.CopyComplete
+/Users/emre/Documents/Projelerim/TimeTag/Core/TimeTag.Application/obj/Debug/net7.0/TimeTag.Application.dll
+/Users/emre/Documents/Projelerim/TimeTag/Core/TimeTag.Application/obj/Debug/net7.0/refint/TimeTag.Application.dll
+/Users/emre/Documents/Projelerim/TimeTag/Core/TimeTag.Application/obj/Debug/net7.0/TimeTag.Application.pdb
+/Users/emre/Documents/Projelerim/TimeTag/Core/TimeTag.Application/obj/Debug/net7.0/TimeTag.Application.genruntimeconfig.cache
+/Users/emre/Documents/Projelerim/TimeTag/Core/TimeTag.Application/obj/Debug/net7.0/ref/TimeTag.Application.dll

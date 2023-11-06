@@ -1,0 +1,62 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.5.002.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Core", "Core", "{49598D78-E739-4235-9FE9-D1A5F68A9A96}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TimeTag.Application", "Core\TimeTag.Application\TimeTag.Application.csproj", "{AACB86B3-BDE9-489F-9A39-099E62D91B1D}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TimeTag.Domain", "Core\TimeTag.Domain\TimeTag.Domain.csproj", "{D7398D5F-3DDF-4FDE-B3A2-A55171311F15}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Infrastructure", "Infrastructure", "{00949CA3-0B1D-43F0-B62C-A30F51ECA617}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TimeTag.Infrastructure", "Infrastructure\TimeTag.Infrastructure\TimeTag.Infrastructure.csproj", "{5542E23A-0C0A-4FD9-A4D0-A6D7CB737BDC}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TimeTag.Persistence", "Infrastructure\TimeTag.Persistence\TimeTag.Persistence.csproj", "{9065F7A6-828D-4CC4-81F7-E66F7771899B}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Presentation", "Presentation", "{8A10A99F-61A7-4201-BFEA-00E6E1560B14}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TimeTag.Api", "Presentation\TimeTag.Api\TimeTag.Api.csproj", "{2B9BF675-8D3D-4360-A2A9-AC6964C9B6A1}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{AACB86B3-BDE9-489F-9A39-099E62D91B1D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AACB86B3-BDE9-489F-9A39-099E62D91B1D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AACB86B3-BDE9-489F-9A39-099E62D91B1D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AACB86B3-BDE9-489F-9A39-099E62D91B1D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D7398D5F-3DDF-4FDE-B3A2-A55171311F15}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D7398D5F-3DDF-4FDE-B3A2-A55171311F15}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D7398D5F-3DDF-4FDE-B3A2-A55171311F15}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D7398D5F-3DDF-4FDE-B3A2-A55171311F15}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5542E23A-0C0A-4FD9-A4D0-A6D7CB737BDC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5542E23A-0C0A-4FD9-A4D0-A6D7CB737BDC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5542E23A-0C0A-4FD9-A4D0-A6D7CB737BDC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5542E23A-0C0A-4FD9-A4D0-A6D7CB737BDC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9065F7A6-828D-4CC4-81F7-E66F7771899B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9065F7A6-828D-4CC4-81F7-E66F7771899B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9065F7A6-828D-4CC4-81F7-E66F7771899B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9065F7A6-828D-4CC4-81F7-E66F7771899B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2B9BF675-8D3D-4360-A2A9-AC6964C9B6A1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2B9BF675-8D3D-4360-A2A9-AC6964C9B6A1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2B9BF675-8D3D-4360-A2A9-AC6964C9B6A1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2B9BF675-8D3D-4360-A2A9-AC6964C9B6A1}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{AACB86B3-BDE9-489F-9A39-099E62D91B1D} = {49598D78-E739-4235-9FE9-D1A5F68A9A96}
+		{D7398D5F-3DDF-4FDE-B3A2-A55171311F15} = {49598D78-E739-4235-9FE9-D1A5F68A9A96}
+		{5542E23A-0C0A-4FD9-A4D0-A6D7CB737BDC} = {00949CA3-0B1D-43F0-B62C-A30F51ECA617}
+		{9065F7A6-828D-4CC4-81F7-E66F7771899B} = {00949CA3-0B1D-43F0-B62C-A30F51ECA617}
+		{2B9BF675-8D3D-4360-A2A9-AC6964C9B6A1} = {8A10A99F-61A7-4201-BFEA-00E6E1560B14}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {2E0C2BBA-5373-414B-A10F-DACCCBA791DB}
+	EndGlobalSection
+EndGlobal
