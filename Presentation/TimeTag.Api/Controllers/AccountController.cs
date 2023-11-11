@@ -54,18 +54,12 @@ namespace TimeTag.Api.Controllers
             if(checkEmail.Result != EntityResult.Success) return Ok(checkEmail);
 
             var userEntity = await _userService.GetUserByLogin(email, password);
-            if(userEntity == null){ entityResultModel.Result = EntityResult.Error; entityResultModel.ResultMessage = "Kullanıcı adı veya parola hatalı."; return Ok(entityResultModel);}
-
+            if(userEntity == null){ entityResultModel.Result = EntityResult.Error; entityResultModel.ResultMessage = "Kullanıcı adı veya parola hatalı."; return Ok(entityResultModel);}            
             _userService.SetSessionUser(userEntity);
             var token = _userService.GenerateToken(userEntity,"User");
             return Ok(token);        
         }
-        [Authorize]
-        [HttpGet("test")]
-        public IActionResult test()
-        {
-            return Ok("3123");
-        }
+      
         
 
     }

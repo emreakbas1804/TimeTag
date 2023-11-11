@@ -14,6 +14,7 @@ using Microsoft.IdentityModel.Tokens;
 using System.Security.Claims;
 using System.IdentityModel.Tokens.Jwt;
 using System;
+using Microsoft.VisualBasic;
 
 namespace TimeTag.Persistence.Concretes;
 public class UserService : IUserService
@@ -66,6 +67,11 @@ public class UserService : IUserService
         User userEntity = new();
         password = _cryptoService.HashPassword(password);
         userEntity = await _context.Users.Where(q => q.Email == email && q.Password == password).FirstOrDefaultAsync();
+        var checkEmailForLogin = await _context.Users.Where(q=> q.Email == email).FirstOrDefaultAsync();
+        
+        if(checkEmailForLogin != null) AddLoginLog(checkEmailForLogin.Id, false);
+        if(userEntity != null) AddLoginLog(userEntity.Id,true);
+        
         return userEntity;
     }
 

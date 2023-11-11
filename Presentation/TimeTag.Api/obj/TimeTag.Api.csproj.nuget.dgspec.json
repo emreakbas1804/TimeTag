@@ -1,7 +1,7 @@
 {
   "format": 1,
   "restore": {
-    "/Users/emre/Documents/Projelerim/TimeTag/presentation/timetag.api/TimeTag.Api.csproj": {}
+    "/Users/emre/Documents/Projelerim/TimeTag/Presentation/TimeTag.Api/TimeTag.Api.csproj": {}
   },
   "projects": {
     "/Users/emre/Documents/Projelerim/TimeTag/Core/TimeTag.Application/TimeTag.Application.csproj": {
@@ -248,14 +248,14 @@
         }
       }
     },
-    "/Users/emre/Documents/Projelerim/TimeTag/presentation/timetag.api/TimeTag.Api.csproj": {
+    "/Users/emre/Documents/Projelerim/TimeTag/Presentation/TimeTag.Api/TimeTag.Api.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "/Users/emre/Documents/Projelerim/TimeTag/presentation/timetag.api/TimeTag.Api.csproj",
+        "projectUniqueName": "/Users/emre/Documents/Projelerim/TimeTag/Presentation/TimeTag.Api/TimeTag.Api.csproj",
         "projectName": "TimeTag.Api",
-        "projectPath": "/Users/emre/Documents/Projelerim/TimeTag/presentation/timetag.api/TimeTag.Api.csproj",
+        "projectPath": "/Users/emre/Documents/Projelerim/TimeTag/Presentation/TimeTag.Api/TimeTag.Api.csproj",
         "packagesPath": "/Users/emre/.nuget/packages/",
-        "outputPath": "/Users/emre/Documents/Projelerim/TimeTag/presentation/timetag.api/obj/",
+        "outputPath": "/Users/emre/Documents/Projelerim/TimeTag/Presentation/TimeTag.Api/obj/",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "/Users/emre/.nuget/NuGet/NuGet.Config"
