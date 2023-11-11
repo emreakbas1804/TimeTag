@@ -1,3 +1,4 @@
+using System;
 using System.ComponentModel.DataAnnotations.Schema;
 using TimeTag.Core.Domain.Enums;
 
@@ -12,22 +13,27 @@ public class User : BaseModel
     public string Phone { get; set; }    
 }
 
-public class UserRole : BaseModel
+public class User_Role : BaseModel
 {
     public string RoleName { get; set; }
     public bool IsSystemRole { get; set; } = true;
 }
 
-public class LoginLog : BaseModel
+public class User_LoginLog : BaseModel
 {
-    public string IpAddress { get; set; }
-    public string IpLocation { get; set; }
-    public string Browser { get; set; }
+    public string IpAddress { get; set; }        
     public bool IsSuccessLogin { get; set; }
     public string ReferanceUrl { get; set; }
     public int rlt_User_Id { get; set; }
     [ForeignKey(nameof(rlt_User_Id))]
     public User User { get; set; }
-
-
+}
+public class User_Token : BaseModel
+{
+    public string Name { get; set; }
+    public string Value { get; set; }
+    public DateTime ExpiryDate { get; set; }
+    public int rlt_User_Id { get; set; }
+    [ForeignKey(nameof(rlt_User_Id))]
+    public User User { get; set; }
 }

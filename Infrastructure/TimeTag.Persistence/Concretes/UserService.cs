@@ -127,5 +127,18 @@ public class UserService : IUserService
         return entityResultModel;
     }
 
-    
+    public async void AddLoginLog(int userId, bool IsSuccessLogin)
+    {
+        var ipAddress  =_httpContextAccessor.HttpContext.Connection.RemoteIpAddress?.ToString();
+        var referanceUrl =$"{_httpContextAccessor.HttpContext.Request.Scheme } ://{_httpContextAccessor.HttpContext.Request.Host}{_httpContextAccessor.HttpContext.Request.Path}"; 
+        var loginLog = new User_LoginLog()
+        {
+            IpAddress = ipAddress,
+            IsSuccessLogin = IsSuccessLogin,
+            ReferanceUrl = referanceUrl, 
+            rlt_User_Id = userId           
+        };
+        await _context.User_LoginLogs.AddAsync(loginLog);
+        await _context.SaveChangesAsync();
+    }
 }

@@ -1,7 +1,7 @@
 {
   "format": 1,
   "restore": {
-    "/Users/emre/Documents/Projelerim/TimeTag/Presentation/TimeTag.Api/TimeTag.Api.csproj": {}
+    "/Users/emre/Documents/Projelerim/TimeTag/presentation/timetag.api/TimeTag.Api.csproj": {}
   },
   "projects": {
     "/Users/emre/Documents/Projelerim/TimeTag/Core/TimeTag.Application/TimeTag.Application.csproj": {
@@ -191,6 +191,10 @@
         "net7.0": {
           "targetAlias": "net7.0",
           "dependencies": {
+            "Microsoft.AspNetCore.Http": {
+              "target": "Package",
+              "version": "[2.2.2, )"
+            },
             "Microsoft.EntityFrameworkCore": {
               "target": "Package",
               "version": "[7.0.10, )"
@@ -211,9 +215,17 @@
               "target": "Package",
               "version": "[7.0.0, )"
             },
+            "Newtonsoft.Json": {
+              "target": "Package",
+              "version": "[13.0.3, )"
+            },
             "Pomelo.EntityFrameworkCore.MySql": {
               "target": "Package",
               "version": "[7.0.0, )"
+            },
+            "System.IdentityModel.Tokens.Jwt": {
+              "target": "Package",
+              "version": "[7.0.3, )"
             }
           },
           "imports": [
@@ -236,14 +248,14 @@
         }
       }
     },
-    "/Users/emre/Documents/Projelerim/TimeTag/Presentation/TimeTag.Api/TimeTag.Api.csproj": {
+    "/Users/emre/Documents/Projelerim/TimeTag/presentation/timetag.api/TimeTag.Api.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "/Users/emre/Documents/Projelerim/TimeTag/Presentation/TimeTag.Api/TimeTag.Api.csproj",
+        "projectUniqueName": "/Users/emre/Documents/Projelerim/TimeTag/presentation/timetag.api/TimeTag.Api.csproj",
         "projectName": "TimeTag.Api",
-        "projectPath": "/Users/emre/Documents/Projelerim/TimeTag/Presentation/TimeTag.Api/TimeTag.Api.csproj",
+        "projectPath": "/Users/emre/Documents/Projelerim/TimeTag/presentation/timetag.api/TimeTag.Api.csproj",
         "packagesPath": "/Users/emre/.nuget/packages/",
-        "outputPath": "/Users/emre/Documents/Projelerim/TimeTag/Presentation/TimeTag.Api/obj/",
+        "outputPath": "/Users/emre/Documents/Projelerim/TimeTag/presentation/timetag.api/obj/",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "/Users/emre/.nuget/NuGet/NuGet.Config"
@@ -281,6 +293,10 @@
         "net7.0": {
           "targetAlias": "net7.0",
           "dependencies": {
+            "Microsoft.AspNetCore.Authentication.JwtBearer": {
+              "target": "Package",
+              "version": "[7.0.13, )"
+            },
             "Microsoft.AspNetCore.OpenApi": {
               "target": "Package",
               "version": "[7.0.8, )"
@@ -304,6 +320,10 @@
             "Swashbuckle.AspNetCore": {
               "target": "Package",
               "version": "[6.5.0, )"
+            },
+            "System.IdentityModel.Tokens.Jwt": {
+              "target": "Package",
+              "version": "[7.0.3, )"
             }
           },
           "imports": [
