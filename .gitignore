@@ -1,1 +1,6 @@
-*.dll
+# node_modules klasörünü git takip etme
+node_modules/
+
+# Derlenmiş dosyaları git takip etme
+bin/
+obj/

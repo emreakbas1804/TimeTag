@@ -1,3 +1,4 @@
+using System;
 using System.Threading.Tasks;
 using TimeTag.Application.DTO;
 using TimeTag.Domain.Entities;
@@ -12,5 +13,5 @@ public interface IUserService
     void SetSessionUser(User userEntity);
     User GetSessionUser();
     EntityResultModel GenerateToken(User userEntity, string role);
-    
+    void AddLoginLog(int userId, bool isSuccessLogin);
 }
