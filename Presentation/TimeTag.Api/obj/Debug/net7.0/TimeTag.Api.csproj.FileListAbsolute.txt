@@ -47,3 +47,12 @@
 /Users/emre/Documents/Projelerim/TimeTag/Presentation/TimeTag.Api/bin/Debug/net7.0/TimeTag.Application.pdb
 /Users/emre/Documents/Projelerim/TimeTag/Presentation/TimeTag.Api/bin/Debug/net7.0/TimeTag.Domain.pdb
 /Users/emre/Documents/Projelerim/TimeTag/Presentation/TimeTag.Api/bin/Debug/net7.0/TimeTag.Persistence.pdb
+/Users/emre/Documents/Projelerim/TimeTag/Presentation/TimeTag.Api/bin/Debug/net7.0/Microsoft.AspNetCore.Authentication.JwtBearer.dll
+/Users/emre/Documents/Projelerim/TimeTag/Presentation/TimeTag.Api/bin/Debug/net7.0/Microsoft.IdentityModel.Abstractions.dll
+/Users/emre/Documents/Projelerim/TimeTag/Presentation/TimeTag.Api/bin/Debug/net7.0/Microsoft.IdentityModel.JsonWebTokens.dll
+/Users/emre/Documents/Projelerim/TimeTag/Presentation/TimeTag.Api/bin/Debug/net7.0/Microsoft.IdentityModel.Logging.dll
+/Users/emre/Documents/Projelerim/TimeTag/Presentation/TimeTag.Api/bin/Debug/net7.0/Microsoft.IdentityModel.Protocols.dll
+/Users/emre/Documents/Projelerim/TimeTag/Presentation/TimeTag.Api/bin/Debug/net7.0/Microsoft.IdentityModel.Protocols.OpenIdConnect.dll
+/Users/emre/Documents/Projelerim/TimeTag/Presentation/TimeTag.Api/bin/Debug/net7.0/Microsoft.IdentityModel.Tokens.dll
+/Users/emre/Documents/Projelerim/TimeTag/Presentation/TimeTag.Api/bin/Debug/net7.0/Newtonsoft.Json.dll
+/Users/emre/Documents/Projelerim/TimeTag/Presentation/TimeTag.Api/bin/Debug/net7.0/System.IdentityModel.Tokens.Jwt.dll

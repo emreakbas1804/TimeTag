@@ -17,5 +17,12 @@ namespace TimeTag.Persistence.Context
             }
             
         }
+        public static string SecretKey {get {
+             var builder = new ConfigurationBuilder()
+                            .SetBasePath(Path.Combine(Directory.GetCurrentDirectory(), "../../Presentation/TimeTag.Api"))
+                                .AddJsonFile("appsettings.Development.json", optional: true, reloadOnChange: true);
+                IConfigurationRoot configuration = builder.Build();
+            return configuration["Secret"];
+        }}
     }
 }
