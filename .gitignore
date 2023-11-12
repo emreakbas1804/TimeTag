@@ -1,2 +1,6 @@
-# Derleme dosyalarını git takip etme
+# Visual Studio tarafından oluşturulan dosyalar
+bin/
+obj/
+
+# DLL dosyalarını hariç tut
 *.dll
