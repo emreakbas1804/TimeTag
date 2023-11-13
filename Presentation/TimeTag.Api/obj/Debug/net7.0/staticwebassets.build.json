@@ -1,11 +1,37 @@
 {
   "Version": 1,
-  "Hash": "/QjtA/DRVEFJzF3SBPWNeFv1vc/I2yPc60txaTYXxXM=",
+  "Hash": "CDeoRzyjvEAB/z9vmG3l9EBlqHsaVlGkSEVVaw8AVuY=",
   "Source": "TimeTag.Api",
   "BasePath": "_content/TimeTag.Api",
   "Mode": "Default",
   "ManifestType": "Build",
   "ReferencedProjectsConfiguration": [],
-  "DiscoveryPatterns": [],
-  "Assets": []
+  "DiscoveryPatterns": [
+    {
+      "Name": "TimeTag.Api/wwwroot",
+      "Source": "TimeTag.Api",
+      "ContentRoot": "/Users/emre/Documents/Projelerim/TimeTag/Presentation/TimeTag.Api/wwwroot/",
+      "BasePath": "_content/TimeTag.Api",
+      "Pattern": "**"
+    }
+  ],
+  "Assets": [
+    {
+      "Identity": "/Users/emre/Documents/Projelerim/TimeTag/Presentation/TimeTag.Api/wwwroot/js/swagger.js",
+      "SourceId": "TimeTag.Api",
+      "SourceType": "Discovered",
+      "ContentRoot": "/Users/emre/Documents/Projelerim/TimeTag/Presentation/TimeTag.Api/wwwroot/",
+      "BasePath": "_content/TimeTag.Api",
+      "RelativePath": "js/swagger.js",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot/js/swagger.js"
+    }
+  ]
 }

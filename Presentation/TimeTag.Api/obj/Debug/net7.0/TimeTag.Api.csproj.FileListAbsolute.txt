@@ -56,3 +56,4 @@
 /Users/emre/Documents/Projelerim/TimeTag/Presentation/TimeTag.Api/bin/Debug/net7.0/Microsoft.IdentityModel.Tokens.dll
 /Users/emre/Documents/Projelerim/TimeTag/Presentation/TimeTag.Api/bin/Debug/net7.0/Newtonsoft.Json.dll
 /Users/emre/Documents/Projelerim/TimeTag/Presentation/TimeTag.Api/bin/Debug/net7.0/System.IdentityModel.Tokens.Jwt.dll
+/Users/emre/Documents/Projelerim/TimeTag/Presentation/TimeTag.Api/bin/Debug/net7.0/TimeTag.Api.staticwebassets.runtime.json

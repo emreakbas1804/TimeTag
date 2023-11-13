@@ -9,15 +9,20 @@ namespace TimeTag.Api.Controllers;
 public class BaseController : Controller
 {
     private IUserService _userService;
-    public CurrentUser currentUser;
-    public override void OnActionExecuting(ActionExecutingContext context)
-    {
-        // jwt ile user alınacak ve current user set edilecek
-        base.OnActionExecuting(context);
-    }
+    public CurrentUser currentUser;    
     public override Task OnActionExecutionAsync(ActionExecutingContext context, ActionExecutionDelegate next)
     {
         if(_userService == null) _userService = HttpContext.RequestServices.GetService<IUserService>();
         return base.OnActionExecutionAsync(context, next);
+    }
+    public override void OnActionExecuting(ActionExecutingContext context)
+    {
+        var jwtToken = HttpContext.Request.Headers["Authorization"].ToString().Replace("\"\"", "").Replace("Bearer", "").Trim();
+        if(!string.IsNullOrEmpty(jwtToken))
+        {
+            currentUser = _userService.GetCurrentUser(jwtToken);
+        }
+        
+        base.OnActionExecuting(context);
     }
 }

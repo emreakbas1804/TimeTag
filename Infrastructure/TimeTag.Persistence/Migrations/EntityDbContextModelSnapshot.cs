@@ -59,7 +59,8 @@ namespace TimeTag.Persistence.Migrations
 
                     b.HasIndex("rlt_FileUpload_Id");
 
-                    b.HasIndex("rlt_Licance_Id");
+                    b.HasIndex("rlt_Licance_Id")
+                        .IsUnique();
 
                     b.HasIndex("rlt_User_Id");
 
@@ -301,6 +302,29 @@ namespace TimeTag.Persistence.Migrations
                     b.ToTable("Licances");
                 });
 
+            modelBuilder.Entity("TimeTag.Domain.Entities.Role", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    b.Property<bool>("IsSystemRole")
+                        .HasColumnType("tinyint(1)");
+
+                    b.Property<DateTime>("LastUpdateTime")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("longtext");
+
+                    b.Property<DateTime>("RecordCreateTime")
+                        .HasColumnType("datetime(6)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Roles");
+                });
+
             modelBuilder.Entity("TimeTag.Domain.Entities.User", b =>
                 {
                     b.Property<int>("Id")
@@ -331,7 +355,12 @@ namespace TimeTag.Persistence.Migrations
                     b.Property<string>("Surname")
                         .HasColumnType("longtext");
 
+                    b.Property<int>("rlt_Role_Id")
+                        .HasColumnType("int");
+
                     b.HasKey("Id");
+
+                    b.HasIndex("rlt_Role_Id");
 
                     b.ToTable("Users");
                 });
@@ -365,29 +394,6 @@ namespace TimeTag.Persistence.Migrations
                     b.HasIndex("rlt_User_Id");
 
                     b.ToTable("User_LoginLogs");
-                });
-
-            modelBuilder.Entity("TimeTag.Domain.Entities.User_Role", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    b.Property<bool>("IsSystemRole")
-                        .HasColumnType("tinyint(1)");
-
-                    b.Property<DateTime>("LastUpdateTime")
-                        .HasColumnType("datetime(6)");
-
-                    b.Property<DateTime>("RecordCreateTime")
-                        .HasColumnType("datetime(6)");
-
-                    b.Property<string>("RoleName")
-                        .HasColumnType("longtext");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("User_Roles");
                 });
 
             modelBuilder.Entity("TimeTag.Domain.Entities.User_Token", b =>
@@ -430,13 +436,13 @@ namespace TimeTag.Persistence.Migrations
                         .IsRequired();
 
                     b.HasOne("TimeTag.Domain.Entities.Licance", "Licance")
-                        .WithMany()
-                        .HasForeignKey("rlt_Licance_Id")
+                        .WithOne("Company")
+                        .HasForeignKey("TimeTag.Domain.Entities.Company", "rlt_Licance_Id")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("TimeTag.Domain.Entities.User", "Owner")
-                        .WithMany()
+                        .WithMany("Companies")
                         .HasForeignKey("rlt_User_Id")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -500,7 +506,7 @@ namespace TimeTag.Persistence.Migrations
             modelBuilder.Entity("TimeTag.Domain.Entities.Company_EmployeeLogOutJob", b =>
                 {
                     b.HasOne("TimeTag.Domain.Entities.Company_Employee", "Employee")
-                        .WithMany()
+                        .WithMany("LogOutJobs")
                         .HasForeignKey("rlt_Employee_Id")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -511,7 +517,7 @@ namespace TimeTag.Persistence.Migrations
             modelBuilder.Entity("TimeTag.Domain.Entities.Company_EmployeeLoginJob", b =>
                 {
                     b.HasOne("TimeTag.Domain.Entities.Company_Employee", "Employee")
-                        .WithMany()
+                        .WithMany("LoginJobs")
                         .HasForeignKey("rlt_Employee_Id")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -519,10 +525,21 @@ namespace TimeTag.Persistence.Migrations
                     b.Navigation("Employee");
                 });
 
+            modelBuilder.Entity("TimeTag.Domain.Entities.User", b =>
+                {
+                    b.HasOne("TimeTag.Domain.Entities.Role", "Role")
+                        .WithMany()
+                        .HasForeignKey("rlt_Role_Id")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Role");
+                });
+
             modelBuilder.Entity("TimeTag.Domain.Entities.User_LoginLog", b =>
                 {
                     b.HasOne("TimeTag.Domain.Entities.User", "User")
-                        .WithMany()
+                        .WithMany("LoginLogs")
                         .HasForeignKey("rlt_User_Id")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -533,7 +550,7 @@ namespace TimeTag.Persistence.Migrations
             modelBuilder.Entity("TimeTag.Domain.Entities.User_Token", b =>
                 {
                     b.HasOne("TimeTag.Domain.Entities.User", "User")
-                        .WithMany()
+                        .WithMany("User_Tokens")
                         .HasForeignKey("rlt_User_Id")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -551,6 +568,24 @@ namespace TimeTag.Persistence.Migrations
             modelBuilder.Entity("TimeTag.Domain.Entities.Company_Employee", b =>
                 {
                     b.Navigation("Banks");
+
+                    b.Navigation("LogOutJobs");
+
+                    b.Navigation("LoginJobs");
+                });
+
+            modelBuilder.Entity("TimeTag.Domain.Entities.Licance", b =>
+                {
+                    b.Navigation("Company");
+                });
+
+            modelBuilder.Entity("TimeTag.Domain.Entities.User", b =>
+                {
+                    b.Navigation("Companies");
+
+                    b.Navigation("LoginLogs");
+
+                    b.Navigation("User_Tokens");
                 });
 #pragma warning restore 612, 618
         }

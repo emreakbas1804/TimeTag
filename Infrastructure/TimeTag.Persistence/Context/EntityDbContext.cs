@@ -12,7 +12,7 @@ namespace TimeTag.Persistence.Context
         }
 
         public DbSet<User> Users {get;set;}
-        public DbSet<User_Role> User_Roles { get; set; }
+        public DbSet<Role> Roles { get; set; }
         public DbSet<User_LoginLog> User_LoginLogs { get; set; }
         public DbSet<User_Token> User_Tokens {get;set;}
         public DbSet<FileUpload> FileUploads { get; set; }

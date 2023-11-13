@@ -659,9 +659,7 @@ $RECYCLE.BIN/
 # End of https://www.toptal.com/developers/gitignore/api/macos,windows,dotnetcore,csharp,visualstudio,visualstudiocode,dotsettings
 
 # Custom Folders
-[Dd]evelopment/
 _cache/
 
 # Custom Files
-*.Development.json
 **/Properties/launchSettings.json
