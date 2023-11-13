@@ -5,5 +5,6 @@ namespace TimeTag.Domain.Entities
         public string FileUrl { get; set; }
         public string OriginalFileName { get; set; }
         public string FileSize { get; set; }
+        
     }
 }

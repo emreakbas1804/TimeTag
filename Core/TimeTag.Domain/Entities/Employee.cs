@@ -27,7 +27,9 @@ public class Company_Employee : BaseModel
     [ForeignKey(nameof(rlt_Company_Id))]
     public Company Company { get; set; }
 
-    public ICollection<Company_EmployeeBank> Banks { get; set; }
+    public virtual ICollection<Company_EmployeeBank> Banks { get; set; }
+    public virtual ICollection<Company_EmployeeLoginJob> LoginJobs {get;set;}
+    public virtual ICollection<Company_EmployeeLogOutJob> LogOutJobs {get;set;}
 
 }
 public class Company_EmployeeBank : BaseModel

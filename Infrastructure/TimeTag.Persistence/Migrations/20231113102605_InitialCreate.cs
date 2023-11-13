@@ -55,12 +55,12 @@ namespace TimeTag.Persistence.Migrations
                 .Annotation("MySql:CharSet", "utf8mb4");
 
             migrationBuilder.CreateTable(
-                name: "UserRoles",
+                name: "Roles",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
-                    RoleName = table.Column<string>(type: "longtext", nullable: true)
+                    Name = table.Column<string>(type: "longtext", nullable: true)
                         .Annotation("MySql:CharSet", "utf8mb4"),
                     IsSystemRole = table.Column<bool>(type: "tinyint(1)", nullable: false),
                     RecordCreateTime = table.Column<DateTime>(type: "datetime(6)", nullable: false),
@@ -68,7 +68,7 @@ namespace TimeTag.Persistence.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_UserRoles", x => x.Id);
+                    table.PrimaryKey("PK_Roles", x => x.Id);
                 })
                 .Annotation("MySql:CharSet", "utf8mb4");
 
@@ -89,12 +89,19 @@ namespace TimeTag.Persistence.Migrations
                     EmailConfirm = table.Column<int>(type: "int", nullable: false),
                     Phone = table.Column<string>(type: "longtext", nullable: true)
                         .Annotation("MySql:CharSet", "utf8mb4"),
+                    rlt_Role_Id = table.Column<int>(type: "int", nullable: false),
                     RecordCreateTime = table.Column<DateTime>(type: "datetime(6)", nullable: false),
                     LastUpdateTime = table.Column<DateTime>(type: "datetime(6)", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Users", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Users_Roles_rlt_Role_Id",
+                        column: x => x.rlt_Role_Id,
+                        principalTable: "Roles",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                 })
                 .Annotation("MySql:CharSet", "utf8mb4");
 
@@ -144,16 +151,12 @@ namespace TimeTag.Persistence.Migrations
                 .Annotation("MySql:CharSet", "utf8mb4");
 
             migrationBuilder.CreateTable(
-                name: "LoginLogs",
+                name: "User_LoginLogs",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
                     IpAddress = table.Column<string>(type: "longtext", nullable: true)
-                        .Annotation("MySql:CharSet", "utf8mb4"),
-                    IpLocation = table.Column<string>(type: "longtext", nullable: true)
-                        .Annotation("MySql:CharSet", "utf8mb4"),
-                    Browser = table.Column<string>(type: "longtext", nullable: true)
                         .Annotation("MySql:CharSet", "utf8mb4"),
                     IsSuccessLogin = table.Column<bool>(type: "tinyint(1)", nullable: false),
                     ReferanceUrl = table.Column<string>(type: "longtext", nullable: true)
@@ -164,9 +167,36 @@ namespace TimeTag.Persistence.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_LoginLogs", x => x.Id);
+                    table.PrimaryKey("PK_User_LoginLogs", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_LoginLogs_Users_rlt_User_Id",
+                        name: "FK_User_LoginLogs_Users_rlt_User_Id",
+                        column: x => x.rlt_User_Id,
+                        principalTable: "Users",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                })
+                .Annotation("MySql:CharSet", "utf8mb4");
+
+            migrationBuilder.CreateTable(
+                name: "User_Tokens",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
+                    Name = table.Column<string>(type: "longtext", nullable: true)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    Value = table.Column<string>(type: "longtext", nullable: true)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    ExpiryDate = table.Column<DateTime>(type: "datetime(6)", nullable: false),
+                    rlt_User_Id = table.Column<int>(type: "int", nullable: false),
+                    RecordCreateTime = table.Column<DateTime>(type: "datetime(6)", nullable: false),
+                    LastUpdateTime = table.Column<DateTime>(type: "datetime(6)", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_User_Tokens", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_User_Tokens_Users_rlt_User_Id",
                         column: x => x.rlt_User_Id,
                         principalTable: "Users",
                         principalColumn: "Id",
@@ -345,7 +375,8 @@ namespace TimeTag.Persistence.Migrations
             migrationBuilder.CreateIndex(
                 name: "IX_Companies_rlt_Licance_Id",
                 table: "Companies",
-                column: "rlt_Licance_Id");
+                column: "rlt_Licance_Id",
+                unique: true);
 
             migrationBuilder.CreateIndex(
                 name: "IX_Companies_rlt_User_Id",
@@ -388,9 +419,19 @@ namespace TimeTag.Persistence.Migrations
                 column: "rlt_FileUpload_Id");
 
             migrationBuilder.CreateIndex(
-                name: "IX_LoginLogs_rlt_User_Id",
-                table: "LoginLogs",
+                name: "IX_User_LoginLogs_rlt_User_Id",
+                table: "User_LoginLogs",
                 column: "rlt_User_Id");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_User_Tokens_rlt_User_Id",
+                table: "User_Tokens",
+                column: "rlt_User_Id");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Users_rlt_Role_Id",
+                table: "Users",
+                column: "rlt_Role_Id");
         }
 
         /// <inheritdoc />
@@ -406,10 +447,10 @@ namespace TimeTag.Persistence.Migrations
                 name: "Company_EmployeeLogOuts");
 
             migrationBuilder.DropTable(
-                name: "LoginLogs");
+                name: "User_LoginLogs");
 
             migrationBuilder.DropTable(
-                name: "UserRoles");
+                name: "User_Tokens");
 
             migrationBuilder.DropTable(
                 name: "Company_Employees");
@@ -428,6 +469,9 @@ namespace TimeTag.Persistence.Migrations
 
             migrationBuilder.DropTable(
                 name: "Users");
+
+            migrationBuilder.DropTable(
+                name: "Roles");
         }
     }
 }

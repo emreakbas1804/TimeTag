@@ -10,6 +10,7 @@ using System.Text;
 using Microsoft.OpenApi.Models;
 using Microsoft.Extensions.Configuration;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using System.Collections.Generic;
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
@@ -22,18 +23,16 @@ builder.Services.AddSession(options =>
 
 
 var key = Encoding.ASCII.GetBytes(builder.Configuration.GetValue<string>("secret"));
-builder.Services.AddAuthentication("Bearer")
-            .AddJwtBearer(x =>
-            {
-
-                x.TokenValidationParameters = new TokenValidationParameters
-                {
-                    ValidateIssuerSigningKey = true,
-                    IssuerSigningKey = new SymmetricSecurityKey(key),
-                    ValidateIssuer = false,
-                    ValidateAudience = false,
-                };
-            });
+builder.Services.AddAuthentication("Bearer").AddJwtBearer(x =>
+{
+    x.TokenValidationParameters = new TokenValidationParameters
+    {
+        ValidateIssuerSigningKey = true,
+        IssuerSigningKey = new SymmetricSecurityKey(key),
+        ValidateIssuer = false,
+        ValidateAudience = false,
+    };
+});
 
 
 
@@ -43,12 +42,26 @@ builder.Services.AddSwaggerGen(c =>
 {
     c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
     {
-        In = ParameterLocation.Header,
-        Description = "JWT Authorization header using the Bearer scheme",
-        Name = "Authorization",
-        Type = SecuritySchemeType.ApiKey
+        Description = "JWT Authorization header using the Bearer scheme.",
+        Type = SecuritySchemeType.Http,
+        Scheme = "bearer"
     });
-  
+
+    c.AddSecurityRequirement(new OpenApiSecurityRequirement
+    {
+        {
+            new OpenApiSecurityScheme
+            {
+                Reference = new OpenApiReference
+                {
+                    Type = ReferenceType.SecurityScheme,
+                    Id = "Bearer"
+                }
+            },
+            new List<string>()
+        }
+    });
+
 });
 builder.Services.AddPersistanceServices();
 builder.Services.AddDistributedMemoryCache();
@@ -58,7 +71,9 @@ app.MigrateDatabase();
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
-    app.UseSwaggerUI();
+    app.UseSwaggerUI(c=> {
+        c.HeadContent = $"<script type='text/javascript' src='/swagger.js'></script>";
+    });
 }
 app.UseSession();
 app.UseHttpsRedirection();
