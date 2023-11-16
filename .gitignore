@@ -666,3 +666,6 @@ _cache/
 Core/TimeTag.Application/obj/Debug/
 Infrastructure/TimeTag.Persistence/obj/
 Presentation/TimeTag.Api/obj/Debug/
+Infrastructure/TimeTag.Persistence/obj/Debug/net7.0/TimeTag.Persistence.csproj.AssemblyReference.cache
+Core/TimeTag.Application/obj/Debug/net7.0/TimeTag.Application.csproj.AssemblyReference.cache
+Presentation/TimeTag.Api/obj/Debug/net7.0/TimeTag.Api.csproj.AssemblyReference.cache
