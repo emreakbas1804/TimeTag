@@ -153,7 +153,7 @@ public class UserService : IUserService
         return entityResultModel;
     }
 
-    public async void AddLoginLog(int userId, bool IsSuccessLogin)
+    public void AddLoginLog(int userId, bool IsSuccessLogin)
     {
         try
         {
@@ -166,8 +166,8 @@ public class UserService : IUserService
                 ReferanceUrl = referanceUrl,
                 rlt_User_Id = userId
             };
-            await _context.User_LoginLogs.AddAsync(loginLog);
-            await _context.SaveChangesAsync();
+            _context.User_LoginLogs.AddAsync(loginLog);
+            _context.SaveChangesAsync();
         }
         catch (System.Exception)
         {
