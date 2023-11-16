@@ -663,3 +663,6 @@ _cache/
 
 # Custom Files
 **/Properties/launchSettings.json
+Core/TimeTag.Application/obj/Debug/
+Infrastructure/TimeTag.Persistence/obj/
+Presentation/TimeTag.Api/obj/Debug/

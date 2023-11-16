@@ -11,13 +11,13 @@ namespace TimeTag.Domain.Entities
         public string Description { get; set; }
         public string WebSite { get; set; }        
         public required int rlt_User_Id { get; set; }
-        public int rlt_FileUpload_Id { get; set; }
+        public int? rlt_FileUpload_Id { get; set; }
         public int rlt_Licance_Id { get; set; }
        
         public Gender Gender { get; set; } = Gender.Unknow;
                 
         [ForeignKey(nameof(rlt_FileUpload_Id))]
-        public FileUpload Logo { get; set; }        
+        public FileUpload? Logo { get; set; }        
         
         [ForeignKey(nameof(rlt_User_Id))]
         public User Owner { get; set; }
