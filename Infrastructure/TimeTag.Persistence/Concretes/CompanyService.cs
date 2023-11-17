@@ -72,9 +72,7 @@ public class CompanyService : ICompanyService
                 return entityResultModel;
             }
             
-            // string[] accepFileExtensions = { ".jpg", ".jpeg", ".png", ".webp",};
-            // var uploadFile = await _fileService.UploadFile(file,"/images/companies/logos/",10,accepFileExtensions);
-            
+          
             company.Address = address;
             company.Title = title;
             company.Description = description;
