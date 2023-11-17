@@ -17,7 +17,7 @@ namespace TimeTag.Domain.Entities
         public Gender Gender { get; set; } = Gender.Unknow;
                 
         [ForeignKey(nameof(rlt_FileUpload_Id))]
-        public FileUpload? Logo { get; set; }        
+        public FileUpload Logo { get; set; }        
         
         [ForeignKey(nameof(rlt_User_Id))]
         public User Owner { get; set; }

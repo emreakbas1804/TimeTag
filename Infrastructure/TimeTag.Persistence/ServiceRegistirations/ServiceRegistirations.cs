@@ -22,6 +22,8 @@ namespace TimeTag.Persistence.ServiceRegistirations
             services.AddScoped<IUserService, UserService>();
             services.AddScoped<ICompanyService, CompanyService>();
             services.AddScoped<ILicanceService, LicanceService>();
+            services.AddScoped<IFileService, FileService>();
+            
         }
     }
 }
