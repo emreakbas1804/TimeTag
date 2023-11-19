@@ -127,8 +127,8 @@ public class DepartmentService : IDepartmentService
         }
     }
 
-
-
-
-
+    public bool IsDepartmentExist(int departmantId)
+    {
+        return _context.Company_Departments.Any(q=> q.Id == departmantId);
+    }
 }

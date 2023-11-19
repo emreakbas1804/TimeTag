@@ -6,15 +6,14 @@ namespace TimeTag.Domain.Entities;
 public class Company_Employee : BaseModel
 {
     public string NameSurname { get; set; }
+    public string Title { get; set; }
     public string Phone { get; set; }
     public string Address { get; set; }
     public string Email { get; set; }
     public DateTime BirthDay { get; set; }
     public DateTime? StartedJobTime { get; set; }
-    public int IsActive { get; set; }
-    public string LoginTag { get; set; }
-
-    public int rlt_FileUpload_Id { get; set; }
+    public bool IsActive { get; set; }
+    public int? rlt_FileUpload_Id { get; set; }
     public int rlt_Company_Id { get; set; }
     public int rlt_Department_Id { get; set; }
 
