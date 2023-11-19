@@ -669,3 +669,12 @@ Presentation/TimeTag.Api/obj/Debug/
 Infrastructure/TimeTag.Persistence/obj/Debug/net7.0/TimeTag.Persistence.csproj.AssemblyReference.cache
 Core/TimeTag.Application/obj/Debug/net7.0/TimeTag.Application.csproj.AssemblyReference.cache
 Presentation/TimeTag.Api/obj/Debug/net7.0/TimeTag.Api.csproj.AssemblyReference.cache
+Core/TimeTag.Application/obj/project.assets.json
+Core/TimeTag.Application/obj/project.nuget.cache
+Core/TimeTag.Application/obj/TimeTag.Application.csproj.nuget.dgspec.json
+Core/TimeTag.Application/obj/Debug/net7.0/TimeTag.Application.assets.cache
+Core/TimeTag.Application/obj/Debug/net7.0/TimeTag.Application.csproj.AssemblyReference.cache
+Infrastructure/TimeTag.Persistence/obj/project.assets.json
+Infrastructure/TimeTag.Persistence/obj/project.nuget.cache
+Infrastructure/TimeTag.Persistence/obj/TimeTag.Persistence.csproj.nuget.dgspec.json
+Presentation/TimeTag.Api/wwwroot/images/companies/logos
