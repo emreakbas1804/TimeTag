@@ -677,3 +677,4 @@ Core/TimeTag.Application/obj/Debug/net7.0/TimeTag.Application.csproj.AssemblyRef
 Infrastructure/TimeTag.Persistence/obj/project.assets.json
 Infrastructure/TimeTag.Persistence/obj/project.nuget.cache
 Infrastructure/TimeTag.Persistence/obj/TimeTag.Persistence.csproj.nuget.dgspec.json
+Presentation/TimeTag.Api/wwwroot/images/companies/logos

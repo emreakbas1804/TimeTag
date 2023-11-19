@@ -7,4 +7,5 @@ window.onload = function() {
         // Bearer kelimesini ekleyerek token input alanına yaz
         tokenInput.value = "Bearer " + tokenInput.value;
     });
+    document.querySelector(".copy-to-clipboard").classList.add("d-none");
 };

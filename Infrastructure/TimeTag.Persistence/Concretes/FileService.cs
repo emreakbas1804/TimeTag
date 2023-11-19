@@ -13,8 +13,8 @@ namespace TimeTag.Persistence.Concretes;
 public class FileService : IFileService
 {
     private readonly EntityDbContext _context;
-    private readonly ValidationService _validationService;
-    public FileService(EntityDbContext context, ValidationService validationService)
+    private readonly IValidationService _validationService;
+    public FileService(EntityDbContext context, IValidationService validationService)
     {
         _context = context;
         _validationService = validationService;
@@ -22,10 +22,10 @@ public class FileService : IFileService
     EntityResultModel entityResultModel = new();
     public async Task<EntityResultModel> UploadFile(IFormFile file, string mainPath, int maxFileSizeMb, string[] acceptExtensions)
     {
-        FileUpload fileUpload = null;
+        FileUpload fileUpload;
         try
         {
-            
+
             if (file == null)
             {
                 entityResultModel.ResultMessage = "Dosya alınamadı.";
@@ -35,20 +35,25 @@ public class FileService : IFileService
             {
                 entityResultModel.ResultMessage = "Dosya kayıt yolu bulunamadı.";
                 return entityResultModel;
-            }    
-           
-            var validateFileSize = _validationService.ValidateFileSize(file,maxFileSizeMb);
-            if(validateFileSize.Result != EntityResult.Success) return validateFileSize;
-            
+            }
+
+            var validateFileSize = _validationService.ValidateFileSize(file, maxFileSizeMb);
+            if (validateFileSize.Result != EntityResult.Success) return validateFileSize;
+
             var validateFileExtension = _validationService.ValidateFileExtension(file, acceptExtensions);
-            if(validateFileExtension.Result != EntityResult.Success) return validateFileExtension;
-            
-            
+            if (validateFileExtension.Result != EntityResult.Success) return validateFileExtension;
+
+
 
             var extension = Path.GetExtension(file?.FileName);
             string guid = Guid.NewGuid().ToString();
-            var path = mainPath + guid + "." + extension;
+            var path = mainPath + guid + extension;
             var fileSizeMB = (file?.Length ?? 0) / (1024.0 * 1024.0);
+            
+            using (var stream = new FileStream("wwwroot/"+path, FileMode.CreateNew))
+            {
+                await file.CopyToAsync(stream);
+            }
             fileUpload = new()
             {
                 FileUrl = path,
@@ -64,7 +69,7 @@ public class FileService : IFileService
         catch (System.Exception)
         {
             entityResultModel.ResultMessage = "Beklenmedik bir hata oluştu.";
-            return entityResultModel;      
+            return entityResultModel;
         }
 
 

@@ -1,4 +1,5 @@
 using System;
+using System.Reflection.PortableExecutable;
 using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
@@ -23,7 +24,8 @@ namespace TimeTag.Persistence.ServiceRegistirations
             services.AddScoped<ICompanyService, CompanyService>();
             services.AddScoped<ILicanceService, LicanceService>();
             services.AddScoped<IFileService, FileService>();
-            
+            services.AddScoped<IPermissionService, PermissionService>();
+            services.AddScoped<IDepartmentService, DepartmentService>();
         }
     }
 }
