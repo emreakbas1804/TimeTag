@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using TimeTag.Persistence.Context;
 
@@ -10,9 +11,11 @@ using TimeTag.Persistence.Context;
 namespace TimeTag.Persistence.Migrations
 {
     [DbContext(typeof(EntityDbContext))]
-    partial class EntityDbContextModelSnapshot : ModelSnapshot
+    [Migration("20231119173037_TitleToEmployee")]
+    partial class TitleToEmployee
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -216,7 +219,7 @@ namespace TimeTag.Persistence.Migrations
 
                     b.HasIndex("rlt_Employee_Id");
 
-                    b.ToTable("Company_EmployeeLogOutJobs");
+                    b.ToTable("Company_EmployeeLogOuts");
                 });
 
             modelBuilder.Entity("TimeTag.Domain.Entities.Company_EmployeeLoginJob", b =>
@@ -248,31 +251,6 @@ namespace TimeTag.Persistence.Migrations
                     b.HasIndex("rlt_Employee_Id");
 
                     b.ToTable("Company_EmployeeLoginJobs");
-                });
-
-            modelBuilder.Entity("TimeTag.Domain.Entities.Company_EmployeeToken", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    b.Property<DateTime>("LastUpdateTime")
-                        .HasColumnType("datetime(6)");
-
-                    b.Property<DateTime>("RecordCreateTime")
-                        .HasColumnType("datetime(6)");
-
-                    b.Property<string>("Token")
-                        .HasColumnType("longtext");
-
-                    b.Property<int>("rlt_Employee_Id")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("rlt_Employee_Id");
-
-                    b.ToTable("Company_EmployeeTokens");
                 });
 
             modelBuilder.Entity("TimeTag.Domain.Entities.FileUpload", b =>
@@ -543,17 +521,6 @@ namespace TimeTag.Persistence.Migrations
                     b.Navigation("Employee");
                 });
 
-            modelBuilder.Entity("TimeTag.Domain.Entities.Company_EmployeeToken", b =>
-                {
-                    b.HasOne("TimeTag.Domain.Entities.Company_Employee", "Employee")
-                        .WithMany("Tokens")
-                        .HasForeignKey("rlt_Employee_Id")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Employee");
-                });
-
             modelBuilder.Entity("TimeTag.Domain.Entities.User", b =>
                 {
                     b.HasOne("TimeTag.Domain.Entities.Role", "Role")
@@ -601,8 +568,6 @@ namespace TimeTag.Persistence.Migrations
                     b.Navigation("LogOutJobs");
 
                     b.Navigation("LoginJobs");
-
-                    b.Navigation("Tokens");
                 });
 
             modelBuilder.Entity("TimeTag.Domain.Entities.Licance", b =>

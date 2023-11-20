@@ -124,10 +124,8 @@ public class CompanyService : ICompanyService
         return userCompanies;
     }
 
-
-
-
-    
-
-    
+    public bool IsCompanyExist(int companyId)
+    {
+        return _context.Companies.Any(q=> q.Id == companyId);
+    }
 }
