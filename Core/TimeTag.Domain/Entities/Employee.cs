@@ -27,8 +27,9 @@ public class Company_Employee : BaseModel
     public Company Company { get; set; }
 
     public virtual ICollection<Company_EmployeeBank> Banks { get; set; }
-    public virtual ICollection<Company_EmployeeLoginJob> LoginJobs {get;set;}
-    public virtual ICollection<Company_EmployeeLogOutJob> LogOutJobs {get;set;}
+    public virtual ICollection<Company_EmployeeLoginJob> LoginJobs { get; set; }
+    public virtual ICollection<Company_EmployeeLogOutJob> LogOutJobs { get; set; }
+    public virtual ICollection<Company_EmployeeToken> Tokens {get;set;}
 
 }
 public class Company_EmployeeBank : BaseModel
@@ -37,7 +38,7 @@ public class Company_EmployeeBank : BaseModel
     public string OwnerName { get; set; }
     public string Iban { get; set; }
     public int rlt_Employee_Id { get; set; }
-    
+
     [ForeignKey(nameof(rlt_Employee_Id))]
     public Company_Employee Employee { get; set; }
 }
@@ -47,7 +48,7 @@ public class Company_EmployeeLoginJob : BaseModel
     public string IpAddress { get; set; }
     public string Token { get; set; }
     public int rlt_Employee_Id { get; set; }
-    
+
     [ForeignKey(nameof(rlt_Employee_Id))]
     public Company_Employee Employee { get; set; }
 }
@@ -57,7 +58,14 @@ public class Company_EmployeeLogOutJob : BaseModel
     public string IpAddress { get; set; }
     public string Token { get; set; }
     public int rlt_Employee_Id { get; set; }
-   
+
+    [ForeignKey(nameof(rlt_Employee_Id))]
+    public Company_Employee Employee { get; set; }
+}
+public class Company_EmployeeToken : BaseModel
+{
+    public string Token { get; set; }
+    public int rlt_Employee_Id { get; set; }
     [ForeignKey(nameof(rlt_Employee_Id))]
     public Company_Employee Employee { get; set; }
 }
