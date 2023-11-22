@@ -24,7 +24,7 @@ namespace TimeTag.Persistence.Context
         public DbSet<Company_EmployeeLoginJob> Company_EmployeeLoginJobs { get; set; }
         public DbSet<Company_EmployeeLogOutJob> Company_EmployeeLogOutJobs { get; set; }
         public DbSet<Company_EmployeeToken> Company_EmployeeTokens {get;set;}
-        
+        public DbSet<AppDomain> AppDomains {get;set;}
 
     }
 }
