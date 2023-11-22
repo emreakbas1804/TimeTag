@@ -14,7 +14,7 @@ using System.Collections.Generic;
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
-
+string MyAllowOrigin = "_myAllowOrigin";
 builder.Services.AddControllers();
 builder.Services.AddSession(options =>
 {
@@ -64,6 +64,16 @@ builder.Services.AddSwaggerGen(c =>
 
 });
 builder.Services.AddPersistanceServices();
+builder.Services.AddCors(options =>
+        {
+            options.AddPolicy("AllowAllOrigins",
+                builder =>
+                {
+                    builder.AllowAnyOrigin()
+                           .AllowAnyMethod()
+                           .AllowAnyHeader();
+                });
+        });
 builder.Services.AddDistributedMemoryCache();
 var app = builder.Build();
 
@@ -71,7 +81,8 @@ app.MigrateDatabase();
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
-    app.UseSwaggerUI(c=> {
+    app.UseSwaggerUI(c =>
+    {
         c.HeadContent = $"<script type='text/javascript' src='/swagger.js'></script>";
     });
 }
@@ -79,7 +90,7 @@ app.UseSession();
 app.UseHttpsRedirection();
 app.UseAuthentication();
 app.UseAuthorization();
-
+app.UseCors("AllowAllOrigins");
 app.MapControllers();
 
 app.Run();
