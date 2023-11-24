@@ -85,7 +85,9 @@ namespace TimeTag.Api.Controllers
         public async Task<IActionResult> GetCompanies()
         {
             var userCompanies = await _companyService.GetCompanies(currentUser.Id);
-            return Ok(userCompanies);
+            entityResultModel.Result = EntityResult.Success;
+            entityResultModel.ResultObject = userCompanies;
+            return Ok(entityResultModel);
         }
 
         [Authorize]

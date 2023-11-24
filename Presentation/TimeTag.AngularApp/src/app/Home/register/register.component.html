@@ -1,1 +1,75 @@
-<p>register works!</p>
+<div class="account register">
+    <app-navbar></app-navbar>
+    <div class="container">
+        <div class="row mt-3 justify-content-center">
+
+            <div class="col-md-6 register-card">
+                <h1 class="h4">Register Free</h1>
+                <hr>
+                <div [class.d-none]="!info">
+                    <div class="alert alert-{{infoColor}} text-center" *ngIf="info != ''">
+                        {{info}}
+                    </div>
+                </div>
+                <form #form="ngForm" (ngSubmit)="register(form)">
+
+                    <div class="mb-3">
+                        <input type="text" class="form-input" placeholder="Name" [(ngModel)]="registerModel.Name"
+                            name="name" required #name="ngModel">
+                        <div class="text-danger mt-1" *ngIf="name.invalid && name.touched">
+                            Name is required
+                        </div>
+                    </div>
+
+                    <div class="mb-3">
+                        <input type="text" class="form-input" placeholder="Surname" [(ngModel)]="registerModel.Surname"
+                            name="Surname" required #Surname="ngModel">
+                        <div class="text-danger mt-1" *ngIf="Surname.invalid && Surname.touched">
+                            Surname is required
+                        </div>
+                    </div>
+
+
+                    <div class="mb-3">
+                        <input type="email" class="form-input" placeholder="Email" [(ngModel)]="registerModel.Email"
+                            name="Email" required #Email="ngModel">
+                        <div class="text-danger mt-1" *ngIf="Email.invalid && Email.touched">
+                            Email is required
+                        </div>
+                    </div>
+
+                    <div class="mb-3">
+                        <input type="text" class="form-input" placeholder="Phone" [(ngModel)]="registerModel.Phone"
+                            name="Phone" required minlength="10" maxlength="16" #Phone="ngModel">
+                        <div class="text-danger mt-1" *ngIf="Phone.invalid && Phone.touched">
+                            Incorrect phone number
+                        </div>
+                    </div>
+
+                    <div class="mb-3">
+                        <input type="password" class="form-input" placeholder="Parola"
+                            [(ngModel)]="registerModel.Password" name="Password" required minlength="6"
+                            #Password="ngModel">
+                        <div class="text-danger mt-1" *ngIf="Password.invalid && Password.touched">
+                            Password should be longer than 5 char
+                        </div>
+                        <i class="fa-regular fa-eye"></i>
+                    </div>
+
+
+                    <div class="text-center mt-2">
+                        <div class="spinner-border" *ngIf="loading"></div>
+                    </div>
+                    <div *ngIf="!loading">
+                        <button type="submit">Register</button>
+                        <a routerLink="/login" class="router-link">Login</a>
+                        <a routerLink="/forgot-password" class="router-link">Forgot password</a>
+                    </div>
+
+                </form>
+            </div>
+
+        </div>
+    </div>
+
+</div>

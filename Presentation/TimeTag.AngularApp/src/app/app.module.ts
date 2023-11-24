@@ -6,24 +6,28 @@ import { AppComponent } from './app.component';
 import { HomeModule } from './Home/home.module';
 import { SharedModule } from './Shared/shared.module';
 import { PanelModule } from './Panel/panel.module';
-import {HttpClientModule} from '@angular/common/http';
+import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
+import { RequestHeaderInterceptor } from './request-header.interceptor';
 
 
 
 @NgModule({
   declarations: [
-    AppComponent,       
+    AppComponent,
   ],
   imports: [
-    BrowserModule,  
+    BrowserModule,
     HttpClientModule,
     HomeModule,
     SharedModule,
     PanelModule,
     AppRoutingModule,
+
+  ],
+  providers: [
+    { provide: HTTP_INTERCEPTORS, useClass: RequestHeaderInterceptor, multi: true },
     
   ],
-  providers: [],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

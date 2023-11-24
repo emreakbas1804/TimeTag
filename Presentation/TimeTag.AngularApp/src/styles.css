@@ -1,70 +1,31 @@
-/* You can add global styles to this file, and also import other style files */
-
-body{
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0;
-  }
-  .spinner-border{
-    color: #9c602f;
-  }
-  .account{
+body {
+    font-family: 'DM Sans', sans-serif !important;
+}
+.account{
     background-image: url("/./assets/images/account-bg.jpg");
     width: 100%;
     min-height: 100vh;
     background-size: cover;
     background-position: center;
     box-sizing: border-box;
-  }
-  .account h2{
-    margin-top: 50px;
-    padding-bottom: 10px;
-    font-size: 35px;
-    color: #9c602f;
-    text-align: center;
-  }
-  .account .row{
-    justify-content: center;
-    margin-top: 30px;
-  }
-  
-  .form-input{
-    border: 2px solid #9c602f;
+}
+
+img {
+    width: 100%;
+    object-fit: cover;
+}
+
+input {
     width: 100%;
     padding: 10px;
-    border-radius: 6px;
-  }
-  .form-input:focus{
-    border: 2px solid #d39312;
-    outline: none;
-  }
-  .form-input:-webkit-autofill{
-    border: 2px solid #d39312;
-    -webkit-box-shadow: 1px 1px 1px 1000px #fff inset;
-    transition: background-color 5000s ease-in-out 0s;
-  }
-  .form-select{
-    border: 2px solid #9c602f !important;
-    padding: 10px !important;
-    border-radius: 6px !important;
-  }
-  .form-select:focus{
-    border: 2px solid #d39312 !important;
-    outline: none !important;
-    box-shadow: none !important;
-  }
-  .password{
-    position: relative;
-  }
-  .password i{
-    position: absolute;
-    right: 20px;
-    top: 13px;
-    font-size: 20px;
-  }
-  button{
-    border: 1px solid #9c602f;
-    background-color: #9c602f;
+    border-radius: 4px;
+    border: 1px solid #316fc9;
+    background-color: rgba(27, 27, 29, 0.08);
+}
+
+button {
+    border: 1px solid #316fc9;
+    background-color: #316fc9;
     color: white;
     cursor: pointer;
     min-width: 150px;
@@ -72,77 +33,26 @@ body{
     padding: 6px;
     float: right;
     transition: all .2s ease;
-  }
-  button:hover{
-    border: 1px solid #d39312;
-    background-color: #d39312;
-  }
-  .router-link{
+}
+
+button:hover {
+    border: 1px solid #012035;
+    background-color: #012035;
+}
+
+.router-link {
     text-decoration: none;
-    color: #9c602f;
-    border: 1px solid #9c602f;
+    color: black;
+    border: 1px solid #316fc9;
     padding: 6px;
     border-radius: 4px;
     display: inline-block;
     margin-right: 9px;
     margin-top: 1px;
     transition: all .2s;
-  }
-  .router-link:hover{
-    background-color: #9c602f;
+}
+
+.router-link:hover {
+    background-color: #316fc9;
     color: white;
-  }
-  
-  /* Panel */
-  
-  .panel .content{
-    min-height: 100vh;
-    width: 100%;
-    background-image: url("/./assets/images/account-bg.jpg");
-    background-size: cover;
-    background-position: center;
-    box-sizing: border-box;
-  }
-  .panel .nav-hor{
-    box-shadow: 1px 1px 10px gray;
-    position: relative;
-    padding: 10px 5px;
-  }
-  .panel .nav-hor img{
-    width: 250px;
-    display: none;
-  }
-  .panel .nav-hor .open-btn{
-    font-size: 30px;
-    cursor: pointer;
-  }
-  .dashboard-content {
-    padding: 40px 20px;
-  }
-  
-  @media(max-width:411px) {
-    .account button{
-      display: block;
-      width: 100%;
-      float: none;
-    }
-    .account .router-link{
-      display: block;
-      text-align: center;
-      width: 100%;
-      margin-top: 10px;
-    }
-  
-  }
-  @media (max-width:767px) {
-    .panel .nav-hor img {
-      display: block;
-    }
-    .nav-hor .open-btn {
-      position: absolute;
-      top: 18px;
-      right: 10px
-    }
-  }
-  
-  
+}

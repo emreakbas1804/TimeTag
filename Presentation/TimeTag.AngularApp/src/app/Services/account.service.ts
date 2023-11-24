@@ -1,9 +1,11 @@
-import { Injectable } from '@angular/core';
-import { BehaviorSubject, catchError, tap } from 'rxjs';
+import { Injectable, resolveForwardRef } from '@angular/core';
+import { BehaviorSubject, catchError, tap, throwError } from 'rxjs';
 import { UserModel } from '../Models/UserModel';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse, HttpHeaders, HttpParams, HttpResponse } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
 import { EntityResultModel, Result } from '../Models/EntityResultModel';
+import { JsonPipe } from '@angular/common';
+import { RegisterModel } from '../Models/RegisterModel';
 
 @Injectable({
   providedIn: 'root'
@@ -16,25 +18,37 @@ export class AccountService {
 
 
 
-  Login(email: string, password: string) {
-    return this.http.post<EntityResultModel>(this.apiUrl + "account/login", {
-      Email: email,
-      Password: password
-    }).pipe(
+  login(email: string, password: string) {
+    var body = new HttpParams();
+    body = body.set("email", email);
+    body = body.set("password", password);
+
+    return this.http.post<EntityResultModel>(this.apiUrl + "account/login", body).pipe(
+
       tap(response => {
-        
-      })
-    )
+        if (response.result == Result.Success) {
+          this.handleUser(response.resultObject.token);
+        }
+      }),
+
+      catchError(this.handleError)
+    );
   }
 
-
-  private HandleUser(jwtToken: string) {
-    const user = new UserModel(jwtToken);
-    this.user.next(user);
-    localStorage.setItem("accessToken", jwtToken);
+  register(user: RegisterModel) {
+    var body = new HttpParams();
+    body = body.set("Name", user.Name);
+    body = body.set("Surname", user.Surname);
+    body = body.set("Email", user.Email);
+    body = body.set("Password", user.Password);
+    body = body.set("Phone", user.Phone)
+    
+    return this.http.post<EntityResultModel>(this.apiUrl + "account/register", body).pipe(
+      catchError(this.handleError)
+    );
   }
 
-  AutoLogin() {
+  autoLogin() {
     if (localStorage.getItem("accessToken") == null) {
       return
     }
@@ -42,5 +56,20 @@ export class AccountService {
     const user = new UserModel(accessToken);
     this.user.next(user)
   }
+
+  handleError(err: HttpErrorResponse) {
+    let message = "Beklenmedik bir hata oluştu";
+    return throwError(() => message);
+  }
+
+
+  private handleUser(jwtToken: string) {
+    const user = new UserModel(jwtToken);
+    this.user.next(user);
+    localStorage.setItem("accessToken", jwtToken);
+  }
 }
+
+
+
 
