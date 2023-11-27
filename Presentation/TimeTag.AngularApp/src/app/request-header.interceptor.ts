@@ -8,11 +8,13 @@ import {
   HttpErrorResponse
 } from '@angular/common/http';
 import { Observable, catchError, throwError } from 'rxjs';
+import { AccountService } from './Services/account.service';
+import { Router } from '@angular/router';
 
 @Injectable()
 export class RequestHeaderInterceptor implements HttpInterceptor {
 
-  constructor() { }
+  constructor(private accountService: AccountService, private router :Router) { }
 
   intercept(request: HttpRequest<unknown>, next: HttpHandler): Observable<HttpEvent<unknown>> {
 
@@ -24,18 +26,18 @@ export class RequestHeaderInterceptor implements HttpInterceptor {
           "AccessToken": "1234567!"
         }
       })
-      return next.handle(clonedRequest);
+      
+      return next.handle(clonedRequest).pipe(
+        
+        catchError((error: HttpErrorResponse) => {    
+          if (error.status == 401 || error.status == 0) {                     
+            this.accountService.logOut();
+            this.router.navigate(['/panel']);
+          }
+          return throwError(() =>error);
+        }))
     }
-    // if (!request.headers.has('Content-Type')) {
-    //   // "Content-Type" başlığını ekleyerek klonla
-    //   request = request.clone({
-    //     setHeaders: {
-    //       'Content-Type': 'application/json'
-    //     }
-    //   });
-    // }
-
-    // İleriye devam et
+    
     return next.handle(request);
 
 

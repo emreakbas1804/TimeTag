@@ -62,6 +62,9 @@ export class AccountService {
     return throwError(() => message);
   }
 
+  logOut(){
+    localStorage.removeItem('accessToken');
+  }
 
   private handleUser(jwtToken: string) {
     const user = new UserModel(jwtToken);

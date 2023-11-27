@@ -35,9 +35,9 @@ public class CompanyService : ICompanyService
                 return entityResultModel;
             }
             var licanceEntity = await _context.Licances.Where(q => q.Id == licanceId && q.IsAdded == false).FirstOrDefaultAsync();
-            if (licanceEntity != null)
+            if (licanceEntity == null)
             {
-                entityResultModel.ResultMessage = "İlgili kullanıcı bulunamadı.";
+                entityResultModel.ResultMessage = "lisans anahtarı geçersiz";
                 return entityResultModel;
             }
             Company company = new()

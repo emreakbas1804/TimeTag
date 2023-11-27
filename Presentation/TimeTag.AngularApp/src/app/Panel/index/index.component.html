@@ -1,1 +1,52 @@
-<p>index works!</p>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.1.0-rc.0/css/select2.min.css" rel="stylesheet" />
+
+<div class="main-container d-flex panel">
+    <app-panel-sidebar></app-panel-sidebar>
+
+    <div class="content">
+
+        <div class="nav-hor">
+            <img src="../assets/images/logo.png" alt="logo">
+            <div class="nav-items">
+                <div class="mobile-toggler open-btn">
+                    <a data-bs-toggle="modal" data-bs-target="#left_side_bar_modal">
+                        <i class="bi bi-list-nested"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="dashboard-content">
+            <div class="main-container">
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="card">
+                            <select id="selectCompany" class="select2" [(ngModel)]="selectedCompany">
+                                <option [value]=0>My Companies</option>
+                                <option [value]="company.id" *ngFor="let company of companies">{{ company.title }}
+                                </option>
+
+                            </select>
+
+                        </div>
+                    </div>
+                </div>
+                <div class="row mt-5">
+                    <div class="col-md-5">
+                        <div class="card p-4">
+                            <h1 class="h3">My Departments</h1>
+                        </div>                      
+                    </div>
+                    <div class="col-md-1"></div>
+                    <div class="col-md-5">
+                        <div class="card p-4">
+                            <h1 class="h3"> My Emploeyees</h1>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
