@@ -10,6 +10,7 @@ public interface IDepartmentService
     Task<EntityResultModel> UpdateDepartment(int departmentId, string name, string address, string description, string startJobTime, string finishJobTime);
     Task<DepartmentDTO> GetDepartment(int departmentId);
     Task<List<DepartmentDTO>> GetDepartments(int companyId);
+    Task<int> GetDepartmentsCount(int companyId);
     Task<EntityResultModel> DeleteDepartment(int departmantId);
     bool IsDepartmentExist(int departmantId);
 }

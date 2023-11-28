@@ -143,6 +143,16 @@ public class EmployeeService : IEmployeeService
         }
     }
 
+     public async Task<int> GetEmployeesCompanyCount(int companyId, int? departmentId)
+    {
+        var query =_context.Company_Employees.Where(q=> q.Company.Id == companyId);
+        if(departmentId > 0)
+        {
+            query = query.Where(q=> q.Department.Id == departmentId);
+        }
+        var count = await query.CountAsync();
+        return count;
+    }
     #endregion
 
 
@@ -364,6 +374,8 @@ public class EmployeeService : IEmployeeService
             return entityResultModel;
         }
     }
+
+   
 
     #endregion
 

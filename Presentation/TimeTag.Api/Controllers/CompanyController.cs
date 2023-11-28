@@ -161,6 +161,18 @@ namespace TimeTag.Api.Controllers
         }
 
         [Authorize]
+        [HttpGet("GetDepartmentsCount")]
+        public async Task<IActionResult> GetDepartmentsCount(int companyId)
+        {
+            var departmentCount = await _departmentService.GetDepartmentsCount(companyId);           
+            entityResultModel.Result = EntityResult.Success;
+            entityResultModel.ResultObject = departmentCount;
+            return Ok(entityResultModel);
+        }
+
+
+
+        [Authorize]
         [HttpDelete("DeleteDepartment")]
         public async Task<IActionResult> DeleteDepartment(int departmentId)
         {

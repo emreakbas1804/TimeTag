@@ -63,7 +63,7 @@ button:hover {
 
 
 .panel .content {
-  min-height: 100vh;
+  min-height: 101vh;
   width: 100%;
   background-image: url("/./assets/images/account-bg.jpg");
   background-size: cover;
@@ -71,22 +71,7 @@ button:hover {
   box-sizing: border-box;
 }
 
-.panel .nav-hor {
-  box-shadow: 1px 1px 10px gray;
-  position: relative;
-  padding: 10px 5px;
-  display: none;
-}
 
-.panel .nav-hor img {
-  width: 250px;
-  display: none;
-}
-
-.panel .nav-hor .open-btn {
-  font-size: 30px;
-  cursor: pointer;
-}
 
 .dashboard-content {
   padding: 20px !important;
@@ -108,23 +93,6 @@ button:hover {
 
 }
 
-@media (max-width:767px) {
-  .panel .nav-hor {
-    display: block;
-  }
-
-  .panel .nav-hor img {
-    display: block;
-    width: 120px;
-  }
-
-  .open-btn {
-    position: absolute;
-    top: 18px;
-    right: 10px;
-
-  }
-}
 
 /* select 2 css  */
 .select2{

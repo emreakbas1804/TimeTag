@@ -77,6 +77,17 @@ namespace TimeTag.Api.Controllers
         }
 
         [Authorize]
+        [HttpGet("GetEmployeesCompanyCount")]
+        public async Task<IActionResult> GetEmployeesCompanyCount(int companyId, int? departmentId)
+        {
+            var employeesCount = await _employeeService.GetEmployeesCompanyCount(companyId, departmentId);
+            entityResultModel.Result = EntityResult.Success;
+            entityResultModel.ResultObject = employeesCount;
+            return Ok(entityResultModel);
+        }
+
+
+        [Authorize]
         [HttpGet("GetEmployeeCompany")]
         public async Task<IActionResult> GetEmployeeCompany(int employeeId)
         {

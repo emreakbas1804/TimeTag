@@ -9,6 +9,7 @@ public interface IEmployeeService
     Task<EntityResultModel> AddEmployee(AddEmployeeDTO employeeModel);
     Task<EntityResultModel> UpdateEmployee(int departmentId,int employeeId,string nameSurname, string title, string phone, string address, string email,bool isActive, DateTime birthDay, DateTime startedJobTime);
     Task<EntityResultModel> GetEmployeesCompany(int companyId, int? departmentId);
+    Task<int> GetEmployeesCompanyCount(int companyId, int? departmentId);
     Task<EntityResultModel> GetEmployee(int employeeId);
     
 

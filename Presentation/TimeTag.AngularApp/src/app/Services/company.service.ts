@@ -1,4 +1,4 @@
-import { HttpClient, HttpErrorResponse } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment';
 import { EntityResultModel } from '../Models/EntityResultModel';
@@ -12,17 +12,48 @@ export class CompanyService {
   constructor(private http: HttpClient) { }
   private readonly apiUrl = environment.apiUrl;
 
-  getCompanies(){
+  getCompanies() {
     return this.http.get<EntityResultModel>(this.apiUrl + "company/getCompanies").pipe(
       catchError(this.handleError),
-      
     );
   }
+  getDepartmentsCount(companyId: number) {
+    const params = new HttpParams().set('companyId', companyId);
 
-  setCurrentCompany(id: number){
-    localStorage.setItem("currentCompanyId",id?.toString());
+    return this.http.get<EntityResultModel>(this.apiUrl + 'company/getDepartmentsCount', { params }).pipe(
+      catchError(this.handleError)
+    );
   }
-  getCurrentCompany(){
+  getEmployeesCount(companyId: number) {
+    const params = new HttpParams().set('companyId', companyId);
+    return this.http.get<EntityResultModel>(this.apiUrl + "employee/getEmployeesCompanyCount", { params }).pipe(
+      catchError(this.handleError),
+    )
+  }
+
+  addCompany(title: any, address: any, description: any, webSite: any, licanceKey: any) {
+    const params = {
+      title,
+      address,
+      description,
+      webSite,
+      serialNumber: licanceKey
+    };
+  
+    const body = new HttpParams({ fromObject: params });
+     
+  
+    return this.http.post<EntityResultModel>(this.apiUrl + "company/addCompany", body).pipe(
+      catchError(this.handleError)
+    );
+  }
+  
+
+
+  setCurrentCompany(id: number) {
+    localStorage.setItem("currentCompanyId", id?.toString());
+  }
+  getCurrentCompany() {
     return localStorage.getItem("currentCompanyId");
   }
   handleError(err: HttpErrorResponse) {

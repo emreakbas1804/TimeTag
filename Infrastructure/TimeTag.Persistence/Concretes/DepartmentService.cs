@@ -131,4 +131,9 @@ public class DepartmentService : IDepartmentService
     {
         return _context.Company_Departments.Any(q=> q.Id == departmantId);
     }
+
+    public async Task<int> GetDepartmentsCount(int companyId)
+    {
+        return await _context.Company_Departments.Where(q=> q.Company.Id == companyId).CountAsync();
+    }
 }

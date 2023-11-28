@@ -5,3 +5,16 @@
 button {
   border-radius: 6px;
 }
+.select2-card{
+  height: 50px;
+}
+i{
+  float: right;
+}
+.h3{
+  font-weight: 340;
+}
+.badge-count{
+  font-size: 25px;  
+  font-weight: 500;
+}

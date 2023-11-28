@@ -3,13 +3,15 @@ import { CommonModule } from '@angular/common';
 import { NavbarComponent } from './navbar/navbar.component';
 import { RouterModule } from '@angular/router';
 import { PanelSidebarComponent } from './panel-sidebar/panel-sidebar.component';
+import { PanelNavbarComponent } from './panel-navbar/panel-navbar.component';
 
 
 
 @NgModule({
   declarations: [
     NavbarComponent,
-    PanelSidebarComponent
+    PanelSidebarComponent,
+    PanelNavbarComponent
   ],
   imports: [
     CommonModule,
@@ -17,7 +19,8 @@ import { PanelSidebarComponent } from './panel-sidebar/panel-sidebar.component';
   ],
   exports: [
     NavbarComponent,
-    PanelSidebarComponent
+    PanelSidebarComponent,
+    PanelNavbarComponent
   ]
 })
 export class SharedModule { }
