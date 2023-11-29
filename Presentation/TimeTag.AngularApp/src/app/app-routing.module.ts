@@ -7,6 +7,7 @@ import { IndexComponent as PanelIndexComponent } from './Panel/index/index.compo
 import { PanelGuard } from './Panel/panel.guard';
 import { AddCompanyComponent } from './Panel/add-company/add-company.component';
 import { MyCompaniesComponent } from './Panel/my-companies/my-companies.component';
+import { EditCompanyComponent } from './Panel/edit-company/edit-company.component';
 
 const routes: Routes = [
   
@@ -16,8 +17,7 @@ const routes: Routes = [
   { path: "panel", component: PanelIndexComponent ,canActivate: [PanelGuard] },
   { path: "panel/add-company", component: AddCompanyComponent ,canActivate: [PanelGuard] },
   { path: "panel/my-companies", component: MyCompaniesComponent ,canActivate: [PanelGuard] },
-
-
+  { path: "panel/edit-company/:Id:", component: EditCompanyComponent ,canActivate: [PanelGuard] },
 
 ];
 

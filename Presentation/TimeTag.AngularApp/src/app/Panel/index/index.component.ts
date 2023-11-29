@@ -2,6 +2,7 @@ import { ChangeDetectorRef, Component, OnInit, ViewEncapsulation } from '@angula
 import { firstValueFrom } from 'rxjs';
 import { Result } from 'src/app/Models/EntityResultModel';
 import { CompanyService } from 'src/app/Services/company.service';
+import { EmployeeService } from 'src/app/Services/employee.service';
 declare var $: any;
 @Component({
   selector: 'app-index',
@@ -12,7 +13,7 @@ declare var $: any;
 export class IndexComponent implements OnInit {
 
 
-  constructor(private companyService: CompanyService, private cdr: ChangeDetectorRef) { }
+  constructor(private companyService: CompanyService, private employeeService : EmployeeService) { }
 
   companies: any[] = [];
   selectedCompany: any = 0;
@@ -65,7 +66,7 @@ export class IndexComponent implements OnInit {
   }
 
   async getEmployeesCount() {
-    const response = await firstValueFrom(this.companyService.getEmployeesCount(this.selectedCompany));
+    const response = await firstValueFrom(this.employeeService.getEmployeesCount(this.selectedCompany));
     if (response.result == Result.Success) {
       this.employeeCount = response.resultObject;
     }

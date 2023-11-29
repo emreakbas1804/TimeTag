@@ -13,23 +13,19 @@ export class CompanyService {
   private readonly apiUrl = environment.apiUrl;
 
   getCompanies() {
-    return this.http.get<EntityResultModel>(this.apiUrl + "company/getCompanies").pipe(
+    return this.http.get<EntityResultModel>(this.apiUrl + "/company/getCompanies").pipe(
       catchError(this.handleError),
     );
   }
   getDepartmentsCount(companyId: number) {
     const params = new HttpParams().set('companyId', companyId);
 
-    return this.http.get<EntityResultModel>(this.apiUrl + 'company/getDepartmentsCount', { params }).pipe(
+    return this.http.get<EntityResultModel>(this.apiUrl + '/company/getDepartmentsCount', { params }).pipe(
       catchError(this.handleError)
     );
   }
-  getEmployeesCount(companyId: number) {
-    const params = new HttpParams().set('companyId', companyId);
-    return this.http.get<EntityResultModel>(this.apiUrl + "employee/getEmployeesCompanyCount", { params }).pipe(
-      catchError(this.handleError),
-    )
-  }
+
+
 
   addCompany(title: any, address: any, description: any, webSite: any, licanceKey: any) {
     const params = {
@@ -43,9 +39,16 @@ export class CompanyService {
     const body = new HttpParams({ fromObject: params });
      
   
-    return this.http.post<EntityResultModel>(this.apiUrl + "company/addCompany", body).pipe(
+    return this.http.post<EntityResultModel>(this.apiUrl + "/company/addCompany", body).pipe(
       catchError(this.handleError)
     );
+  }
+
+  getCompany(companyId : number){
+    const params = new HttpParams().set('companyId', companyId);
+    return this.http.get<EntityResultModel>(this.apiUrl + "/company/getCompany", { params }).pipe(
+      catchError(this.handleError),
+    )
   }
   
 

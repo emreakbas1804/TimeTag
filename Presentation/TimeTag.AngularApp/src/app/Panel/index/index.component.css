@@ -18,3 +18,12 @@ i{
   font-size: 25px;  
   font-weight: 500;
 }
+.card-chart{
+  position: relative;
+}
+.card-chart img{
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  left: 0;  
+}

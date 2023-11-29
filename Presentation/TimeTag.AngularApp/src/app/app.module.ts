@@ -8,6 +8,7 @@ import { SharedModule } from './Shared/shared.module';
 import { PanelModule } from './Panel/panel.module';
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { RequestHeaderInterceptor } from './request-header.interceptor';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 
 
@@ -22,6 +23,7 @@ import { RequestHeaderInterceptor } from './request-header.interceptor';
     SharedModule,
     PanelModule,
     AppRoutingModule,
+    BrowserAnimationsModule,
 
   ],
   providers: [

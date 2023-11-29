@@ -6,19 +6,30 @@ import { IndexComponent } from './index/index.component';
 import { SharedModule } from '../Shared/shared.module';
 import { FormsModule } from '@angular/forms';
 import { MyCompaniesComponent } from './my-companies/my-companies.component';
-
-
-
+import {MatTableModule} from '@angular/material/table';
+import { MatPaginatorModule } from '@angular/material/paginator';
+import { MAT_DATE_LOCALE } from '@angular/material/core';
+import { RouterModule } from '@angular/router';
+import { EditCompanyComponent } from './edit-company/edit-company.component';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
 @NgModule({
+  providers :[
+    { provide: MAT_DATE_LOCALE, useValue: 'tr-TR' },
+  ],
   declarations: [
     AddCompanyComponent,
     IndexComponent,
-    MyCompaniesComponent
+    MyCompaniesComponent,
+    EditCompanyComponent
   ],
   imports: [
     CommonModule,
     SharedModule,
-    FormsModule
+    FormsModule,
+    RouterModule,
+    MatTableModule,
+    MatPaginatorModule,
+    MatSnackBarModule,
   ],
  
 })

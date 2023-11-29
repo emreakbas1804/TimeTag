@@ -23,7 +23,7 @@ export class AccountService {
     body = body.set("email", email);
     body = body.set("password", password);
 
-    return this.http.post<EntityResultModel>(this.apiUrl + "account/login", body).pipe(
+    return this.http.post<EntityResultModel>(this.apiUrl + "/account/login", body).pipe(
 
       tap(response => {
         if (response.result == Result.Success) {
@@ -43,7 +43,7 @@ export class AccountService {
     body = body.set("Password", user.Password);
     body = body.set("Phone", user.Phone)
     
-    return this.http.post<EntityResultModel>(this.apiUrl + "account/register", body).pipe(
+    return this.http.post<EntityResultModel>(this.apiUrl + "/account/register", body).pipe(
       catchError(this.handleError)
     );
   }

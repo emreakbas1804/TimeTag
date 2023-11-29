@@ -7,12 +7,12 @@
         <div class="dashboard-content">
             <div class="main-container">
                 <div class="row">
-                   
+
                     <div class="col-md-8 mt-3">
 
-                        <h1 class="h3">Welcome to Time Tag</h1>
+                        <h1 class="h3">Update Your Company</h1>
                         <hr>
-                        <p class="text-muted">You can register company to system with your licanceKey</p>
+                        <p class="text-muted">You can instantly update your company's receipt</p>
                         <div [class.d-none]="!info">
                             <div class="alert alert-{{infoColor}} text-center" *ngIf="info != ''">
                                 {{info}}
@@ -21,10 +21,10 @@
 
                         <div class="mt-3">
 
-                            <form #form="ngForm" (ngSubmit)="login(form)">
+                            <form #form="ngForm" (ngSubmit)="update(form)">
                                 <div class="mb-3">
-                                    <input type="text" class="form-input" placeholder="Title" name="title" ngModel
-                                        required #title="ngModel">
+                                    <input type="text" class="form-input" placeholder="Title" name="title"
+                                        [(ngModel)]="company.title" required #title="ngModel">
                                     <div class="text-danger mt-1" *ngIf="title.invalid && title.touched">
                                         Title is required
                                     </div>
@@ -32,26 +32,18 @@
 
 
                                 <div class="mb-3">
-                                    <input type="text" class="form-input" placeholder="Address" ngModel name="address"
-                                        #address="ngModel">
+                                    <input type="text" class="form-input" placeholder="Address"
+                                        [(ngModel)]="company.address" name="address" #address="ngModel">
                                 </div>
 
                                 <div class="mb-3">
-                                    <input type="text" class="form-input" placeholder="Description" ngModel
-                                        name="description" #description="ngModel">
+                                    <input type="text" class="form-input" placeholder="Description"
+                                        [(ngModel)]="company.description" name="description" #description="ngModel">
                                 </div>
 
                                 <div class="mb-3">
-                                    <input type="text" class="form-input" placeholder="Web Site" ngModel name="webSite"
+                                    <input type="text" class="form-input" placeholder="Web Site" [(ngModel)] = "company.webSite" name="webSite"
                                         #webSite="ngModel">
-                                </div>
-
-                                <div class="mb-3">
-                                    <input type="text" class="form-input" placeholder="Licance key" name="licanceKey"
-                                        ngModel required #licanceKey="ngModel">
-                                    <div class="text-danger mt-1" *ngIf="licanceKey.invalid && licanceKey.touched">
-                                        Licance key is required
-                                    </div>
                                 </div>
 
                                 <div class="text-center mt-2">
@@ -59,7 +51,7 @@
                                 </div>
 
                                 <div *ngIf="!loading" class="">
-                                    <button type="submit">Create company</button>
+                                    <button type="submit">Update company</button>
                                 </div>
 
                             </form>
@@ -68,7 +60,7 @@
 
                     </div>
                     <div class="col-md-4 mt-3">
-                        <img src="../assets/images/maskot/6.png" alt="maskot">
+                        <img src="../assets/images/maskot/2.png" alt="maskot">
                     </div>
                 </div>
             </div>

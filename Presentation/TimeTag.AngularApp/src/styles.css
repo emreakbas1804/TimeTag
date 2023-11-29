@@ -1,6 +1,7 @@
 /* general 2-60 */
 /* panel 64-92 */
 /* select2 128-170 */
+/* data table 154-205*/
 body {
   font-family: 'DM Sans', sans-serif !important;
 }
@@ -146,4 +147,71 @@ button:hover {
 }
 .select2 b{  
   margin-top: 5px !important;
+}
+
+
+
+.mat-table {
+  border-top-right-radius: 20px;
+  border-top-left-radius: 20px;
+  overflow: hidden;
+  width: 100%;
+  text-align: center;
+  padding: 10px;  
+}
+.mat-paginator{
+  border-bottom-left-radius: 20px;
+  border-bottom-right-radius: 20px;
+  overflow: hidden;    
+}
+
+.mat-cell.mat-cell {
+  padding: 20px; 
+}
+
+.mat-table img {
+  width: 50px;
+  height: 50px;
+  object-fit: cover;
+}
+
+.mat-header-cell, .mat-cell {
+  padding: 12px;
+  border-bottom: 1px solid #ddd;
+}
+
+.mat-row:hover {
+  background-color: #f1f1f1;
+}
+.mat-paginator-range-actions button:hover{
+  background-color: #316fc9;
+  color: white !important;  
+  border: none;
+}
+
+.btn-edit{
+  padding: 10px;
+  text-decoration: none;
+  background-color: #316fc9;
+  color: white;
+  border-radius: 4px;
+  transition: all .2s;
+}
+.btn-edit:hover{
+  background-color: #0e3e5e;
+  
+}
+
+
+.snackBar-success{
+  background-color: #1ea97c; /* Yeşil renk */
+  color: #fff;
+}
+.snackBar-error{
+  background-color: #e83d3d; /* Yeşil renk */
+  color: #fff;
+}
+.snackBar-warning{
+  background-color: #1ea97c; /* Yeşil renk */
+  color: #fff;
 }
