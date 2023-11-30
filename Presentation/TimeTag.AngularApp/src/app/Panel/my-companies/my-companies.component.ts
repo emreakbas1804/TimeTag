@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild, ViewEncapsulation } from '@angular/core';
-import { CompanyService } from 'src/app/Services/company.service';
+import { CompanyService } from 'src/app/Services/httpService/company.service';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 import { firstValueFrom } from 'rxjs';
@@ -28,7 +28,6 @@ export class MyCompaniesComponent implements OnInit {
   async ngOnInit(): Promise<void> {    
     await this.getCompanies();
     this.dataSourcee.paginator = this.paginator;
-    console.log(this.dataSourceList)
   }
 
   async getCompanies() {

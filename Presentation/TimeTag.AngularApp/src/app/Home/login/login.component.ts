@@ -3,7 +3,7 @@ import { NgForm } from '@angular/forms';
 import { ActivatedRoute, Route, Router } from '@angular/router';
 import { tap } from 'rxjs';
 import { Result } from 'src/app/Models/EntityResultModel';
-import { AccountService } from 'src/app/Services/account.service';
+import { AccountService } from 'src/app/Services/httpService/account.service';
 
 @Component({
   selector: 'app-login',

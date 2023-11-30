@@ -49,7 +49,7 @@ namespace TimeTag.Api.Controllers
 
         [Authorize]
         [HttpPost("AddCompany")]
-        public async Task<IActionResult> AddCompany(string serialNumber, string title, string address, string description, string webSite)
+        public async Task<IActionResult> AddCompany(string serialNumber, string title, string address, string description, string webSite, IFormFile logo)
         {
             var licanceId = await _licanceService.GetLicanceId(serialNumber);
             if (licanceId <= 0)
@@ -58,7 +58,16 @@ namespace TimeTag.Api.Controllers
                 return Ok(entityResultModel);
             }
 
-            var addCompany = await _companyService.AddCompany(currentUser.Id, licanceId, title, address, description, webSite);
+            int logoId = 0;
+            if (logo != null)
+            {
+                string[] accepFileExtensions = { ".jpg", ".jpeg", ".png", ".webp", };
+                var fileUpload = await _fileService.UploadFile(logo, "/images/companies/logos/", 10, accepFileExtensions);
+                if (fileUpload.Result != EntityResult.Success) return Ok(fileUpload);
+                logoId = fileUpload.Id;
+            }
+
+            var addCompany = await _companyService.AddCompany(currentUser.Id, licanceId, title, address, description, webSite, logoId);
             return Ok(addCompany);
         }
 
@@ -76,8 +85,8 @@ namespace TimeTag.Api.Controllers
                 logoId = fileUpload.Id;
             }
 
-            var addCompany = await _companyService.UpdateCompany(logoId, companyId, title, address, description, webSite);
-            return Ok(addCompany);
+            var updateCompany = await _companyService.UpdateCompany(logoId, companyId, title, address, description, webSite);
+            return Ok(updateCompany);
         }
 
         [Authorize]

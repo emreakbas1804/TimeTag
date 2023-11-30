@@ -7,52 +7,88 @@
         <div class="dashboard-content">
             <div class="main-container">
                 <div class="row">
-                   
+
                     <div class="col-md-8 mt-3">
 
-                        <h1 class="h3">Welcome to Time Tag</h1>
+                        <h1 class="h3">Welcome to Time Tag
+                            <a routerLink="/panel/my-companies" class="router-link router-link-right">My Companies</a>
+                        </h1>
                         <hr>
                         <p class="text-muted">You can register company to system with your licanceKey</p>
-                        <div [class.d-none]="!info">
-                            <div class="alert alert-{{infoColor}} text-center" *ngIf="info != ''">
-                                {{info}}
-                            </div>
-                        </div>
 
-                        <div class="mt-3">
+                        <div class="mt-5">
 
-                            <form #form="ngForm" (ngSubmit)="login(form)">
-                                <div class="mb-3">
-                                    <input type="text" class="form-input" placeholder="Title" name="title" ngModel
-                                        required #title="ngModel">
-                                    <div class="text-danger mt-1" *ngIf="title.invalid && title.touched">
-                                        Title is required
+                            <form #form="ngForm" (ngSubmit)="addCompany(form)">
+                                <!-- Title -->
+                                <div class="form-group row mb-3">
+                                    <label class="col-sm-2 col-form-label required">Title </label>
+                                    <div class="col-sm-10">
+                                        <input type="text" class="form-input" placeholder="Title" name="title" ngModel
+                                            required #title="ngModel">
+                                        <div class="text-danger mt-1" *ngIf="title.invalid && title.touched">
+                                            Title is required
+                                        </div>
                                     </div>
                                 </div>
 
-
-                                <div class="mb-3">
-                                    <input type="text" class="form-input" placeholder="Address" ngModel name="address"
-                                        #address="ngModel">
-                                </div>
-
-                                <div class="mb-3">
-                                    <input type="text" class="form-input" placeholder="Description" ngModel
-                                        name="description" #description="ngModel">
-                                </div>
-
-                                <div class="mb-3">
-                                    <input type="text" class="form-input" placeholder="Web Site" ngModel name="webSite"
-                                        #webSite="ngModel">
-                                </div>
-
-                                <div class="mb-3">
-                                    <input type="text" class="form-input" placeholder="Licance key" name="licanceKey"
-                                        ngModel required #licanceKey="ngModel">
-                                    <div class="text-danger mt-1" *ngIf="licanceKey.invalid && licanceKey.touched">
-                                        Licance key is required
+                                <!-- Address -->
+                                <div class="form-group row mb-3">
+                                    <label class="col-sm-2 col-form-label">Address </label>
+                                    <div class="col-sm-10">
+                                        <input type="text" class="form-input" placeholder="Address" ngModel
+                                            name="address" #address="ngModel">
                                     </div>
                                 </div>
+
+                                <!-- Description -->
+                                <div class="form-group row mb-3">
+                                    <label class="col-sm-2 col-form-label">Description </label>
+                                    <div class="col-sm-10">
+                                        <input type="text" class="form-input" placeholder="Description" ngModel
+                                            name="description" #description="ngModel">
+                                    </div>
+                                </div>
+
+                                <!-- Web Site -->
+                                <div class="form-group row mb-3">
+                                    <label class="col-sm-2 col-form-label">Web Site</label>
+                                    <div class="col-sm-10">
+                                        <input type="text" class="form-input" placeholder="Web Site" ngModel
+                                            name="webSite" #webSite="ngModel">
+                                    </div>
+                                </div>
+
+                                <!-- Licance key -->
+                                <div class="form-group row mb-3">
+                                    <label class="col-sm-2 col-form-label required">Licance Key </label>
+                                    <div class="col-sm-10">
+                                        <input type="text" class="form-input" placeholder="Licance key"
+                                            name="licanceKey" ngModel required #licanceKey="ngModel">
+                                        <div class="text-danger mt-1" *ngIf="licanceKey.invalid && licanceKey.touched">
+                                            Licance key is required
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                
+                                <!-- Logo -->
+                                <div class="form-group row mb-3">
+                                    <label class="col-sm-2 col-form-label">Logo </label>
+                                    <div class="col-sm-10">
+                                        <div class="row">
+                                            <div class="col-10">
+                                                <input type="file" class="form-control form-file-input"
+                                                    (change)="onFileSelected($event)" accept={{allowedTypes}}>
+                                            </div>
+                                            <div class="col-2">                                          
+                                                <img [src]="previewUrl" alt="Selected Image" *ngIf="selectedFile" />
+                                            </div>
+                                        </div>
+
+
+                                    </div>
+                                </div>
+
 
                                 <div class="text-center mt-2">
                                     <div class="spinner-border" *ngIf="loading"></div>

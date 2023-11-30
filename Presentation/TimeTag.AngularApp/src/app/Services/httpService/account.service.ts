@@ -1,11 +1,11 @@
 import { Injectable, resolveForwardRef } from '@angular/core';
-import { BehaviorSubject, catchError, tap, throwError } from 'rxjs';
-import { UserModel } from '../Models/UserModel';
+import { BehaviorSubject, catchError, last, tap, throwError } from 'rxjs';
+import { UserModel } from '../../Models/UserModel';
 import { HttpClient, HttpErrorResponse, HttpHeaders, HttpParams, HttpResponse } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
-import { EntityResultModel, Result } from '../Models/EntityResultModel';
+import { EntityResultModel, Result } from '../../Models/EntityResultModel';
 import { JsonPipe } from '@angular/common';
-import { RegisterModel } from '../Models/RegisterModel';
+import { RegisterModel } from '../../Models/RegisterModel';
 
 @Injectable({
   providedIn: 'root'
@@ -27,7 +27,7 @@ export class AccountService {
 
       tap(response => {
         if (response.result == Result.Success) {
-          this.handleUser(response.resultObject.token);
+          this.handleUser(response.resultObject.token, response.resultObject.firstName, response.resultObject.surName);          
         }
       }),
 
@@ -63,14 +63,17 @@ export class AccountService {
   }
 
   logOut(){
-    localStorage.removeItem('accessToken');
+    localStorage.clear();
+    this.user.next(null);
   }
 
-  private handleUser(jwtToken: string) {
+  private handleUser(jwtToken: string, firstName : string, surName: string) {
     const user = new UserModel(jwtToken);
     this.user.next(user);
     localStorage.setItem("accessToken", jwtToken);
+    localStorage.setItem("user", firstName + "-"+ surName);   
   }
+
 }
 
 

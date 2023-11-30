@@ -1,8 +1,8 @@
 import { ChangeDetectorRef, Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { firstValueFrom } from 'rxjs';
 import { Result } from 'src/app/Models/EntityResultModel';
-import { CompanyService } from 'src/app/Services/company.service';
-import { EmployeeService } from 'src/app/Services/employee.service';
+import { CompanyService } from 'src/app/Services/httpService/company.service';
+import { EmployeeService } from 'src/app/Services/httpService/employee.service';
 declare var $: any;
 @Component({
   selector: 'app-index',

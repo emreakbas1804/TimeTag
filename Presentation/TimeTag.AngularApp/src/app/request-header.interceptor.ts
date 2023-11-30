@@ -8,7 +8,7 @@ import {
   HttpErrorResponse
 } from '@angular/common/http';
 import { Observable, catchError, throwError } from 'rxjs';
-import { AccountService } from './Services/account.service';
+import { AccountService } from './Services/httpService/account.service';
 import { Router } from '@angular/router';
 
 @Injectable()

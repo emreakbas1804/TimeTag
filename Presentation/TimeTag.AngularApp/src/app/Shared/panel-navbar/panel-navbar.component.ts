@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { AccountService } from 'src/app/Services/httpService/account.service';
 
 @Component({
   selector: 'app-panel-navbar',
@@ -7,9 +9,19 @@ import { Component, OnInit } from '@angular/core';
 })
 export class PanelNavbarComponent implements OnInit {
 
-  constructor() { }
-
+  constructor(private router : Router, private accountService : AccountService) { }
+  FirstName: string | null | undefined = "";
+  LastName: string | null | undefined = "";
   ngOnInit(): void {
+    var user = localStorage.getItem("user");
+    this.FirstName = user?.split("-")[0];
+    this.LastName = user?.split("-")[1];
+        
+  }
+
+  logOut(){
+    this.accountService.logOut();
+    this.router.navigate(["/"]);
   }
 
 }

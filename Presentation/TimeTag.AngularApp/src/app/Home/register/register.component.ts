@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { Result } from 'src/app/Models/EntityResultModel';
 import { RegisterModel } from 'src/app/Models/RegisterModel';
-import { AccountService } from 'src/app/Services/account.service';
+import { AccountService } from 'src/app/Services/httpService/account.service';
 declare var $: any;
 @Component({
   selector: 'app-register',

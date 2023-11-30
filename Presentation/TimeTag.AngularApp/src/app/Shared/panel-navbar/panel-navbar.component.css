@@ -10,7 +10,6 @@
 }
 
 
-
 ul {
     padding: 0px;
     margin: 0px;
@@ -26,6 +25,44 @@ ul li {
     margin-right: 20px;
     display: inline;
 
+}
+
+.dropdown span{
+    border-radius: 50%;
+    background-color: #012035;    
+    color: white;
+    font-size: 13px;
+    padding: 13px 8px;
+    transition: all .3s;    
+}
+.dropdown span i{
+    margin-left: 4px;
+}
+.dropdown-toggle::after{    
+    position: absolute;    
+    content: none;
+}
+.dropdown ul{
+    float: right;
+    
+}
+.dropdown ul li{
+    font-size: 18px;
+    text-align: center;    
+    display: block;
+    margin-right: 0px;
+    padding: 6px 0px;
+}
+
+.dropdown .logOut{
+    background-color: red;
+    color: white;
+    cursor: pointer;   
+    
+}
+.dropdown .logOut:hover{
+    background-color: rgb(242, 93, 93);
+    color: white;       
 }
 
 @media (max-width:767px) {

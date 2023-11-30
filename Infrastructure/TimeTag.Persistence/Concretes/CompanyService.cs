@@ -24,7 +24,7 @@ public class CompanyService : ICompanyService
 
     }
     EntityResultModel entityResultModel = new();
-    public async Task<EntityResultModel> AddCompany(int userId, int licanceId, string title, string address, string description, string webSite)
+    public async Task<EntityResultModel> AddCompany(int userId, int licanceId, string title, string address, string description, string webSite, int? fileUploadId)
     {
         try
         {
@@ -47,7 +47,8 @@ public class CompanyService : ICompanyService
                 Description = description,
                 WebSite = webSite,
                 rlt_User_Id = userId,
-                rlt_Licance_Id = licanceId
+                rlt_Licance_Id = licanceId,
+                rlt_FileUpload_Id = fileUploadId > 0 ? fileUploadId : null
             };
             await _context.Companies.AddAsync(company);
             licanceEntity.IsAdded = true;

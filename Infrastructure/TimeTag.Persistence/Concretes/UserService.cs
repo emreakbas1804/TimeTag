@@ -141,7 +141,9 @@ public class UserService : IUserService
             dynamic tokenInfo = new
             {
                 Token = tokenString,
-                ExpiryDate = tokenDescriptor.Expires
+                ExpiryDate = tokenDescriptor.Expires,
+                FirstName = userEntity.Name,
+                SurName = userEntity.Surname
             };
             entityResultModel.ResultObject = tokenInfo;
             entityResultModel.Result = EntityResult.Success;

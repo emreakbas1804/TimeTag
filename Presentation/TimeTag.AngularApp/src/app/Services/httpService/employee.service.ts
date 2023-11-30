@@ -1,6 +1,6 @@
 import { HttpClient, HttpErrorResponse, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { EntityResultModel } from '../Models/EntityResultModel';
+import { EntityResultModel } from '../../Models/EntityResultModel';
 import { environment } from 'src/environments/environment';
 import { catchError, throwError } from 'rxjs';
 

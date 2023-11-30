@@ -2,7 +2,7 @@
     <div class="mobile">
         <a routerLink="/panel">
             <img src="../assets/images/logo.png" alt="logo">
-        </a>        
+        </a>
         <div class="nav-items">
             <div class="mobile-toggler open-btn">
                 <a data-bs-toggle="modal" data-bs-target="#left_side_bar_modal">
@@ -11,9 +11,22 @@
             </div>
         </div>
     </div>
-    <div class="computer">        
-        <ul>            
-            <li><i class="bi bi-person"></i></li>
+    <div class="computer">
+        <ul>
+            <li>
+                <div class="dropdown">
+                    <span class="dropdown-toggle" type="button"  data-bs-toggle="dropdown">
+                        {{FirstName?.charAt(0)}}{{LastName?.charAt(0)}}<i class="bi bi-person"></i>
+                    </span>
+                    <ul class="dropdown-menu">
+                        <li><a class="dropdown-item" routerLink="/panel/profile">Profile</a></li>
+                        <li><a class="dropdown-item logOut" (click)="logOut()">Log out</a></li>
+
+                    </ul>
+                </div>
+
+                <!-- <i class="bi bi-person"></i> -->
+            </li>
         </ul>
     </div>
 </div>
