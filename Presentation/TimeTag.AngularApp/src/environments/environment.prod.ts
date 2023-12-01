@@ -1,3 +1,5 @@
 export const environment = {
-  production: true
+  production: true,
+  apiUrl: "https://timetagapi.ossdoy.com",
+  cdnUrl: "https://timetagapi.ossdoy.com",
 };

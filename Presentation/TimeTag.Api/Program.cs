@@ -11,6 +11,10 @@ using Microsoft.OpenApi.Models;
 using Microsoft.Extensions.Configuration;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using System.Collections.Generic;
+using TimeTag.Persistence.Context;
+using Microsoft.EntityFrameworkCore;
+
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
@@ -32,6 +36,8 @@ builder.Services.AddAuthentication("Bearer").AddJwtBearer(x =>
         ValidateAudience = false,
     };
 });
+
+builder.Services.AddDbContext<EntityDbContext>(options=> options.UseMySql(connectionString :builder.Configuration.GetConnectionString("MySqlConnection"),new MySqlServerVersion(new Version(10, 5, 20))));
 
 
 

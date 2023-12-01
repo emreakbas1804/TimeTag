@@ -8,8 +8,8 @@
             <div class="main-container">
                 <div class="row">
                     <div class="col-md-10 mt-3">
-                        <h1 class="h3">My Companies
-                            <a routerLink="/panel/add-company" class="router-link router-link-right">Create company</a>
+                        <h1 class="h3">My Departments
+                            <a routerLink="/panel/add-department" class="router-link router-link-right">Create department</a>
                         </h1>
                         <hr>
 
@@ -20,30 +20,28 @@
                             <table mat-table [dataSource]="dataSourcee" class="mt-5">
 
 
-                                <ng-container matColumnDef="title">
-                                    <th mat-header-cell *matHeaderCellDef class="h5 text-center">Title</th>
-                                    <td mat-cell *matCellDef="let element">{{element.title}}</td>
+                                <ng-container matColumnDef="name">
+                                    <th mat-header-cell *matHeaderCellDef class="h5 text-center">Name</th>
+                                    <td mat-cell *matCellDef="let element">{{element.name}}</td>
                                 </ng-container>
 
-                                <ng-container matColumnDef="recordCreateTime">
-                                    <th mat-header-cell *matHeaderCellDef class="h5 text-center">Registered Time</th>
-                                    <td mat-cell *matCellDef="let element">{{element.recordCreateTime | date:'dd/MM/yyyy
-                                        HH:mm'}}</td>
+                                
+                                <ng-container matColumnDef="startJobTime">
+                                    <th mat-header-cell *matHeaderCellDef class="h5 text-center">Start Work Time</th>
+                                    <td mat-cell *matCellDef="let element">{{element.startJobTime}}</td>
                                 </ng-container>
 
-                                <ng-container matColumnDef="imageUrl">
-                                    <th mat-header-cell *matHeaderCellDef class="h5 text-center ">Image </th>
-                                    <td mat-cell *matCellDef="let element">
-                                        <img src="{{element.imageUrl}}" alt="" class="company-profile-image"
-                                            *ngIf="element.imageUrl != null">
-                                    </td>
+                                <ng-container matColumnDef="finishJobTime">
+                                    <th mat-header-cell *matHeaderCellDef class="h5 text-center">Finish Work Time</th>
+                                    <td mat-cell *matCellDef="let element">{{element.finishJobTime}}</td>
                                 </ng-container>
+
 
                                 <ng-container matColumnDef="id">
                                     <th mat-header-cell *matHeaderCellDef class="h5 text-center">Edit</th>
                                     <td mat-cell *matCellDef="let element">
-                                        <a [routerLink]="['/panel/edit-company', element.id]" class="btn-edit">Edit
-                                            company <i class="bi bi-pencil"></i></a>
+                                        <a [routerLink]="['/panel/edit-department', element.id]" class="btn-edit">Edit
+                                            department <i class="bi bi-pencil"></i></a>
 
                                     </td>
                                 </ng-container>
@@ -61,7 +59,7 @@
 
                     </div>
                     <div class="col-md-2 mt-5">
-                        <img src="../assets/images/maskot/7.png" alt="maskot">
+                        <img src="../assets/images/maskot/3.png" alt="maskot">
                     </div>
 
                 </div>

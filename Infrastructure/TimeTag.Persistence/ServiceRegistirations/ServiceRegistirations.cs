@@ -13,9 +13,7 @@ namespace TimeTag.Persistence.ServiceRegistirations
     {
         public static void AddPersistanceServices(this IServiceCollection services)
         {
-
-            services.AddDbContext<EntityDbContext>(options => options.UseMySql(connectionString: Configurations.connectionString, new MySqlServerVersion(new Version(7, 0, 0))));
-
+            
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
 
             services.AddScoped<ICryptoService, CryptoService>();
