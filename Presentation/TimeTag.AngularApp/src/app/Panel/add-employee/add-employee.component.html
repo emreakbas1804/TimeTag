@@ -1,0 +1,133 @@
+<div class="main-container d-flex panel">
+    <app-panel-sidebar></app-panel-sidebar>
+    <div class="content">
+
+        <app-panel-navbar></app-panel-navbar>
+
+        <div class="dashboard-content">
+            <div class="main-container">
+                <div class="row">
+
+                    <div class="col-md-8 mt-3">
+
+                        <h1 class="h3">Create Employee
+                            <a routerLink="/panel/my-employees" class="router-link router-link-right">My
+                                Employees</a>
+                        </h1>
+                        <hr>
+                        <p class="text-muted">You can add a employee and you can fallow his</p>
+
+                        <div class="mt-5">
+
+                            <form #form="ngForm" (ngSubmit)="addEmployee(form)">
+
+                                <!-- Name -->
+                                <div class="form-group row mb-3">
+                                    <label class="col-sm-2 col-form-label required">Full Name </label>
+                                    <div class="col-sm-10">
+                                        <input type="text" class="form-input" placeholder="Name Surname" name="fullName"
+                                            ngModel required #fullName="ngModel">
+                                        <div class="text-danger mt-1" *ngIf="fullName.invalid && fullName.touched">
+                                            Name Surname is required
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Department -->
+                                <div class="form-group row mb-3">
+                                    <label class="col-sm-2 col-form-label required">Department </label>
+                                    <div class="col-sm-10">
+                                        <div class="card select2-card">
+                                            <select id="selectDepartment" class="select2" name="department" [(ngModel)] = "selectedDepartment">
+                                                <option [value]=0>Select department</option>
+                                                <option [value]="department.id" *ngFor="let department of departments">{{ department.name }} </option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Title -->
+                                <div class="form-group row mb-3">
+                                    <label class="col-sm-2 col-form-label">Title </label>
+                                    <div class="col-sm-10">
+                                        <input type="text" class="form-input" placeholder="Title" ngModel name="title" #title="ngModel">                                        
+                                    </div>
+                                </div>
+
+                                <!-- Phone -->
+                                <div class="form-group row mb-3">
+                                    <label class="col-sm-2 col-form-label">Phone </label>
+                                    <div class="col-sm-10">
+                                        <input type="text" class="form-input" placeholder="Phone" ngModel name="phone"
+                                            #phone="ngModel">
+                                    </div>
+                                </div>
+
+                                <!-- Address -->
+                                <div class="form-group row mb-3">
+                                    <label class="col-sm-2 col-form-label">Address </label>
+                                    <div class="col-sm-10">
+                                        <input type="text" class="form-input" placeholder="Address" ngModel
+                                            name="address" #address="ngModel">
+                                    </div>
+                                </div>
+
+                                <!-- Email -->
+                                <div class="form-group row mb-3">
+                                    <label class="col-sm-2 col-form-label">Email </label>
+                                    <div class="col-sm-10">
+                                        <input type="text" class="form-input" placeholder="Email" ngModel name="email"
+                                            #email="ngModel">
+                                    </div>
+                                </div>
+
+
+                                <!-- Birth day -->
+                                <div class="form-group row mb-3">
+                                    <label class="col-sm-2 col-form-label">Birth Day </label>
+                                    <div class="col-sm-10">
+                                        <input type="date" ngModel name="birthDay" #birthDay="ngModel">
+                                    </div>
+                                </div>
+
+                                <!-- Photo -->
+                                <div class="form-group row mb-3">
+                                    <label class="col-sm-2 col-form-label">Photo </label>
+                                    <div class="col-sm-10">
+                                        <div class="row">
+                                            <div class="col-10">
+                                                <input type="file" class="form-control form-file-input" (change)="onFileSelected($event)" accept={{allowedTypes}}>
+                                            </div>
+                                            <div class="col-2">
+                                                <img [src]="previewUrl" alt="Selected Image" *ngIf="selectedFile" />
+                                            </div>
+                                        </div>
+
+
+                                    </div>
+                                </div>
+
+
+
+                                <div class="text-center mt-2">
+                                    <div class="spinner-border" *ngIf="loading"></div>
+                                </div>
+
+                                <div *ngIf="!loading">
+                                    <button type="submit">Create Employee</button>
+                                </div>
+
+                            </form>
+
+                        </div>
+
+                    </div>
+                    <div class="col-md-4 mt-3">
+                        <img src="../assets/images/maskot/5.png" alt="maskot">
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>

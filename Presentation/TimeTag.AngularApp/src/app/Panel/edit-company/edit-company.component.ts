@@ -66,7 +66,8 @@ export class EditCompanyComponent implements OnInit {
         }
       },
       error: err => {
-      
+        this.snackBarService.error("UnKnow error. Please try again later.");
+        this.loading = false;
       }
     });
   }

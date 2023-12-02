@@ -47,7 +47,7 @@ export class IndexComponent implements OnInit {
     await this.getDepartmentsCount();
     await this.getEmployeesCount();
   }
-
+  
 
 
   async getCompanies() {

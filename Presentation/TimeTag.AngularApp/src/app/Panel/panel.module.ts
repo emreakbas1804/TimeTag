@@ -12,11 +12,10 @@ import { RouterModule } from '@angular/router';
 import { EditCompanyComponent } from './edit-company/edit-company.component';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { AddDepartmentComponent } from './add-department/add-department.component';
-import { MatInputModule } from '@angular/material/input';
 import {NgxMaterialTimepickerModule} from 'ngx-material-timepicker';
 import { MyDepartmentsComponent } from './my-departments/my-departments.component';
 import { EditDepartmentComponent } from './edit-department/edit-department.component';
-
+import { AddEmployeeComponent } from './add-employee/add-employee.component';
 
 @NgModule({
   providers :[
@@ -29,7 +28,8 @@ import { EditDepartmentComponent } from './edit-department/edit-department.compo
     EditCompanyComponent,
     AddDepartmentComponent,
     MyDepartmentsComponent,
-    EditDepartmentComponent
+    EditDepartmentComponent,
+    AddEmployeeComponent
   ],
   imports: [
     CommonModule,

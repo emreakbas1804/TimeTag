@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { NavigationStart, Router } from '@angular/router';
 import { Observable, firstValueFrom } from 'rxjs';
@@ -9,7 +9,8 @@ declare var $ : any;
 @Component({
   selector: 'app-edit-department',
   templateUrl: './edit-department.component.html',
-  styleUrls: ['./edit-department.component.css']
+  styleUrls: ['./edit-department.component.css'],
+  encapsulation: ViewEncapsulation.None
 })
 export class EditDepartmentComponent implements OnInit {
 
@@ -73,16 +74,17 @@ export class EditDepartmentComponent implements OnInit {
   }
   async deleteDepartment(confirmValue: any) {
     if (confirmValue.toLowerCase() == "confirm" || confirmValue.toUpperCase() == "CONFIRM" || confirmValue.toUpperCase() == "CONFİRM") {
+      this.loading = true;
       var response = await firstValueFrom(this.companyService.deleteDepartment(this.departmentId));
       if (response.result == Result.Success) {
         this.snackBarService.success("Deleted department");
         this.router.navigate(["/panel/my-departments"]);
       } else {
         this.snackBarService.error(response.resultMessage);
-      }
-
+      }      
+      this.loading = false;
     } else {
-      console.log("b");
+      
     }
   }
 

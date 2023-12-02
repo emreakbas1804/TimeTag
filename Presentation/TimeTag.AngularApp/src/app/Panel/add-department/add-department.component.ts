@@ -36,7 +36,8 @@ export class AddDepartmentComponent implements OnInit {
 
       },
       error: err => {
-        this.snackBarService.error("An unexpected error occurred")
+        this.snackBarService.error("UnKnow error. Please try again later.");
+        this.loading = false;
       }
     })
 

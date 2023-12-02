@@ -14,8 +14,8 @@ export class PanelNavbarComponent implements OnInit {
   LastName: string | null | undefined = "";
   ngOnInit(): void {
     var user = localStorage.getItem("user");
-    this.FirstName = user?.split("-")[0];
-    this.LastName = user?.split("-")[1];
+    this.FirstName = user?.split("-")[0]?.toUpperCase();
+    this.LastName = user?.split("-")[1]?.toUpperCase();
         
   }
 

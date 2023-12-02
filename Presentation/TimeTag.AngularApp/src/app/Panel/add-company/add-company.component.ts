@@ -34,6 +34,7 @@ export class AddCompanyComponent implements OnInit {
         this.loading = false;       
       },
       error: err => {
+        this.loading = false;
         this.snackBarService.error("An unexpected error occurred")
       }
     });

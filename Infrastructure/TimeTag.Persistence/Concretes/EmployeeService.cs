@@ -31,6 +31,7 @@ public class EmployeeService : IEmployeeService
             {
                 rlt_Company_Id = employeeModel.CompanyId,
                 rlt_Department_Id = employeeModel.DepartmentId,
+                rlt_FileUpload_Id = employeeModel.rlt_FileUpload_Id,
                 NameSurname = employeeModel.NameSurname,
                 Title = employeeModel.Title,
                 Phone = employeeModel.Phone,

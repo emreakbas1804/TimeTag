@@ -112,6 +112,14 @@ button:hover {
 
 
 /* select 2 css  */
+.select2-card{
+  background-color: rgba(27, 27, 29, 0.08) !important;
+  border: 1px solid #316fc9 !important ;
+}
+.select2-selection--single{
+  background-color: transparent !important;
+}
+
 .select2{
   position: relative;
 }
@@ -131,6 +139,7 @@ button:hover {
   position: relative;
   width: auto !important;  
 }
+
 
 .select2-container--default .select2-results__option {
   padding: 8px;  
@@ -234,6 +243,6 @@ button:hover {
   color: #fff;
 }
 .snackBar-warning{
-  background-color: #1ea97c; /* Yeşil renk */
+  background-color: #316fc9; /* Yeşil renk */
   color: #fff;
 }

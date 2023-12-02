@@ -7,7 +7,7 @@ import { HomeModule } from './Home/home.module';
 import { SharedModule } from './Shared/shared.module';
 import { PanelModule } from './Panel/panel.module';
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
-import { RequestHeaderInterceptor } from './request-header.interceptor';
+import { RequestHeaderInterceptor } from './Services/httpService/request-header.interceptor';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 

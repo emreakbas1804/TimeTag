@@ -18,17 +18,20 @@ namespace TimeTag.Api.Controllers
         private readonly ICompanyService _companyService;
         private readonly IDepartmentService _departmentService;
         private readonly IEmployeeService _employeeService;
+        private readonly IFileService _fileService;
         EntityResultModel entityResultModel = new();
 
         public EmployeeController(
             ICompanyService companyService,
             IDepartmentService departmentService,
-            IEmployeeService employeeService
+            IEmployeeService employeeService,
+            IFileService fileService
         )
         {
             _companyService = companyService;
             _departmentService = departmentService;
             _employeeService = employeeService;
+            _fileService = fileService;
         }
 
         #region  Employee
@@ -50,6 +53,15 @@ namespace TimeTag.Api.Controllers
                 entityResultModel.ResultMessage = "Departman bulunamadı.";
             }
 
+            int rlt_FileUpload_Id = 0;
+            if (employeeModel.Photo != null)
+            {
+                string[] accepFileExtensions = { ".jpg", ".jpeg", ".png", ".webp", };
+                var fileUpload = await _fileService.UploadFile(employeeModel.Photo, "/images/users/profileImages/", 10, accepFileExtensions);
+                if (fileUpload.Result != EntityResult.Success) return Ok(fileUpload);
+                rlt_FileUpload_Id = fileUpload.Id;
+            }
+            employeeModel.rlt_FileUpload_Id = rlt_FileUpload_Id;
             var addEmployee = await _employeeService.AddEmployee(employeeModel);
             return Ok(addEmployee);
         }

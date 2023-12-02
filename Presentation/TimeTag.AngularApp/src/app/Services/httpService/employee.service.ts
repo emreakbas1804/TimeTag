@@ -17,6 +17,23 @@ export class EmployeeService {
       catchError(this.handleError),
     )
   }
+
+  addEmployee(companyId : any, departmentId : any, nameSurname : any, title : any, phone : any, address :any, email : any, birthDay : any, photo : any){
+    const formData: FormData = new FormData();
+    formData.append("companyId", companyId);
+    formData.append("departmentId", departmentId);
+    formData.append("nameSurname", nameSurname);
+    formData.append("title", title);
+    formData.append("phone", phone);
+    formData.append("address", address);
+    formData.append("email", email);
+    formData.append("birthDay", birthDay);
+    formData.append("photo", photo);
+    console.log(formData);
+    return this.http.post<EntityResultModel>(this.apiUrl + "/employee/addEmployee", formData).pipe(
+      catchError(this.handleError)
+    );
+  }
   handleError(err: HttpErrorResponse) {
     let message = "Beklenmedik bir hata oluştu";
     return throwError(() => message);
