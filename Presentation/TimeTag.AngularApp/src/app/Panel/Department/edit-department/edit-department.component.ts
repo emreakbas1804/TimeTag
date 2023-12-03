@@ -47,9 +47,7 @@ export class EditDepartmentComponent implements OnInit {
     } else if (response.result == Result.Error) {
       this.snackBarService.error(response.resultMessage);
     }
-
-
-
+    
   }
   updateDepartment(form: NgForm) {
     if (form.invalid) {

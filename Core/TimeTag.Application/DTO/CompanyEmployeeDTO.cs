@@ -11,6 +11,8 @@ public class CompanyEmployeeDTO
     public string Email { get; set; }
     public DateTime BirthDay { get; set; }
     public DateTime? StartedJobTime { get; set; }    
-    public string DepartmanName { get; set; }
+    public string DepartmentName { get; set; }
+    public int DepartmentId { get; set; }
+    public string ImageUrl { get; set; }
 
 }

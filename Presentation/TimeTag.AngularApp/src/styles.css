@@ -193,7 +193,7 @@ button:hover {
 }
 
 .mat-cell.mat-cell {
-  padding: 20px; 
+  padding: 20px;   
 }
 
 .mat-table img {
@@ -205,6 +205,7 @@ button:hover {
 .mat-header-cell, .mat-cell {
   padding: 12px;
   border-bottom: 1px solid #ddd;
+  font-weight: unset !important;
 }
 
 .mat-row:hover {

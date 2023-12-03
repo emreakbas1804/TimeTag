@@ -28,9 +28,38 @@ export class EmployeeService {
     formData.append("address", address);
     formData.append("email", email);
     formData.append("birthDay", birthDay);
-    formData.append("photo", photo);
-    console.log(formData);
+    formData.append("photo", photo);    
     return this.http.post<EntityResultModel>(this.apiUrl + "/employee/addEmployee", formData).pipe(
+      catchError(this.handleError)
+    );
+  }
+
+  getEmployees(companyId : any, departmentId? : any){
+    const params = new HttpParams().set('companyId', companyId).set("departmentId",departmentId);
+    return this.http.get<EntityResultModel>(this.apiUrl + "/employee/getEmployeesCompany", { params }).pipe(
+      catchError(this.handleError),
+    )
+  }
+
+  getEmployee(employeeId : any){
+    const params = new HttpParams().set('employeeId', employeeId);
+    return this.http.get<EntityResultModel>(this.apiUrl + "/employee/getEmployeeCompany", { params }).pipe(
+      catchError(this.handleError),
+    )
+  }
+  updateEmployee(departmentId: any, employeeId : any, nameSurname : any, title: any,phone : any, address :any, email : any, isActive : any,birthDay : any, photo : any){
+    const formData: FormData = new FormData();
+    formData.append("departmentId", departmentId);
+    formData.append("employeeId", employeeId);
+    formData.append("nameSurname", nameSurname);
+    formData.append("title", title);
+    formData.append("phone", phone);
+    formData.append("address", address);
+    formData.append("email", email);
+    formData.append("birthDay", birthDay);
+    formData.append("photo", photo);  
+    formData.append("isActive", isActive);  
+    return this.http.put<EntityResultModel>(this.apiUrl + "/employee/updateEmployee", formData).pipe(
       catchError(this.handleError)
     );
   }

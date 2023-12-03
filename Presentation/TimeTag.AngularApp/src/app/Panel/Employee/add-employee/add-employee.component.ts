@@ -20,6 +20,7 @@ export class AddEmployeeComponent implements OnInit {
   allowedTypes = ["image/jpeg", "image/jpg", "image/webp", "image/png"];
   departments: any[] = [];
   selectedDepartment: any = 0;
+  
   constructor(private snackBarService: SnackBarService, private employeeService: EmployeeService, private companyService: CompanyService, private router: Router) { }
 
   async ngOnInit(): Promise<void> {
@@ -36,9 +37,7 @@ export class AddEmployeeComponent implements OnInit {
       }
     });
   }
-  ngOnDestroy() {    
-    $('#selectDepartment').select2('destroy');
-  }
+
   addEmployee(form: NgForm) {
     if (form.invalid || this.selectedDepartment == 0) {
       this.snackBarService.error("Form validation error");

@@ -12,16 +12,15 @@ import { environment } from 'src/environments/environment';
   styleUrls: ['./my-departments.component.css']
 })
 export class MyDepartmentsComponent implements OnInit {
+  
   dataSourceList: any[] = [];
-
   displayedColumns: string[] = ["name", "startJobTime","finishJobTime" ,'id',];
   dataSourcee = new MatTableDataSource<any>(this.dataSourceList);
-
   @ViewChild(MatPaginator, { static: true }) paginator!: MatPaginator;
 
-
-  constructor(private companyService: CompanyService) { }
-  private readonly cdnUrl = environment.cdnUrl;
+  constructor(private companyService: CompanyService) { }  
+  
+  
   async ngOnInit(): Promise<void> {
     await this.getDepartments();
     this.dataSourcee.paginator = this.paginator;    
@@ -43,5 +42,7 @@ export class MyDepartmentsComponent implements OnInit {
     }
 
   }
+  
+  
 
 }

@@ -5,13 +5,15 @@ import { RegisterComponent } from './Home/register/register.component';
 import { LoginComponent } from './Home/login/login.component';
 import { IndexComponent as PanelIndexComponent } from './Panel/index/index.component';
 import { PanelGuard } from './Panel/panel.guard';
-import { AddCompanyComponent } from './Panel/add-company/add-company.component';
-import { MyCompaniesComponent } from './Panel/my-companies/my-companies.component';
-import { EditCompanyComponent } from './Panel/edit-company/edit-company.component';
-import { AddDepartmentComponent } from './Panel/add-department/add-department.component';
-import { MyDepartmentsComponent } from './Panel/my-departments/my-departments.component';
-import { EditDepartmentComponent } from './Panel/edit-department/edit-department.component';
-import { AddEmployeeComponent } from './Panel/add-employee/add-employee.component';
+import { AddCompanyComponent } from './Panel/Company/add-company/add-company.component';
+import { MyCompaniesComponent } from './Panel/Company/my-companies/my-companies.component';
+import { EditCompanyComponent } from './Panel/Company/edit-company/edit-company.component';
+import { AddDepartmentComponent } from './Panel/Department/add-department/add-department.component';
+import { MyDepartmentsComponent } from './Panel/Department/my-departments/my-departments.component';
+import { EditDepartmentComponent } from './Panel/Department/edit-department/edit-department.component';
+import { AddEmployeeComponent } from './Panel/Employee/add-employee/add-employee.component';
+import { MyEmployeesComponent } from './Panel/Employee/my-employees/my-employees.component';
+import { EmployeeDetailComponent } from './Panel/Employee/employee-detail/employee-detail.component';
 
 const routes: Routes = [
 
@@ -26,6 +28,8 @@ const routes: Routes = [
   { path: "panel/my-departments", component: MyDepartmentsComponent, canActivate: [PanelGuard] },
   { path: "panel/edit-department/:Id:", component: EditDepartmentComponent, canActivate: [PanelGuard] },
   { path: "panel/add-employee", component: AddEmployeeComponent, canActivate: [PanelGuard] },
+  { path: "panel/my-employees", component: MyEmployeesComponent, canActivate: [PanelGuard] },
+  { path: "panel/employee-detail/:Id:", component: EmployeeDetailComponent, canActivate: [PanelGuard] },
 ];
 
 @NgModule({

@@ -1,0 +1,210 @@
+<div class="main-container d-flex panel">
+    <app-panel-sidebar></app-panel-sidebar>
+    <div class="content">
+
+        <app-panel-navbar></app-panel-navbar>
+
+        <div class="dashboard-content">
+            <div class="main-container">
+                <div class="row">
+                    <h1 class="h3">{{employee.nameSurname}}</h1>
+                    <hr>
+
+
+                    <div class="mt-4 col-md-6">
+                        <div class="card p-4">
+                            <h2 class="h4">General info</h2>
+                            <hr>
+
+                            <form #form="ngForm" (ngSubmit)="updateEmployee(form)">
+
+                                <!-- Name -->
+                                <div class="form-group row mb-3">
+                                    <label class="col-sm-3 col-form-label required">Full Name </label>
+                                    <div class="col-sm-9">
+                                        <input type="text" class="form-input" placeholder="Name Surname" name="fullName"
+                                            [(ngModel)]="employee.nameSurname" required #fullName="ngModel">
+                                        <div class="text-danger mt-1" *ngIf="fullName.invalid && fullName.touched">
+                                            Name Surname is required
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Department -->
+                                <div class="form-group row mb-3">
+                                    <label class="col-sm-3 col-form-label required">Department </label>
+                                    <div class="col-sm-9">
+                                        <div class="card select2-card">
+                                            <select id="selectDepartment" class="select2"
+                                                [(ngModel)]="selectedDepartment" name="selectDepartment">
+                                                <option [value]=0>Select department</option>
+                                                <option [value]="department.id" *ngFor="let department of departments">
+                                                    {{ department.name }} </option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Title -->
+                                <div class="form-group row mb-3">
+                                    <label class="col-sm-3 col-form-label">Title </label>
+                                    <div class="col-sm-9">
+                                        <input type="text" class="form-input" placeholder="Title"
+                                            [(ngModel)]="employee.title" name="title" #title="ngModel">
+                                    </div>
+                                </div>
+
+                                <!-- Phone -->
+                                <div class="form-group row mb-3">
+                                    <label class="col-sm-3 col-form-label">Phone </label>
+                                    <div class="col-sm-9">
+                                        <input type="text" class="form-input" placeholder="Phone"
+                                            [(ngModel)]="employee.phone" name="phone" #phone="ngModel">
+                                    </div>
+                                </div>
+
+                                <!-- Address -->
+                                <div class="form-group row mb-3">
+                                    <label class="col-sm-3 col-form-label">Address </label>
+                                    <div class="col-sm-9">
+                                        <input type="text" class="form-input" placeholder="Address"
+                                            [(ngModel)]="employee.address" name="address" #address="ngModel">
+                                    </div>
+                                </div>
+
+                                <!-- Email -->
+                                <div class="form-group row mb-3">
+                                    <label class="col-sm-3 col-form-label">Email </label>
+                                    <div class="col-sm-9">
+                                        <input type="text" class="form-input" placeholder="Email"
+                                            [(ngModel)]="employee.email" name="email" #email="ngModel">
+                                    </div>
+                                </div>
+
+
+                                <!-- Birth day -->
+                                <div class="form-group row mb-3">
+                                    <label class="col-sm-3 col-form-label">Birth Day </label>
+                                    <div class="col-sm-9">
+                                        <input type="date" [(ngModel)]="employee.birthDay" name="birthDay"
+                                            #birthDay="ngModel">
+                                    </div>
+                                </div>
+
+                                <!-- Photo -->
+                                <div class="form-group row mb-3">
+                                    <label class="col-sm-3 col-form-label">Photo </label>
+                                    <div class="col-sm-9">
+                                        <div class="row">
+                                            <div class="col-10">
+                                                <input type="file" class="form-control form-file-input"
+                                                    (change)="onFileSelected($event)" accept={{allowedTypes}}>
+                                            </div>
+                                            <div class="col-2">
+                                                <img [src]="cdnUrl +employee.photo" alt="profile-image" lazy="loading"
+                                                    class="profile-image"
+                                                    *ngIf="employee.photo && selectedFile == null">
+                                                <img [src]="previewUrl" alt="Selected Image" *ngIf="selectedFile" />
+                                            </div>
+                                        </div>
+
+
+                                    </div>
+                                </div>
+
+
+                                <div class="text-center mt-2">
+                                    <div class="spinner-border" *ngIf="loading"></div>
+                                </div>
+
+                                <div *ngIf="!loading">
+                                    <button type="submit">Update Employee</button>
+                                </div>
+
+                            </form>
+                        </div>
+                    </div>
+
+                    <div class="mt-4 col-md-6">
+                        <div class="card p-4">
+                            <h2 class="h4">
+                                Employee bank accounts
+                                <button type="button" class="router-link btn btn-sm mx-2" data-bs-toggle="modal"
+                                    data-bs-target="#delete_department">Add Bank Account</button>
+                            </h2>
+                            <hr>
+
+                        </div>
+                    </div>                   
+
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<!--Add Bank Account -->
+<div class="modal fade" id="delete_department" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+
+            <!-- Modal Başlık -->
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">ADD BANK ACCOUNT</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <form #form="ngForm" (ngSubmit)="addBankAccount(form)">
+                <!-- Modal İçeriği -->
+                <div class="modal-body">
+                    <div class="container">
+
+                        <!-- Bank Name -->
+                        <div class="form-group row mb-3">
+                            <label class="col-sm-3 col-form-label required">Bank Name </label>
+                            <div class="col-sm-9">
+                                <input type="text" class="form-input" placeholder="Bank Name" name="bankName" ngModel
+                                    required #bankName="ngModel">
+                                <div class="text-danger mt-1" *ngIf="bankName.invalid && bankName.touched">
+                                    Bank Name is required
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Owner Name -->
+                        <div class="form-group row mb-3">
+                            <label class="col-sm-3 col-form-label required">Onwer Name </label>
+                            <div class="col-sm-9">
+                                <input type="text" class="form-input" placeholder="Owner Name" name="ownerName" ngModel
+                                    required #ownerName="ngModel">
+                                <div class="text-danger mt-1" *ngIf="ownerName.invalid && ownerName.touched">
+                                    Owner Name is required
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <!-- Iban -->
+                        <div class="form-group row mb-3">
+                            <label class="col-sm-3 col-form-label required">Iban </label>
+                            <div class="col-sm-9">
+                                <input type="text" class="form-input" placeholder="Iban" name="Iban" ngModel required
+                                    #iban="ngModel" maxlength="26">
+                                <div class="text-danger mt-1" *ngIf="iban.invalid && iban.touched">
+                                    Iban is required
+                                </div>
+                            </div>
+                        </div>
+
+
+                    </div>
+                </div>
+
+                <!-- Modal Alt Bilgi -->
+                <div class="modal-footer mt-3">
+                    <button type="submit">Add Bank Account</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

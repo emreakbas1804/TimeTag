@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
+using TimeTag.Domain.Enums;
 
 namespace TimeTag.Domain.Entities;
 public class Company_Employee : BaseModel
@@ -27,8 +28,7 @@ public class Company_Employee : BaseModel
     public Company Company { get; set; }
 
     public virtual ICollection<Company_EmployeeBank> Banks { get; set; }
-    public virtual ICollection<Company_EmployeeLoginJob> LoginJobs { get; set; }
-    public virtual ICollection<Company_EmployeeLogOutJob> LogOutJobs { get; set; }
+    public virtual ICollection<Company_EmployeeLog> Logs { get; set; }    
     public virtual ICollection<Company_EmployeeToken> Tokens {get;set;}
 
 }
@@ -42,9 +42,10 @@ public class Company_EmployeeBank : BaseModel
     [ForeignKey(nameof(rlt_Employee_Id))]
     public Company_Employee Employee { get; set; }
 }
-public class Company_EmployeeLoginJob : BaseModel
+public class Company_EmployeeLog : BaseModel
 {
-    public DateTime LoginTime { get; set; }
+    public DateTime ProcessTime { get; set; }
+    public LogType Type { get; set; }
     public string IpAddress { get; set; }
     public string Token { get; set; }
     public int rlt_Employee_Id { get; set; }
@@ -52,16 +53,7 @@ public class Company_EmployeeLoginJob : BaseModel
     [ForeignKey(nameof(rlt_Employee_Id))]
     public Company_Employee Employee { get; set; }
 }
-public class Company_EmployeeLogOutJob : BaseModel
-{
-    public DateTime LogoutTime { get; set; }
-    public string IpAddress { get; set; }
-    public string Token { get; set; }
-    public int rlt_Employee_Id { get; set; }
 
-    [ForeignKey(nameof(rlt_Employee_Id))]
-    public Company_Employee Employee { get; set; }
-}
 public class Company_EmployeeToken : BaseModel
 {
     public string Token { get; set; }
@@ -69,3 +61,4 @@ public class Company_EmployeeToken : BaseModel
     [ForeignKey(nameof(rlt_Employee_Id))]
     public Company_Employee Employee { get; set; }
 }
+

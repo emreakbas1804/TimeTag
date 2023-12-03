@@ -53,30 +53,36 @@ namespace TimeTag.Api.Controllers
                 entityResultModel.ResultMessage = "Departman bulunamadı.";
             }
 
-            int rlt_FileUpload_Id = 0;
+            
             if (employeeModel.Photo != null)
             {
                 string[] accepFileExtensions = { ".jpg", ".jpeg", ".png", ".webp", };
                 var fileUpload = await _fileService.UploadFile(employeeModel.Photo, "/images/users/profileImages/", 10, accepFileExtensions);
-                if (fileUpload.Result != EntityResult.Success) return Ok(fileUpload);
-                rlt_FileUpload_Id = fileUpload.Id;
-            }
-            employeeModel.rlt_FileUpload_Id = rlt_FileUpload_Id;
+                if (fileUpload.Result != EntityResult.Success) return Ok(fileUpload);               
+                employeeModel.rlt_FileUpload_Id = fileUpload.Id;
+            }            
             var addEmployee = await _employeeService.AddEmployee(employeeModel);
             return Ok(addEmployee);
         }
 
         [Authorize]
         [HttpPut("UpdateEmployee")]
-        public async Task<IActionResult> UpdateEmployee([Required] int departmentId, [Required] int employeeId, string nameSurname, string title, string phone, string address, string email, bool isActive, DateTime birthDay, DateTime startedJobTime)
+        public async Task<IActionResult> UpdateEmployee([Required] int departmentId, [Required] int employeeId, string nameSurname, string title, string phone, string address, string email, bool isActive, DateTime birthDay, DateTime startedJobTime, IFormFile photo)
         {
             var isDepartmentExist = _departmentService.IsDepartmentExist(departmentId);
             if (!isDepartmentExist)
             {
                 entityResultModel.ResultMessage = "Departman bulunamadı.";
             }
-
-            var updateEmployee = await _employeeService.UpdateEmployee(departmentId, employeeId, nameSurname, title, phone, address, email, isActive, birthDay, startedJobTime);
+            int rlt_FileUpload_Id = 0;
+            if (photo != null)
+            {
+                string[] accepFileExtensions = { ".jpg", ".jpeg", ".png", ".webp", };
+                var fileUpload = await _fileService.UploadFile(photo, "/images/users/profileImages/", 10, accepFileExtensions);
+                if (fileUpload.Result != EntityResult.Success) return Ok(fileUpload);               
+                rlt_FileUpload_Id = fileUpload.Id;
+            }  
+            var updateEmployee = await _employeeService.UpdateEmployee(departmentId, employeeId, nameSurname, title, phone, address, email, isActive, birthDay, startedJobTime, rlt_FileUpload_Id);
             return Ok(updateEmployee);
         }
 
@@ -147,37 +153,26 @@ namespace TimeTag.Api.Controllers
 
         #endregion
 
-        #region Employee login-logout to job
+        
+        #region Employee logs to job
 
-        [HttpPost("AddLoginEmployeeToJob")]
-        public async Task<IActionResult> AddLoginEmployeeToJob(string token)
+        [HttpPost("AddLogEmployeeToJob")]
+        public async Task<IActionResult> AddLogEmployeeToJob(string token, LogType type)
         {
-            var loginEmployeeToJob = await _employeeService.AddLoginEmployeeToJob(token);
+            var loginEmployeeToJob = await _employeeService.AddLogEmployeeToJob(token, type);
             return Ok(loginEmployeeToJob);
         }
 
-        [HttpPost("AddLogoutEmployeeToJob")]
-        public async Task<IActionResult> AddLogoutEmployeeToJob(string token)
-        {
-            var loginEmployeeToJob = await _employeeService.AddLogoutEmployeeToJob(token);
-            return Ok(loginEmployeeToJob);
-        }
 
         [Authorize]
-        [HttpGet("GetLoginLogEmployee")]
-        public async Task<IActionResult> GetLoginLogEmployee(int emploeeId)
+        [HttpGet("GetLogsEmployee")]
+        public async Task<IActionResult> GetLogsEmployee(int emploeeId)
         {
-            var loginEmployeeToJobLog = await _employeeService.GetLoginLogEmployee(emploeeId);
+            var loginEmployeeToJobLog = await _employeeService.GetLogsEmployee(emploeeId);
             return Ok(loginEmployeeToJobLog);
         }
 
-        [Authorize]
-        [HttpGet("GetLogoutLogEmployee")]
-        public async Task<IActionResult> GetLogoutLogEmployee(int emploeeId)
-        {
-            var loginEmployeeToJobLog = await _employeeService.GetLogoutLogEmployee(emploeeId);
-            return Ok(loginEmployeeToJobLog);
-        }
+
 
 
 

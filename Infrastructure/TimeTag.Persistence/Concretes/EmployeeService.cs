@@ -53,7 +53,7 @@ public class EmployeeService : IEmployeeService
         }
     }
 
-    public async Task<EntityResultModel> UpdateEmployee(int departmentId, int employeeId, string nameSurname, string title, string phone, string address, string email, bool isActive, DateTime birthDay, DateTime startedJobTime)
+    public async Task<EntityResultModel> UpdateEmployee(int departmentId, int employeeId, string nameSurname, string title, string phone, string address, string email, bool isActive, DateTime birthDay, DateTime startedJobTime, int rlt_FileUpload_Id)
     {
         try
         {
@@ -67,11 +67,12 @@ public class EmployeeService : IEmployeeService
             employeeEntity.NameSurname = nameSurname;
             employeeEntity.Title = title;
             employeeEntity.Phone = phone;
-            employeeEntity.Address = phone;
+            employeeEntity.Address = address;
             employeeEntity.Email = email;
             employeeEntity.BirthDay = birthDay;
             employeeEntity.StartedJobTime = startedJobTime;
             employeeEntity.IsActive = isActive;
+            employeeEntity.rlt_FileUpload_Id = rlt_FileUpload_Id == 0 ? null : rlt_FileUpload_Id;
             _context.Company_Employees.Update(employeeEntity);
             await _context.SaveChangesAsync();
             entityResultModel.Result = EntityResult.Success;
@@ -103,8 +104,8 @@ public class EmployeeService : IEmployeeService
                 Email = c.Email,
                 BirthDay = c.BirthDay,
                 StartedJobTime = c.StartedJobTime,
-                DepartmanName = c.Department.Name
-            }).ToListAsync();
+                DepartmentName = c.Department.Name
+            }).AsNoTracking().ToListAsync();
             entityResultModel.Result = EntityResult.Success;
             entityResultModel.ResultObject = employees;
             return entityResultModel;
@@ -127,14 +128,20 @@ public class EmployeeService : IEmployeeService
                 NameSurname = c.NameSurname,
                 Title = c.Title,
                 Phone = c.Phone,
-                Address = c.Phone,
+                Address = c.Address,
                 Email = c.Email,
                 BirthDay = c.BirthDay,
                 StartedJobTime = c.StartedJobTime,
-                DepartmanName = c.Department.Name
+                DepartmentName = c.Department.Name,
+                DepartmentId = c.Department.Id,
+                ImageUrl = c.ProfileImage.FileUrl
             }).FirstOrDefaultAsync();
-            entityResultModel.Result = EntityResult.Success;
-            entityResultModel.ResultObject = employee;
+            if (employee != null)
+            {
+                entityResultModel.Result = EntityResult.Success;
+                entityResultModel.ResultObject = employee;
+            }
+            entityResultModel.ResultMessage = "Personel bulunamadı";
             return entityResultModel;
         }
         catch (System.Exception)
@@ -144,12 +151,12 @@ public class EmployeeService : IEmployeeService
         }
     }
 
-     public async Task<int> GetEmployeesCompanyCount(int companyId, int? departmentId)
+    public async Task<int> GetEmployeesCompanyCount(int companyId, int? departmentId)
     {
-        var query =_context.Company_Employees.Where(q=> q.Company.Id == companyId);
-        if(departmentId > 0)
+        var query = _context.Company_Employees.Where(q => q.Company.Id == companyId);
+        if (departmentId > 0)
         {
-            query = query.Where(q=> q.Department.Id == departmentId);
+            query = query.Where(q => q.Department.Id == departmentId);
         }
         var count = await query.CountAsync();
         return count;
@@ -272,7 +279,7 @@ public class EmployeeService : IEmployeeService
 
 
     #region  Employee-login-logout
-    public async Task<EntityResultModel> AddLoginEmployeeToJob(string token)
+    public async Task<EntityResultModel> AddLogEmployeeToJob(string token, LogType type)
     {
         try
         {
@@ -283,14 +290,15 @@ public class EmployeeService : IEmployeeService
                 entityResultModel.ResultMessage = "Kullanıcı bulunamadı.";
                 return entityResultModel;
             }
-            Company_EmployeeLoginJob loginJob = new()
+            Company_EmployeeLog loginJob = new()
             {
-                LoginTime = DateTime.Now,
+                ProcessTime = DateTime.Now,
+                Type = type,
                 IpAddress = ipAddress,
                 Token = token,
                 rlt_Employee_Id = emploeeId
             };
-            await _context.Company_EmployeeLoginJobs.AddAsync(loginJob);
+            await _context.Company_EmployeeLogs.AddAsync(loginJob);
             await _context.SaveChangesAsync();
             entityResultModel.Result = EntityResult.Success;
             return entityResultModel;
@@ -303,42 +311,13 @@ public class EmployeeService : IEmployeeService
 
     }
 
-    public async Task<EntityResultModel> AddLogoutEmployeeToJob(string token)
+
+
+    public async Task<EntityResultModel> GetLogsEmployee(int emploeeId)
     {
         try
         {
-            var ipAddress = _httpContextAccessor.HttpContext.Connection.RemoteIpAddress?.ToString();
-            var emploeeId = await _context.Company_EmployeeTokens.Where(q => q.Token == token).Select(c => c.Employee.Id).FirstOrDefaultAsync();
-            if (emploeeId == 0)
-            {
-                entityResultModel.ResultMessage = "Kullanıcı bulunamadı.";
-                return entityResultModel;
-            }
-            Company_EmployeeLogOutJob logOutJob = new()
-            {
-                LogoutTime = DateTime.Now,
-                IpAddress = ipAddress,
-                Token = token,
-                rlt_Employee_Id = emploeeId
-            };
-            await _context.Company_EmployeeLogOutJobs.AddAsync(logOutJob);
-            await _context.SaveChangesAsync();
-            entityResultModel.Result = EntityResult.Success;
-            return entityResultModel;
-        }
-        catch (System.Exception)
-        {
-            entityResultModel.ResultMessage = "Beklenmedik bir hata oluştu.";
-            return entityResultModel;
-        }
-
-    }
-
-    public async Task<EntityResultModel> GetLoginLogEmployee(int emploeeId)
-    {
-        try
-        {
-            var loginEmployeeToJobLogs = await _context.Company_EmployeeLoginJobs.Where(q => q.Employee.Id == emploeeId).ToListAsync();
+            var loginEmployeeToJobLogs = await _context.Company_EmployeeLogs.Where(q => q.Employee.Id == emploeeId).ToListAsync();
             if (loginEmployeeToJobLogs == null)
             {
                 entityResultModel.ResultMessage = "Kullanıcının giriş bilgileri bulunamadı.";
@@ -355,28 +334,9 @@ public class EmployeeService : IEmployeeService
         }
     }
 
-    public async Task<EntityResultModel> GetLogoutLogEmployee(int emploeeId)
-    {
-        try
-        {
-            var logoutEmployeeToJobLogs = await _context.Company_EmployeeLogOutJobs.Where(q => q.Employee.Id == emploeeId).ToListAsync();
-            if (logoutEmployeeToJobLogs == null)
-            {
-                entityResultModel.ResultMessage = "Kullanıcının çıkış bilgileri bulunamadı.";
-                return entityResultModel;
-            }
-            entityResultModel.Result = EntityResult.Success;
-            entityResultModel.ResultObject = logoutEmployeeToJobLogs;
-            return entityResultModel;
-        }
-        catch (System.Exception)
-        {
-            entityResultModel.ResultMessage = "Beklenmedik bir hata oluştu.";
-            return entityResultModel;
-        }
-    }
 
-   
+
+
 
     #endregion
 
