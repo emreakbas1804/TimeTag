@@ -22,6 +22,6 @@ public interface IEmployeeService
 
     Task<EntityResultModel> AddLogEmployeeToJob(string token,LogType type);    
     
-    Task<EntityResultModel> GetLogsEmployee(int emploeeId);    
+    Task<EntityResultModel> GetLogsEmployee(int emploeeId, DateTime? startDate, DateTime? endDate, int page, int count);    
 
 }

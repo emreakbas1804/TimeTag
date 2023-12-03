@@ -18,7 +18,7 @@ export class EmployeeService {
     )
   }
 
-  addEmployee(companyId : any, departmentId : any, nameSurname : any, title : any, phone : any, address :any, email : any, birthDay : any, photo : any){
+  addEmployee(companyId: any, departmentId: any, nameSurname: any, title: any, phone: any, address: any, email: any, birthDay: any, photo: any) {
     const formData: FormData = new FormData();
     formData.append("companyId", companyId);
     formData.append("departmentId", departmentId);
@@ -28,26 +28,26 @@ export class EmployeeService {
     formData.append("address", address);
     formData.append("email", email);
     formData.append("birthDay", birthDay);
-    formData.append("photo", photo);    
+    formData.append("photo", photo);
     return this.http.post<EntityResultModel>(this.apiUrl + "/employee/addEmployee", formData).pipe(
       catchError(this.handleError)
     );
   }
 
-  getEmployees(companyId : any, departmentId? : any){
-    const params = new HttpParams().set('companyId', companyId).set("departmentId",departmentId);
+  getEmployees(companyId: any, departmentId?: any) {
+    const params = new HttpParams().set('companyId', companyId).set("departmentId", departmentId);
     return this.http.get<EntityResultModel>(this.apiUrl + "/employee/getEmployeesCompany", { params }).pipe(
       catchError(this.handleError),
     )
   }
 
-  getEmployee(employeeId : any){
+  getEmployee(employeeId: any) {
     const params = new HttpParams().set('employeeId', employeeId);
     return this.http.get<EntityResultModel>(this.apiUrl + "/employee/getEmployeeCompany", { params }).pipe(
       catchError(this.handleError),
     )
   }
-  updateEmployee(departmentId: any, employeeId : any, nameSurname : any, title: any,phone : any, address :any, email : any, isActive : any,birthDay : any, photo : any){
+  updateEmployee(departmentId: any, employeeId: any, nameSurname: any, title: any, phone: any, address: any, email: any, isActive: any, birthDay: any, photo: any) {
     const formData: FormData = new FormData();
     formData.append("departmentId", departmentId);
     formData.append("employeeId", employeeId);
@@ -57,11 +57,36 @@ export class EmployeeService {
     formData.append("address", address);
     formData.append("email", email);
     formData.append("birthDay", birthDay);
-    formData.append("photo", photo);  
-    formData.append("isActive", isActive);  
+    formData.append("photo", photo);
+    formData.append("isActive", isActive);
     return this.http.put<EntityResultModel>(this.apiUrl + "/employee/updateEmployee", formData).pipe(
       catchError(this.handleError)
     );
+  }
+
+  addEmployeeBank(employeeId: any, bankName: any, ownerName: any, iban: any) {
+    const formData: FormData = new FormData();
+    formData.append("employeeId", employeeId);
+    formData.append("bankName", bankName);
+    formData.append("ownerName", ownerName);
+    formData.append("iban", iban);
+    return this.http.post<EntityResultModel>(this.apiUrl + "/employee/addEmployeeBank", formData).pipe(
+      catchError(this.handleError)
+    );
+  }
+
+  getEmployeeBanks(employeeId: any) {
+    const params = new HttpParams().set('employeeId', employeeId);
+    return this.http.get<EntityResultModel>(this.apiUrl + "/employee/getEmployeeBanks", { params }).pipe(
+      catchError(this.handleError),
+    )
+  }
+  getTimeLogs(employeeId: any, startDate : any, endDate : any, page : any, count : any) {
+    const params = new HttpParams().set('employeeId', employeeId).set("startDate",startDate).set("endDate",endDate).set("page",page).set("count",count);
+  
+    return this.http.get<EntityResultModel>(this.apiUrl + "/employee/getLogsEmployee", { params }).pipe(
+      catchError(this.handleError),
+    )
   }
   handleError(err: HttpErrorResponse) {
     let message = "Beklenmedik bir hata oluştu";

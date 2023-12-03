@@ -238,7 +238,7 @@ public class EmployeeService : IEmployeeService
                 Id = c.Id,
                 EmployeeNameSurname = c.Employee.NameSurname,
                 BankName = c.Name,
-                BankOwnerName = c.OwnerName,
+                OwnerName = c.OwnerName,
                 Iban = c.Iban,
                 RecordCreateTime = c.RecordCreateTime
             }).ToListAsync();
@@ -313,18 +313,38 @@ public class EmployeeService : IEmployeeService
 
 
 
-    public async Task<EntityResultModel> GetLogsEmployee(int emploeeId)
+    public async Task<EntityResultModel> GetLogsEmployee(int emploeeId, DateTime? startDate, DateTime? endDate, int page = 1, int count = 5)
     {
         try
         {
-            var loginEmployeeToJobLogs = await _context.Company_EmployeeLogs.Where(q => q.Employee.Id == emploeeId).ToListAsync();
-            if (loginEmployeeToJobLogs == null)
+            var query = _context.Company_EmployeeLogs.Where(q=> q.rlt_Employee_Id == emploeeId);
+            if(startDate != null ){
+                query = query.Where(q=> q.RecordCreateTime > startDate);
+            }
+            if(endDate != null){
+                endDate = endDate?.AddDays(1);
+                query = query.Where(q=> q.RecordCreateTime < endDate);
+            }
+            var totalCount = query.Count();
+            var logDetails = await query.Select(c=> new {
+                Id = c.Id,
+                processTime = c.ProcessTime,
+                type = c.Type,
+                nameSurname = c.Employee.NameSurname,
+                isLatedToJob =  c.Employee.Department.StartJobTime != null && 
+                                c.ProcessTime.TimeOfDay > TimeSpan.Parse(c.Employee.Department.StartJobTime)
+            }).OrderBy(c=> c.Id).Skip((page - 1) * count).Take(count).ToListAsync();
+            if (logDetails == null)
             {
                 entityResultModel.ResultMessage = "Kullanıcının giriş bilgileri bulunamadı.";
                 return entityResultModel;
             }
+            dynamic logs = new {
+                totalCount,
+                logDetails
+            };
             entityResultModel.Result = EntityResult.Success;
-            entityResultModel.ResultObject = loginEmployeeToJobLogs;
+            entityResultModel.ResultObject = logs;
             return entityResultModel;
         }
         catch (System.Exception)

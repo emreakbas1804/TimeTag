@@ -166,9 +166,9 @@ namespace TimeTag.Api.Controllers
 
         [Authorize]
         [HttpGet("GetLogsEmployee")]
-        public async Task<IActionResult> GetLogsEmployee(int emploeeId)
+        public async Task<IActionResult> GetLogsEmployee(int employeeId,DateTime? startDate , DateTime? endDate,int page =1, int count = 5)
         {
-            var loginEmployeeToJobLog = await _employeeService.GetLogsEmployee(emploeeId);
+            var loginEmployeeToJobLog = await _employeeService.GetLogsEmployee(employeeId, startDate, endDate,page,count);
             return Ok(loginEmployeeToJobLog);
         }
 

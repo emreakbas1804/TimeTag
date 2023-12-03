@@ -32,17 +32,17 @@ export class EmployeeDetailComponent implements OnInit {
     birthDay: "",
     photo: "",
   }
-  cdnUrl = environment.cdnUrl;
+  cdnUrl = environment.cdnUrl;  
   constructor(private snackBarService: SnackBarService, private employeeService: EmployeeService, private companyService: CompanyService, private router: Router, private datePipe: DatePipe) { }
 
 
   async ngOnInit(): Promise<void> {
-    
+
     this.employeeId = this.router.url.split("/")[3];
     await this.getEmployee();
-    await this.getDepartments();
+    await this.getDepartments();    
     $("#selectDepartment").select2();
-          
+
     $('#selectDepartment').on('change', async (event: any) => {
       if ($("#selectDepartment").val() != 0) {
         this.selectedDepartment = $("#selectDepartment").val();
@@ -58,12 +58,11 @@ export class EmployeeDetailComponent implements OnInit {
       return;
     }
     this.loading = true;
-    var companyId = this.companyService.getCurrentCompany();
-    this.employeeService.updateEmployee(this.selectedDepartment,this.employeeId,form.value.fullName,form.value.title,form.value.phone,form.value.address, form.value.email,true,form.value.birthDay,this.selectedFile).subscribe({
+    this.employeeService.updateEmployee(this.selectedDepartment, this.employeeId, form.value.fullName, form.value.title, form.value.phone, form.value.address, form.value.email, true, form.value.birthDay, this.selectedFile).subscribe({
       next: response => {
         this.loading = false;
         if (response.result == Result.Success) {
-          this.snackBarService.success("Updated Employee");          
+          this.snackBarService.success("Updated Employee");
           this.selectedFile = null;
         }
         else {
@@ -145,8 +144,8 @@ export class EmployeeDetailComponent implements OnInit {
     return `${year}-${month}-${day}`;
   }
 
-  addBankAccount(form : NgForm){
 
-  }
+
+
 
 }

@@ -18,6 +18,8 @@ import { EditDepartmentComponent } from './Department/edit-department/edit-depar
 import { AddEmployeeComponent } from './Employee/add-employee/add-employee.component';
 import { MyEmployeesComponent } from './Employee/my-employees/my-employees.component';
 import { EmployeeDetailComponent } from './Employee/employee-detail/employee-detail.component';
+import { BankAccountsComponent } from './Employee/bank-accounts/bank-accounts.component';
+import { TimeLogsComponent } from './Employee/time-logs/time-logs.component';
 
 @NgModule({
   providers :[
@@ -34,7 +36,9 @@ import { EmployeeDetailComponent } from './Employee/employee-detail/employee-det
     EditDepartmentComponent,
     AddEmployeeComponent,
     MyEmployeesComponent,
-    EmployeeDetailComponent
+    EmployeeDetailComponent,
+    BankAccountsComponent,    
+    TimeLogsComponent
   ],
   imports: [
     CommonModule,

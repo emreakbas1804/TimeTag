@@ -14,6 +14,8 @@ import { EditDepartmentComponent } from './Panel/Department/edit-department/edit
 import { AddEmployeeComponent } from './Panel/Employee/add-employee/add-employee.component';
 import { MyEmployeesComponent } from './Panel/Employee/my-employees/my-employees.component';
 import { EmployeeDetailComponent } from './Panel/Employee/employee-detail/employee-detail.component';
+import { BankAccountsComponent } from './Panel/Employee/bank-accounts/bank-accounts.component';
+import { TimeLogsComponent } from './Panel/Employee/time-logs/time-logs.component';
 
 const routes: Routes = [
 
@@ -30,6 +32,8 @@ const routes: Routes = [
   { path: "panel/add-employee", component: AddEmployeeComponent, canActivate: [PanelGuard] },
   { path: "panel/my-employees", component: MyEmployeesComponent, canActivate: [PanelGuard] },
   { path: "panel/employee-detail/:Id:", component: EmployeeDetailComponent, canActivate: [PanelGuard] },
+  { path: "panel/bank-accounts/:Id:", component: BankAccountsComponent, canActivate: [PanelGuard] },
+  { path: "panel/logs/:Id:", component: TimeLogsComponent, canActivate: [PanelGuard] },
 ];
 
 @NgModule({

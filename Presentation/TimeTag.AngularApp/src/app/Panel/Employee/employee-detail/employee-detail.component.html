@@ -7,14 +7,15 @@
         <div class="dashboard-content">
             <div class="main-container">
                 <div class="row">
-                    <h1 class="h3">{{employee.nameSurname}}</h1>
+                    <h1 class="h3">{{employee.nameSurname}}
+                        <a [routerLink]="['/panel/logs', employeeId]"class="router-link router-link-right">Show logs</a>
+                        <a [routerLink]="['/panel/bank-accounts', employeeId]" class="router-link router-link-right">Show bank accounts</a>
+                    </h1>
                     <hr>
 
-
-                    <div class="mt-4 col-md-6">
-                        <div class="card p-4">
-                            <h2 class="h4">General info</h2>
-                            <hr>
+                    <div class="mt-4 col-md-8">
+                        
+                      
 
                             <form #form="ngForm" (ngSubmit)="updateEmployee(form)">
 
@@ -23,7 +24,7 @@
                                     <label class="col-sm-3 col-form-label required">Full Name </label>
                                     <div class="col-sm-9">
                                         <input type="text" class="form-input" placeholder="Name Surname" name="fullName"
-                                            [(ngModel)]="employee.nameSurname" required #fullName="ngModel">
+                                            [(ngModel)]="employee.nameSurname" required #fullName="ngModel" [maxlength]="30">
                                         <div class="text-danger mt-1" *ngIf="fullName.invalid && fullName.touched">
                                             Name Surname is required
                                         </div>
@@ -50,7 +51,7 @@
                                     <label class="col-sm-3 col-form-label">Title </label>
                                     <div class="col-sm-9">
                                         <input type="text" class="form-input" placeholder="Title"
-                                            [(ngModel)]="employee.title" name="title" #title="ngModel">
+                                            [(ngModel)]="employee.title" name="title" #title="ngModel" [maxlength]="30">
                                     </div>
                                 </div>
 
@@ -59,7 +60,7 @@
                                     <label class="col-sm-3 col-form-label">Phone </label>
                                     <div class="col-sm-9">
                                         <input type="text" class="form-input" placeholder="Phone"
-                                            [(ngModel)]="employee.phone" name="phone" #phone="ngModel">
+                                            [(ngModel)]="employee.phone" name="phone" #phone="ngModel" [maxlength]="20">
                                     </div>
                                 </div>
 
@@ -122,20 +123,18 @@
                                 </div>
 
                             </form>
+                        
+                    </div>
+
+                    <div class="col-md-4">
+                        <div class="row">
+                 
                         </div>
                     </div>
 
-                    <div class="mt-4 col-md-6">
-                        <div class="card p-4">
-                            <h2 class="h4">
-                                Employee bank accounts
-                                <button type="button" class="router-link btn btn-sm mx-2" data-bs-toggle="modal"
-                                    data-bs-target="#delete_department">Add Bank Account</button>
-                            </h2>
-                            <hr>
+                    
 
-                        </div>
-                    </div>                   
+                    
 
                 </div>
             </div>
@@ -144,67 +143,3 @@
     </div>
 </div>
 
-<!--Add Bank Account -->
-<div class="modal fade" id="delete_department" tabindex="-1" aria-hidden="true">
-    <div class="modal-dialog modal-lg">
-        <div class="modal-content">
-
-            <!-- Modal Başlık -->
-            <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">ADD BANK ACCOUNT</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <form #form="ngForm" (ngSubmit)="addBankAccount(form)">
-                <!-- Modal İçeriği -->
-                <div class="modal-body">
-                    <div class="container">
-
-                        <!-- Bank Name -->
-                        <div class="form-group row mb-3">
-                            <label class="col-sm-3 col-form-label required">Bank Name </label>
-                            <div class="col-sm-9">
-                                <input type="text" class="form-input" placeholder="Bank Name" name="bankName" ngModel
-                                    required #bankName="ngModel">
-                                <div class="text-danger mt-1" *ngIf="bankName.invalid && bankName.touched">
-                                    Bank Name is required
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Owner Name -->
-                        <div class="form-group row mb-3">
-                            <label class="col-sm-3 col-form-label required">Onwer Name </label>
-                            <div class="col-sm-9">
-                                <input type="text" class="form-input" placeholder="Owner Name" name="ownerName" ngModel
-                                    required #ownerName="ngModel">
-                                <div class="text-danger mt-1" *ngIf="ownerName.invalid && ownerName.touched">
-                                    Owner Name is required
-                                </div>
-                            </div>
-                        </div>
-
-
-                        <!-- Iban -->
-                        <div class="form-group row mb-3">
-                            <label class="col-sm-3 col-form-label required">Iban </label>
-                            <div class="col-sm-9">
-                                <input type="text" class="form-input" placeholder="Iban" name="Iban" ngModel required
-                                    #iban="ngModel" maxlength="26">
-                                <div class="text-danger mt-1" *ngIf="iban.invalid && iban.touched">
-                                    Iban is required
-                                </div>
-                            </div>
-                        </div>
-
-
-                    </div>
-                </div>
-
-                <!-- Modal Alt Bilgi -->
-                <div class="modal-footer mt-3">
-                    <button type="submit">Add Bank Account</button>
-                </div>
-            </form>
-        </div>
-    </div>
-</div>
