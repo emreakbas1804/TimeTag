@@ -6,6 +6,7 @@
     <ProjectReference Include="../../Core/TimeTag.Application/TimeTag.Application.csproj"/>
     <ProjectReference Include="../../Core/TimeTag.Domain/TimeTag.Domain.csproj"/>
     <ProjectReference Include="../../Infrastructure/TimeTag.Persistence/TimeTag.Persistence.csproj"/>
+       <ProjectReference Include="../../Infrastructure/TimeTag.Infrastructure/TimeTag.Infrastructure.csproj"/>
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="7.0.8"/>

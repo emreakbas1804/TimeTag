@@ -24,6 +24,8 @@ namespace TimeTag.Persistence.Context
         public DbSet<Company_EmployeeLog> Company_EmployeeLogs { get; set; }        
         public DbSet<Company_EmployeeToken> Company_EmployeeTokens {get;set;}
         public DbSet<AppDomain> AppDomains {get;set;}
+        public DbSet<Localization> Localizations { get; set; }
+        public DbSet<Language> Languages { get; set; }
 
     }
 }

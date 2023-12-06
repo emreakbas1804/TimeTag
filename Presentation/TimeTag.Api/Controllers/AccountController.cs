@@ -14,56 +14,58 @@ namespace TimeTag.Api.Controllers
 {
     [Route("[controller]")]
     public class AccountController : BaseController
-    {        
+    {
         private readonly IValidationService _validationService;
-        private readonly ICryptoService _cryptoService;
         private readonly IUserService _userService;
+        private readonly ILocalizationService _localizationService;
         EntityResultModel entityResultModel = new();
-        
-        public AccountController(            
+
+
+        public AccountController(
             IValidationService validationService,
-            ICryptoService cryptoService,
+            ILocalizationService localizationService,
             IUserService userService
         )
-        {
-              
+        {            
             _validationService = validationService;
-            _cryptoService = cryptoService;
             _userService = userService;
+            _localizationService = localizationService;
         }
 
 
         [HttpPost("Register")]
         public async Task<IActionResult> Register(RegisterDTO model)
-        {         
+        {
             var checkEmail = _validationService.ValidateEmail(model.Email);
-            if(checkEmail.Result != EntityResult.Success) return Ok(checkEmail);
+            if (checkEmail.Result != EntityResult.Success) return Ok(checkEmail);
 
-            var checkPassword =_validationService.ValidatePassword(model.Password);
-            if(checkPassword.Result != EntityResult.Success) return Ok(checkPassword);
-            
-            var addUserResult = await _userService.AddUser(model);            
+            var checkPassword = _validationService.ValidatePassword(model.Password);
+            if (checkPassword.Result != EntityResult.Success) return Ok(checkPassword);
+
+            var addUserResult = await _userService.AddUser(model);
             return Ok(addUserResult);
         }
-                
+
         [HttpPost("Login")]
         public async Task<IActionResult> Login(string email, string password)
         {
             var checkEmail = _validationService.ValidateEmail(email);
-            if(checkEmail.Result != EntityResult.Success) return Ok(checkEmail);
+            if (checkEmail.Result != EntityResult.Success) return Ok(checkEmail);
 
-            var userLogin = await _userService.Login(email, password);                                            
-            return Ok(userLogin);        
+            var userLogin = await _userService.Login(email, password);
+            return Ok(userLogin);
         }
-       
+
         [Authorize]
-        [HttpGet("Getuser")]        
+        [HttpGet("Getuser")]
         public IActionResult GetUser()
         {
             return Ok(currentUser);
         }
-        
+
+    
+       
 
     }
-    
+
 }

@@ -84,7 +84,8 @@ public class UserService : IUserService
                 if (userEntity.Password == password)
                 {
                     AddLoginLog(userEntity.Id, true);
-                    return GenerateToken(userEntity, "User");
+                    string role = await _context.Users.Where(q=> q.Email == email).Select(c=> c.Role.Name).FirstOrDefaultAsync() ?? "User";
+                    return GenerateToken(userEntity, role);
                 }
                 else
                 {

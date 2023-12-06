@@ -4,12 +4,10 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using TimeTag.Api.Extensions;
 using TimeTag.Persistence.ServiceRegistirations;
-using System.IdentityModel.Tokens.Jwt;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
 using Microsoft.OpenApi.Models;
 using Microsoft.Extensions.Configuration;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
 using System.Collections.Generic;
 using TimeTag.Persistence.Context;
 using Microsoft.EntityFrameworkCore;
@@ -69,6 +67,7 @@ builder.Services.AddSwaggerGen(c =>
 
 });
 builder.Services.AddPersistanceServices();
+builder.Services.AddInfrastructureServices();
 builder.Services.AddCors(options =>
         {
             options.AddPolicy("AllowAllOrigins",

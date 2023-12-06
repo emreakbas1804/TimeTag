@@ -2,7 +2,7 @@ using System;
 using System.ComponentModel.DataAnnotations;
 using Microsoft.AspNetCore.Http;
 
-namespace TimeTag.Application.Abstractions
+namespace TimeTag.Application.DTO
 {
     public class AddEmployeeDTO
     {

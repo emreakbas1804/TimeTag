@@ -34,17 +34,6 @@ namespace TimeTag.Api.Controllers
             _departmentService = departmentService;
         }
 
-        [Authorize]
-        [HttpPost("AddLicance")]
-        public async Task<IActionResult> AddLicance()
-        {
-            var serialNumber = await _licanceService.AddLicance();
-            entityResultModel.Result = EntityResult.Success;
-            entityResultModel.ResultObject = serialNumber;
-            return Ok(entityResultModel);
-        }
-
-
         #region Company
 
         [Authorize]
