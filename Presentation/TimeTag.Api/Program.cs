@@ -35,7 +35,8 @@ builder.Services.AddAuthentication("Bearer").AddJwtBearer(x =>
     };
 });
 
-builder.Services.AddDbContext<EntityDbContext>(options=> options.UseMySql(connectionString :builder.Configuration.GetConnectionString("MySqlConnection"),new MySqlServerVersion(new Version(10, 5, 20))));
+//builder.Services.AddDbContext<EntityDbContext>(options=> options.UseMySql(connectionString :builder.Configuration.GetConnectionString("MySqlConnection"),new MySqlServerVersion(new Version(10, 5, 20))));
+builder.Services.AddDbContext<EntityDbContext>(options => options.UseSqlServer(connectionString :builder.Configuration.GetConnectionString("MsSqlConnection")));
 
 
 

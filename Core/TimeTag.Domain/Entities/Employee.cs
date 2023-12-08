@@ -15,17 +15,16 @@ public class Company_Employee : BaseModel
     public DateTime? StartedJobTime { get; set; }
     public bool IsActive { get; set; }
     public int? rlt_FileUpload_Id { get; set; }
-    public int rlt_Company_Id { get; set; }
+   
     public int rlt_Department_Id { get; set; }
-
-    [ForeignKey(nameof(rlt_Department_Id))]
-    public Company_Department Department { get; set; }
 
     [ForeignKey(nameof(rlt_FileUpload_Id))]
     public FileUpload ProfileImage { get; set; }
 
-    [ForeignKey(nameof(rlt_Company_Id))]
-    public Company Company { get; set; }
+  
+    
+    [ForeignKey(nameof(rlt_Department_Id))]
+    public Company_Department Department { get; set; }
 
     public virtual ICollection<Company_EmployeeBank> Banks { get; set; }
     public virtual ICollection<Company_EmployeeLog> Logs { get; set; }    

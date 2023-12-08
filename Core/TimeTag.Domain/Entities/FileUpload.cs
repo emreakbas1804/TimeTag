@@ -1,3 +1,5 @@
+using System.Collections.Generic;
+
 namespace TimeTag.Domain.Entities
 {
     public class FileUpload : BaseModel
@@ -5,6 +7,7 @@ namespace TimeTag.Domain.Entities
         public string FileUrl { get; set; }
         public string OriginalFileName { get; set; }
         public string FileSize { get; set; }
+
         
     }
 }

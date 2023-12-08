@@ -28,8 +28,7 @@ public class EmployeeService : IEmployeeService
         try
         {
             Company_Employee employee = new()
-            {
-                rlt_Company_Id = employeeModel.CompanyId,
+            {                
                 rlt_Department_Id = employeeModel.DepartmentId,
                 rlt_FileUpload_Id = employeeModel.rlt_FileUpload_Id,
                 NameSurname = employeeModel.NameSurname,
@@ -89,7 +88,7 @@ public class EmployeeService : IEmployeeService
     {
         try
         {
-            var employeesQuery = _context.Company_Employees.Where(q => q.Company.Id == companyId && q.IsActive);
+            var employeesQuery = _context.Company_Employees.Where(q => q.Department.Company.Id == companyId && q.IsActive);
             if (departmentId > 0 && departmentId != null)
             {
                 employeesQuery = employeesQuery.Where(q => q.Department.Id == departmentId);
@@ -153,7 +152,7 @@ public class EmployeeService : IEmployeeService
 
     public async Task<int> GetEmployeesCompanyCount(int companyId, int? departmentId)
     {
-        var query = _context.Company_Employees.Where(q => q.Company.Id == companyId);
+        var query = _context.Company_Employees.Where(q => q.Department.Company.Id == companyId);
         if (departmentId > 0)
         {
             query = query.Where(q => q.Department.Id == departmentId);
