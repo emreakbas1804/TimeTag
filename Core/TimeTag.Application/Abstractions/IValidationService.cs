@@ -1,11 +1,12 @@
+using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using TimeTag.Application.DTO;
 
 namespace TimeTag.Application.Abstractions;
 public interface IValidationService
 {
-    EntityResultModel ValidateEmail(string email);
-    EntityResultModel ValidatePassword(string password);
-    EntityResultModel ValidateFileSize(IFormFile file,int fileSizeMb);
-    EntityResultModel ValidateFileExtension(IFormFile file, string[] acceptExtensions);
+   Task<EntityResultModel> ValidateEmailAsync(string email);
+    Task<EntityResultModel> ValidatePassword(string password);
+    Task<EntityResultModel> ValidateFileSizeAsync(IFormFile file,int fileSizeMb);
+    Task<EntityResultModel> ValidateFileExtensionAsync(IFormFile file, string[] acceptExtensions);
 }

@@ -13,9 +13,11 @@ namespace TimeTag.Persistence.Concretes;
 public class DepartmentService : IDepartmentService
 {
     private readonly EntityDbContext _context;
-    public DepartmentService(EntityDbContext context)
+    private readonly ILocalizationService _localizationService;
+    public DepartmentService(EntityDbContext context, ILocalizationService localizationService)
     {
         _context = context;
+        _localizationService = localizationService;
     }
     EntityResultModel entityResultModel = new();
     public async Task<EntityResultModel> AddDepartment(int companyId, string name, string address, string description, string startJobTime, string finishJobTime)
@@ -25,7 +27,7 @@ public class DepartmentService : IDepartmentService
             var isCompanyExist = _context.Companies.Any(q => q.Id == companyId);
             if (!isCompanyExist)
             {
-                entityResultModel.ResultMessage = "Firma bulunamadı.";
+                entityResultModel.ResultMessage = await _localizationService.getLocalization("txt_firma_bulunamadi", "Company not found");
                 return entityResultModel;
             }
             Company_Department department = new()
@@ -44,7 +46,8 @@ public class DepartmentService : IDepartmentService
         }
         catch (System.Exception)
         {
-            entityResultModel.ResultMessage = "Beklenmedik bir hata oluştu.";
+            entityResultModel.ResultMessage = await _localizationService.getLocalization("txt_beklenmedik_bir_hata_olustu", "Unknow error. Please try again later");
+
             return entityResultModel;
         }
     }
@@ -56,7 +59,7 @@ public class DepartmentService : IDepartmentService
             Company_Department department = await _context.Company_Departments.Where(q => q.Id == departmentId).FirstOrDefaultAsync();
             if (department == null)
             {
-                entityResultModel.ResultMessage = "Firma departmanı bulunamadı.";
+                entityResultModel.ResultMessage = await _localizationService.getLocalization("txt_departman_bulunamadi", "Department not found");
                 return entityResultModel;
             }
             department.Name = name;
@@ -72,7 +75,7 @@ public class DepartmentService : IDepartmentService
         }
         catch (System.Exception)
         {
-            entityResultModel.ResultMessage = "Beklenmedik bir hata oluştu.";
+            entityResultModel.ResultMessage = await _localizationService.getLocalization("txt_beklenmedik_bir_hata_olustu", "Unknow error. Please try again later");
             return entityResultModel;
         }
     }
@@ -109,10 +112,10 @@ public class DepartmentService : IDepartmentService
     {
         try
         {
-            Company_Department department = await _context.Company_Departments.Where(q=> q.Id == departmantId).FirstOrDefaultAsync();
-            if(department == null)
+            Company_Department department = await _context.Company_Departments.Where(q => q.Id == departmantId).FirstOrDefaultAsync();
+            if (department == null)
             {
-                entityResultModel.ResultMessage = "Departman bulunamadı.";
+                entityResultModel.ResultMessage = await _localizationService.getLocalization("txt_departman_bulunamadi", "Department not found");
                 return entityResultModel;
             }
             _context.Company_Departments.Remove(department);
@@ -122,18 +125,19 @@ public class DepartmentService : IDepartmentService
         }
         catch (System.Exception)
         {
-            entityResultModel.ResultMessage = "Beklenmedik bir hata oluştu.";
-            return entityResultModel;            
+            entityResultModel.ResultMessage = await _localizationService.getLocalization("txt_beklenmedik_bir_hata_olustu", "Unknow error. Please try again later");
+
+            return entityResultModel;
         }
     }
 
     public bool IsDepartmentExist(int departmantId)
     {
-        return _context.Company_Departments.Any(q=> q.Id == departmantId);
+        return _context.Company_Departments.Any(q => q.Id == departmantId);
     }
 
     public async Task<int> GetDepartmentsCount(int companyId)
     {
-        return await _context.Company_Departments.Where(q=> q.Company.Id == companyId).CountAsync();
+        return await _context.Company_Departments.Where(q => q.Company.Id == companyId).CountAsync();
     }
 }

@@ -25,13 +25,15 @@ public class UserService : IUserService
     private readonly ICryptoService _cryptoService;
     private readonly IHttpContextAccessor _httpContextAccessor;
     private readonly IConfiguration _configuration;
+    private readonly ILocalizationService _localizationService;
     EntityResultModel entityResultModel = new();
-    public UserService(EntityDbContext context, ICryptoService cryptoService, IHttpContextAccessor httpContextAccessor, IConfiguration configuration)
+    public UserService(EntityDbContext context, ICryptoService cryptoService, IHttpContextAccessor httpContextAccessor, IConfiguration configuration, ILocalizationService localizationService)
     {
         _context = context;
         _cryptoService = cryptoService;
         _httpContextAccessor = httpContextAccessor;
         _configuration = configuration;
+        _localizationService = localizationService;
     }
 
     public async Task<EntityResultModel> AddUser(RegisterDTO model)
@@ -41,15 +43,15 @@ public class UserService : IUserService
             bool isUserExist = IsUserExistByEmail(model.Email);
             if (isUserExist)
             {
-                entityResultModel.Result = EntityResult.Error;
-                entityResultModel.ResultMessage = "Mail adresi sistemimizde kayıtlı.";
+                entityResultModel.Result = EntityResult.Error;                
+                entityResultModel.ResultMessage = await _localizationService.getLocalization("txt_mail_adresi_sistemimizde_kayitli","Email address registered in our system");
                 return entityResultModel;
             }
             bool isPhoneExist = IsPhoneExist(model.Phone);
             if (isPhoneExist)
             {
                 entityResultModel.Result = EntityResult.Error;
-                entityResultModel.ResultMessage = "Telefon numarası sistemimizde kayıtlı.";
+                entityResultModel.ResultMessage = await _localizationService.getLocalization("txt_telefon_numarasi_sistemimizde_kayitli","Phone number registered in our system");
             }
             model.Password = _cryptoService.HashPassword(model.Password);
             User user = new User()
@@ -67,8 +69,8 @@ public class UserService : IUserService
             entityResultModel.Result = EntityResult.Success;
         }
         catch (System.Exception)
-        {
-            entityResultModel.ResultMessage = "Beklenmedik bir hata oluştu";
+        {            
+            entityResultModel.ResultMessage = await _localizationService.getLocalization("txt_beklenmedik_bir_hata_olustu","Unknow error. Please try again later");
         }
         return entityResultModel;
     }
@@ -85,20 +87,21 @@ public class UserService : IUserService
                 {
                     AddLoginLog(userEntity.Id, true);
                     string role = await _context.Users.Where(q=> q.Email == email).Select(c=> c.Role.Name).FirstOrDefaultAsync() ?? "User";
-                    return GenerateToken(userEntity, role);
+                    return await GenerateTokenAsync(userEntity, role);
                 }
                 else
                 {
                     AddLoginLog(userEntity.Id, false);
                     entityResultModel.ResultMessage = "Mail adresi veya parola hatalı";
+                    entityResultModel.ResultMessage = await _localizationService.getLocalization("txt_mail_adresi_veya_parola_hatali","Email address or password is incorrect");
                     return entityResultModel;
                 }
             }
-            entityResultModel.ResultMessage = "Mail adresi bulunamadı";
+            entityResultModel.ResultMessage = await _localizationService.getLocalization("txt_mail_adresi_bulunamadi","Email address not found");
         }
         catch (System.Exception)
         {
-            entityResultModel.ResultMessage = "Beklenmedik bir hata oluştu";
+            entityResultModel.ResultMessage = await _localizationService.getLocalization("txt_beklenmedik_bir_hata_olustu","Unknow error. Please try again later");
         }
 
         return entityResultModel;
@@ -116,7 +119,7 @@ public class UserService : IUserService
         return isUserExist;
     }
 
-    public EntityResultModel GenerateToken(User userEntity, string role)
+    public async Task<EntityResultModel> GenerateTokenAsync(User userEntity, string role)
     {
         try
         {
@@ -151,7 +154,7 @@ public class UserService : IUserService
         }
         catch (System.Exception)
         {
-            entityResultModel.ResultMessage = "Beklenmedik bir hata oluştu";
+            entityResultModel.ResultMessage = await _localizationService.getLocalization("txt_beklenmedik_bir_hata_olustu","Unknow error. Please try again later");
         }
         return entityResultModel;
     }
@@ -169,8 +172,8 @@ public class UserService : IUserService
                 ReferanceUrl = referanceUrl,
                 rlt_User_Id = userId
             };
-            _context.User_LoginLogs.AddAsync(loginLog);
-            _context.SaveChangesAsync();
+            _context.User_LoginLogs.Add(loginLog);
+            _context.SaveChanges();
         }
         catch (System.Exception)
         {

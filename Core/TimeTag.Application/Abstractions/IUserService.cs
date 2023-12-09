@@ -10,7 +10,7 @@ public interface IUserService
     bool IsUserExistByEmail(string email);
     bool IsPhoneExist(string phone);
     Task<EntityResultModel> AddUser(RegisterDTO model);
-    EntityResultModel GenerateToken(User userEntity, string role);
+    Task<EntityResultModel> GenerateTokenAsync(User userEntity, string role);
     void AddLoginLog(int userId, bool isSuccessLogin);
     CurrentUser GetCurrentUser(string jwtToken);
     

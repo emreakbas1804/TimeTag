@@ -27,7 +27,7 @@ public class Company_Department_Employee : BaseModel
     public Company_Department Department { get; set; }
 
     public virtual ICollection<Company_Department_Employee_Bank> Banks { get; set; }
-    public virtual ICollection<Company_Department_Employee_Bank> Logs { get; set; }    
+    public virtual ICollection<Company_Department_Employee_Log> Logs { get; set; }    
     public virtual ICollection<Company_Department_Employee_Token> Tokens {get;set;}
 
 }

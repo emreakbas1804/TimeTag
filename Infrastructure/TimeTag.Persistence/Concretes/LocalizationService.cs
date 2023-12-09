@@ -1,5 +1,6 @@
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 using TimeTag.Application.Abstractions;
 using TimeTag.Domain.Entities;
@@ -9,9 +10,12 @@ namespace TimeTag.Persistence.Concretes;
 public class LocalizationService : ILocalizationService
 {
     private readonly EntityDbContext _context;
-    public LocalizationService(EntityDbContext context)
+    private readonly IHttpContextAccessor _httpContextAccessor;
+
+    public LocalizationService(EntityDbContext context, IHttpContextAccessor httpContextAccessor)
     {
         _context = context;
+        _httpContextAccessor = httpContextAccessor;
     }
     public async Task<bool> addLocalization(int rlt_Language_Id, string tagName, string value)
     {
@@ -34,10 +38,11 @@ public class LocalizationService : ILocalizationService
 
     }
 
-    public async Task<string> getLocalization(string tagName, string defoultValue, string langCode)
+    public async Task<string> getLocalization(string tagName, string defoultValue)
     {
         try
         {
+            var langCode = _httpContextAccessor?.HttpContext?.Items["langCode"] as string ?? "en";
             var localizationEntity = await _context.Localizations.Where(q => q.TagName == tagName && q.Language.LangCode == langCode).FirstOrDefaultAsync();
             if (localizationEntity == null)
             {

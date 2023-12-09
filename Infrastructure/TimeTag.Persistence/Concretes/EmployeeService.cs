@@ -14,10 +14,12 @@ public class EmployeeService : IEmployeeService
 {
     private readonly EntityDbContext _context;
     private readonly IHttpContextAccessor _httpContextAccessor;
-    public EmployeeService(EntityDbContext context, IHttpContextAccessor httpContextAccessor)
+    private readonly ILocalizationService _localizationService;
+    public EmployeeService(EntityDbContext context, IHttpContextAccessor httpContextAccessor, ILocalizationService localizationService)
     {
         _context = context;
         _httpContextAccessor = httpContextAccessor;
+        _localizationService = localizationService;
     }
     EntityResultModel entityResultModel = new();
 
@@ -28,7 +30,7 @@ public class EmployeeService : IEmployeeService
         try
         {
             Company_Department_Employee employee = new()
-            {                
+            {
                 rlt_Department_Id = employeeModel.DepartmentId,
                 rlt_FileUpload_Id = employeeModel.rlt_FileUpload_Id,
                 NameSurname = employeeModel.NameSurname,
@@ -47,7 +49,8 @@ public class EmployeeService : IEmployeeService
         }
         catch (System.Exception)
         {
-            entityResultModel.ResultMessage = "Beklenmedik bir hata oluştu.";
+            entityResultModel.ResultMessage = await _localizationService.getLocalization("txt_beklenmedik_bir_hata_olustu", "Unknow error. Please try again later");
+
             return entityResultModel;
         }
     }
@@ -59,7 +62,8 @@ public class EmployeeService : IEmployeeService
             var employeeEntity = await _context.Department_Employees.Where(q => q.Id == employeeId && q.IsActive).AsNoTracking().FirstOrDefaultAsync();
             if (employeeEntity == null)
             {
-                entityResultModel.ResultMessage = "Kullanıcı bulunamadı.";
+                entityResultModel.ResultMessage = await _localizationService.getLocalization("txt_kullanici_bulunamadi", "User not found");
+
                 return entityResultModel;
             }
             employeeEntity.rlt_Department_Id = departmentId;
@@ -79,7 +83,8 @@ public class EmployeeService : IEmployeeService
         }
         catch (System.Exception)
         {
-            entityResultModel.ResultMessage = "Beklenmedik bir hata oluştu.";
+            entityResultModel.ResultMessage = await _localizationService.getLocalization("txt_beklenmedik_bir_hata_olustu", "Unknow error. Please try again later");
+
             return entityResultModel;
         }
     }
@@ -111,7 +116,7 @@ public class EmployeeService : IEmployeeService
         }
         catch (System.Exception)
         {
-            entityResultModel.ResultMessage = "Beklenmedik bir hata oluştu.";
+            entityResultModel.ResultMessage = await _localizationService.getLocalization("txt_beklenmedik_bir_hata_olustu", "Unknow error. Please try again later");
             return entityResultModel;
         }
 
@@ -141,11 +146,13 @@ public class EmployeeService : IEmployeeService
                 entityResultModel.ResultObject = employee;
             }
             entityResultModel.ResultMessage = "Personel bulunamadı";
+            entityResultModel.ResultMessage = await _localizationService.getLocalization("txt_personel_bulunamadi", "Employee not found");
+
             return entityResultModel;
         }
         catch (System.Exception)
         {
-            entityResultModel.ResultMessage = "Beklenmedik bir hata oluştu.";
+            entityResultModel.ResultMessage = await _localizationService.getLocalization("txt_beklenmedik_bir_hata_olustu", "Unknow error. Please try again later");
             return entityResultModel;
         }
     }
@@ -172,7 +179,8 @@ public class EmployeeService : IEmployeeService
             var isEmployeeExist = _context.Department_Employees.Any(q => q.Id == employeeId);
             if (!isEmployeeExist)
             {
-                entityResultModel.ResultMessage = "Kullanıcı bulunamadı.";
+                entityResultModel.ResultMessage = await _localizationService.getLocalization("txt_kullanici_bulunamadi", "User not found");
+
                 return entityResultModel;
             }
 
@@ -191,7 +199,7 @@ public class EmployeeService : IEmployeeService
         }
         catch (System.Exception)
         {
-            entityResultModel.ResultMessage = "Beklenmedik bir hata oluştu.";
+            entityResultModel.ResultMessage = await _localizationService.getLocalization("txt_beklenmedik_bir_hata_olustu", "Unknow error. Please try again later");
             return entityResultModel;
         }
     }
@@ -202,8 +210,9 @@ public class EmployeeService : IEmployeeService
         {
             var isBankExist = _context.Employee_Banks.Any(q => q.Id == bankId);
             if (!isBankExist)
-            {
-                entityResultModel.ResultMessage = "Banka bilgisi bulunamadı";
+            {                
+                entityResultModel.ResultMessage = await _localizationService.getLocalization("txt_banka_bilgisi_bulunamadi", "Bank info not found");
+
                 return entityResultModel;
             }
             var bankEntity = await _context.Employee_Banks.Where(q => q.Id == bankId).FirstOrDefaultAsync();
@@ -217,7 +226,8 @@ public class EmployeeService : IEmployeeService
         }
         catch (System.Exception)
         {
-            entityResultModel.ResultMessage = "Beklenmedik bir hata oluştu";
+            entityResultModel.ResultMessage = await _localizationService.getLocalization("txt_beklenmedik_bir_hata_olustu", "Unknow error. Please try again later");
+
             return entityResultModel;
         }
     }
@@ -247,7 +257,8 @@ public class EmployeeService : IEmployeeService
         }
         catch (System.Exception)
         {
-            entityResultModel.ResultMessage = "Beklenmedik bir hata oluştu.";
+            entityResultModel.ResultMessage = await _localizationService.getLocalization("txt_beklenmedik_bir_hata_olustu", "Unknow error. Please try again later");
+
             return entityResultModel;
         }
     }
@@ -259,7 +270,7 @@ public class EmployeeService : IEmployeeService
             var bankEntity = await _context.Employee_Banks.Where(q => q.Id == bankId).AsNoTracking().FirstOrDefaultAsync();
             if (bankEntity == null)
             {
-                entityResultModel.ResultMessage = "Banak bilgisi bulunamadı.";
+                entityResultModel.ResultMessage = await _localizationService.getLocalization("txt_banka_bilgisi_bulunamadi", "Bank info not found");
                 return entityResultModel;
             }
             _context.Employee_Banks.Remove(bankEntity);
@@ -269,7 +280,8 @@ public class EmployeeService : IEmployeeService
         }
         catch (System.Exception)
         {
-            entityResultModel.ResultMessage = "Beklenmedik bir hata oluştu.";
+            entityResultModel.ResultMessage = await _localizationService.getLocalization("txt_beklenmedik_bir_hata_olustu", "Unknow error. Please try again later");
+
             return entityResultModel;
         }
     }
@@ -286,7 +298,7 @@ public class EmployeeService : IEmployeeService
             var emploeeId = await _context.Employee_Tokens.Where(q => q.Token == token).Select(c => c.Employee.Id).FirstOrDefaultAsync();
             if (emploeeId == 0)
             {
-                entityResultModel.ResultMessage = "Kullanıcı bulunamadı.";
+                entityResultModel.ResultMessage = await _localizationService.getLocalization("txt_kullanici_bulunamadi", "User not found");
                 return entityResultModel;
             }
             Company_Department_Employee_Log loginJob = new()
@@ -304,7 +316,8 @@ public class EmployeeService : IEmployeeService
         }
         catch (System.Exception)
         {
-            entityResultModel.ResultMessage = "Beklenmedik bir hata oluştu.";
+            entityResultModel.ResultMessage = await _localizationService.getLocalization("txt_beklenmedik_bir_hata_olustu", "Unknow error. Please try again later");
+
             return entityResultModel;
         }
 
@@ -316,29 +329,33 @@ public class EmployeeService : IEmployeeService
     {
         try
         {
-            var query = _context.Employee_Logs.Where(q=> q.rlt_Employee_Id == emploeeId);
-            if(startDate != null ){
-                query = query.Where(q=> q.RecordCreateTime > startDate);
+            var query = _context.Employee_Logs.Where(q => q.rlt_Employee_Id == emploeeId);
+            if (startDate != null)
+            {
+                query = query.Where(q => q.RecordCreateTime > startDate);
             }
-            if(endDate != null){
+            if (endDate != null)
+            {
                 endDate = endDate?.AddDays(1);
-                query = query.Where(q=> q.RecordCreateTime < endDate);
+                query = query.Where(q => q.RecordCreateTime < endDate);
             }
             var totalCount = query.Count();
-            var logDetails = await query.Select(c=> new {
+            var logDetails = await query.Select(c => new
+            {
                 Id = c.Id,
                 processTime = c.ProcessTime,
                 type = c.Type,
                 nameSurname = c.Employee.NameSurname,
-                isLatedToJob =  c.Employee.Department.StartJobTime != null && 
+                isLatedToJob = c.Employee.Department.StartJobTime != null &&
                                 c.ProcessTime.TimeOfDay > TimeSpan.Parse(c.Employee.Department.StartJobTime)
-            }).OrderBy(c=> c.Id).Skip((page - 1) * count).Take(count).ToListAsync();
+            }).OrderBy(c => c.Id).Skip((page - 1) * count).Take(count).ToListAsync();
             if (logDetails == null)
-            {
-                entityResultModel.ResultMessage = "Kullanıcının giriş bilgileri bulunamadı.";
+            {                
+                await _localizationService.getLocalization("txt_kullanici_kayitlari_bulunamadi","User logs not found");
                 return entityResultModel;
             }
-            dynamic logs = new {
+            dynamic logs = new
+            {
                 totalCount,
                 logDetails
             };
@@ -348,7 +365,8 @@ public class EmployeeService : IEmployeeService
         }
         catch (System.Exception)
         {
-            entityResultModel.ResultMessage = "Beklenmedik bir hata oluştu.";
+            entityResultModel.ResultMessage = await _localizationService.getLocalization("txt_beklenmedik_bir_hata_olustu", "Unknow error. Please try again later");
+
             return entityResultModel;
         }
     }

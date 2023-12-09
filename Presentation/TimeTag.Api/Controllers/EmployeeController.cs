@@ -19,19 +19,22 @@ namespace TimeTag.Api.Controllers
         private readonly IDepartmentService _departmentService;
         private readonly IEmployeeService _employeeService;
         private readonly IFileService _fileService;
+        private readonly ILocalizationService _localizationService;
         EntityResultModel entityResultModel = new();
 
         public EmployeeController(
             ICompanyService companyService,
             IDepartmentService departmentService,
             IEmployeeService employeeService,
-            IFileService fileService
+            IFileService fileService,
+            ILocalizationService localizationService
         )
         {
             _companyService = companyService;
             _departmentService = departmentService;
             _employeeService = employeeService;
             _fileService = fileService;
+            _localizationService = localizationService;
         }
 
         #region  Employee
@@ -43,14 +46,14 @@ namespace TimeTag.Api.Controllers
             var isCompanyExist = _companyService.IsCompanyExist(employeeModel.CompanyId);
             if (!isCompanyExist)
             {
-                entityResultModel.ResultMessage = "Firma bulunamadı.";
+                entityResultModel.ResultMessage = await _localizationService.getLocalization("txt_firma_bulunamadi", "Company not found");
                 return Ok(entityResultModel);
             }
 
             var isDepartmentExist = _departmentService.IsDepartmentExist(employeeModel.DepartmentId);
             if (!isDepartmentExist)
             {
-                entityResultModel.ResultMessage = "Departman bulunamadı.";
+                entityResultModel.ResultMessage = await _localizationService.getLocalization("txt_departman_bulunamadi", "Department not found");
             }
 
             
@@ -72,7 +75,7 @@ namespace TimeTag.Api.Controllers
             var isDepartmentExist = _departmentService.IsDepartmentExist(departmentId);
             if (!isDepartmentExist)
             {
-                entityResultModel.ResultMessage = "Departman bulunamadı.";
+                entityResultModel.ResultMessage = await _localizationService.getLocalization("txt_departman_bulunamadi", "Department not found");
             }
             int rlt_FileUpload_Id = 0;
             if (photo != null)

@@ -12,7 +12,7 @@ using TimeTag.Persistence.Context;
 namespace TimeTag.Persistence.Migrations
 {
     [DbContext(typeof(EntityDbContext))]
-    [Migration("20231208215557_InitialCreate")]
+    [Migration("20231209110527_InitialCreate")]
     partial class InitialCreate
     {
         /// <inheritdoc />
@@ -136,7 +136,7 @@ namespace TimeTag.Persistence.Migrations
                     b.ToTable("Company_Departments");
                 });
 
-            modelBuilder.Entity("TimeTag.Domain.Entities.Company_Employee", b =>
+            modelBuilder.Entity("TimeTag.Domain.Entities.Company_Department_Employee", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -149,9 +149,6 @@ namespace TimeTag.Persistence.Migrations
 
                     b.Property<DateTime>("BirthDay")
                         .HasColumnType("datetime2");
-
-                    b.Property<int?>("CompanyId")
-                        .HasColumnType("int");
 
                     b.Property<string>("Email")
                         .HasColumnType("nvarchar(max)");
@@ -185,16 +182,14 @@ namespace TimeTag.Persistence.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("CompanyId");
-
                     b.HasIndex("rlt_Department_Id");
 
                     b.HasIndex("rlt_FileUpload_Id");
 
-                    b.ToTable("Company_Employees");
+                    b.ToTable("Department_Employees");
                 });
 
-            modelBuilder.Entity("TimeTag.Domain.Entities.Company_EmployeeBank", b =>
+            modelBuilder.Entity("TimeTag.Domain.Entities.Company_Department_Employee_Bank", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -224,10 +219,10 @@ namespace TimeTag.Persistence.Migrations
 
                     b.HasIndex("rlt_Employee_Id");
 
-                    b.ToTable("Company_EmployeeBanks");
+                    b.ToTable("Employee_Banks");
                 });
 
-            modelBuilder.Entity("TimeTag.Domain.Entities.Company_EmployeeLog", b =>
+            modelBuilder.Entity("TimeTag.Domain.Entities.Company_Department_Employee_Log", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -260,10 +255,10 @@ namespace TimeTag.Persistence.Migrations
 
                     b.HasIndex("rlt_Employee_Id");
 
-                    b.ToTable("Company_EmployeeLogs");
+                    b.ToTable("Employee_Logs");
                 });
 
-            modelBuilder.Entity("TimeTag.Domain.Entities.Company_EmployeeToken", b =>
+            modelBuilder.Entity("TimeTag.Domain.Entities.Company_Department_Employee_Token", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -287,7 +282,7 @@ namespace TimeTag.Persistence.Migrations
 
                     b.HasIndex("rlt_Employee_Id");
 
-                    b.ToTable("Company_EmployeeTokens");
+                    b.ToTable("Employee_Tokens");
                 });
 
             modelBuilder.Entity("TimeTag.Domain.Entities.FileUpload", b =>
@@ -564,12 +559,8 @@ namespace TimeTag.Persistence.Migrations
                     b.Navigation("Company");
                 });
 
-            modelBuilder.Entity("TimeTag.Domain.Entities.Company_Employee", b =>
+            modelBuilder.Entity("TimeTag.Domain.Entities.Company_Department_Employee", b =>
                 {
-                    b.HasOne("TimeTag.Domain.Entities.Company", null)
-                        .WithMany("Employees")
-                        .HasForeignKey("CompanyId");
-
                     b.HasOne("TimeTag.Domain.Entities.Company_Department", "Department")
                         .WithMany("Employees")
                         .HasForeignKey("rlt_Department_Id")
@@ -585,9 +576,9 @@ namespace TimeTag.Persistence.Migrations
                     b.Navigation("ProfileImage");
                 });
 
-            modelBuilder.Entity("TimeTag.Domain.Entities.Company_EmployeeBank", b =>
+            modelBuilder.Entity("TimeTag.Domain.Entities.Company_Department_Employee_Bank", b =>
                 {
-                    b.HasOne("TimeTag.Domain.Entities.Company_Employee", "Employee")
+                    b.HasOne("TimeTag.Domain.Entities.Company_Department_Employee", "Employee")
                         .WithMany("Banks")
                         .HasForeignKey("rlt_Employee_Id")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -596,9 +587,9 @@ namespace TimeTag.Persistence.Migrations
                     b.Navigation("Employee");
                 });
 
-            modelBuilder.Entity("TimeTag.Domain.Entities.Company_EmployeeLog", b =>
+            modelBuilder.Entity("TimeTag.Domain.Entities.Company_Department_Employee_Log", b =>
                 {
-                    b.HasOne("TimeTag.Domain.Entities.Company_Employee", "Employee")
+                    b.HasOne("TimeTag.Domain.Entities.Company_Department_Employee", "Employee")
                         .WithMany("Logs")
                         .HasForeignKey("rlt_Employee_Id")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -607,9 +598,9 @@ namespace TimeTag.Persistence.Migrations
                     b.Navigation("Employee");
                 });
 
-            modelBuilder.Entity("TimeTag.Domain.Entities.Company_EmployeeToken", b =>
+            modelBuilder.Entity("TimeTag.Domain.Entities.Company_Department_Employee_Token", b =>
                 {
-                    b.HasOne("TimeTag.Domain.Entities.Company_Employee", "Employee")
+                    b.HasOne("TimeTag.Domain.Entities.Company_Department_Employee", "Employee")
                         .WithMany("Tokens")
                         .HasForeignKey("rlt_Employee_Id")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -665,8 +656,6 @@ namespace TimeTag.Persistence.Migrations
             modelBuilder.Entity("TimeTag.Domain.Entities.Company", b =>
                 {
                     b.Navigation("Departments");
-
-                    b.Navigation("Employees");
                 });
 
             modelBuilder.Entity("TimeTag.Domain.Entities.Company_Department", b =>
@@ -674,7 +663,7 @@ namespace TimeTag.Persistence.Migrations
                     b.Navigation("Employees");
                 });
 
-            modelBuilder.Entity("TimeTag.Domain.Entities.Company_Employee", b =>
+            modelBuilder.Entity("TimeTag.Domain.Entities.Company_Department_Employee", b =>
                 {
                     b.Navigation("Banks");
 

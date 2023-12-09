@@ -254,7 +254,7 @@ namespace TimeTag.Persistence.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Company_Employees",
+                name: "Department_Employees",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
@@ -269,33 +269,27 @@ namespace TimeTag.Persistence.Migrations
                     IsActive = table.Column<bool>(type: "bit", nullable: false),
                     rlt_FileUpload_Id = table.Column<int>(type: "int", nullable: true),
                     rlt_Department_Id = table.Column<int>(type: "int", nullable: false),
-                    CompanyId = table.Column<int>(type: "int", nullable: true),
                     RecordCreateTime = table.Column<DateTime>(type: "datetime2", nullable: false),
                     LastUpdateTime = table.Column<DateTime>(type: "datetime2", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Company_Employees", x => x.Id);
+                    table.PrimaryKey("PK_Department_Employees", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Company_Employees_Companies_CompanyId",
-                        column: x => x.CompanyId,
-                        principalTable: "Companies",
-                        principalColumn: "Id");
-                    table.ForeignKey(
-                        name: "FK_Company_Employees_Company_Departments_rlt_Department_Id",
+                        name: "FK_Department_Employees_Company_Departments_rlt_Department_Id",
                         column: x => x.rlt_Department_Id,
                         principalTable: "Company_Departments",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_Company_Employees_FileUploads_rlt_FileUpload_Id",
+                        name: "FK_Department_Employees_FileUploads_rlt_FileUpload_Id",
                         column: x => x.rlt_FileUpload_Id,
                         principalTable: "FileUploads",
                         principalColumn: "Id");
                 });
 
             migrationBuilder.CreateTable(
-                name: "Company_EmployeeBanks",
+                name: "Employee_Banks",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
@@ -309,17 +303,17 @@ namespace TimeTag.Persistence.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Company_EmployeeBanks", x => x.Id);
+                    table.PrimaryKey("PK_Employee_Banks", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Company_EmployeeBanks_Company_Employees_rlt_Employee_Id",
+                        name: "FK_Employee_Banks_Department_Employees_rlt_Employee_Id",
                         column: x => x.rlt_Employee_Id,
-                        principalTable: "Company_Employees",
+                        principalTable: "Department_Employees",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
-                name: "Company_EmployeeLogs",
+                name: "Employee_Logs",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
@@ -334,17 +328,17 @@ namespace TimeTag.Persistence.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Company_EmployeeLogs", x => x.Id);
+                    table.PrimaryKey("PK_Employee_Logs", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Company_EmployeeLogs_Company_Employees_rlt_Employee_Id",
+                        name: "FK_Employee_Logs_Department_Employees_rlt_Employee_Id",
                         column: x => x.rlt_Employee_Id,
-                        principalTable: "Company_Employees",
+                        principalTable: "Department_Employees",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
-                name: "Company_EmployeeTokens",
+                name: "Employee_Tokens",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
@@ -356,11 +350,11 @@ namespace TimeTag.Persistence.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Company_EmployeeTokens", x => x.Id);
+                    table.PrimaryKey("PK_Employee_Tokens", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Company_EmployeeTokens_Company_Employees_rlt_Employee_Id",
+                        name: "FK_Employee_Tokens_Department_Employees_rlt_Employee_Id",
                         column: x => x.rlt_Employee_Id,
-                        principalTable: "Company_Employees",
+                        principalTable: "Department_Employees",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -387,33 +381,28 @@ namespace TimeTag.Persistence.Migrations
                 column: "rlt_Company_Id");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Company_EmployeeBanks_rlt_Employee_Id",
-                table: "Company_EmployeeBanks",
-                column: "rlt_Employee_Id");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Company_EmployeeLogs_rlt_Employee_Id",
-                table: "Company_EmployeeLogs",
-                column: "rlt_Employee_Id");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Company_Employees_CompanyId",
-                table: "Company_Employees",
-                column: "CompanyId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Company_Employees_rlt_Department_Id",
-                table: "Company_Employees",
+                name: "IX_Department_Employees_rlt_Department_Id",
+                table: "Department_Employees",
                 column: "rlt_Department_Id");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Company_Employees_rlt_FileUpload_Id",
-                table: "Company_Employees",
+                name: "IX_Department_Employees_rlt_FileUpload_Id",
+                table: "Department_Employees",
                 column: "rlt_FileUpload_Id");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Company_EmployeeTokens_rlt_Employee_Id",
-                table: "Company_EmployeeTokens",
+                name: "IX_Employee_Banks_rlt_Employee_Id",
+                table: "Employee_Banks",
+                column: "rlt_Employee_Id");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Employee_Logs_rlt_Employee_Id",
+                table: "Employee_Logs",
+                column: "rlt_Employee_Id");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Employee_Tokens_rlt_Employee_Id",
+                table: "Employee_Tokens",
                 column: "rlt_Employee_Id");
 
             migrationBuilder.CreateIndex(
@@ -444,13 +433,13 @@ namespace TimeTag.Persistence.Migrations
                 name: "AppDomains");
 
             migrationBuilder.DropTable(
-                name: "Company_EmployeeBanks");
+                name: "Employee_Banks");
 
             migrationBuilder.DropTable(
-                name: "Company_EmployeeLogs");
+                name: "Employee_Logs");
 
             migrationBuilder.DropTable(
-                name: "Company_EmployeeTokens");
+                name: "Employee_Tokens");
 
             migrationBuilder.DropTable(
                 name: "Localizations");
@@ -462,7 +451,7 @@ namespace TimeTag.Persistence.Migrations
                 name: "User_Tokens");
 
             migrationBuilder.DropTable(
-                name: "Company_Employees");
+                name: "Department_Employees");
 
             migrationBuilder.DropTable(
                 name: "Languages");

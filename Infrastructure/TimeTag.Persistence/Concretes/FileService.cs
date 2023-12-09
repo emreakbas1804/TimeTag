@@ -14,10 +14,12 @@ public class FileService : IFileService
 {
     private readonly EntityDbContext _context;
     private readonly IValidationService _validationService;
-    public FileService(EntityDbContext context, IValidationService validationService)
+    private readonly ILocalizationService _localizationService;
+    public FileService(EntityDbContext context, IValidationService validationService, ILocalizationService localizationService)
     {
         _context = context;
         _validationService = validationService;
+        _localizationService = localizationService;
     }
     EntityResultModel entityResultModel = new();
     public async Task<EntityResultModel> UploadFile(IFormFile file, string mainPath, int maxFileSizeMb, string[] acceptExtensions)
@@ -27,20 +29,22 @@ public class FileService : IFileService
         {
 
             if (file == null)
-            {
-                entityResultModel.ResultMessage = "Dosya alınamadı.";
+            {                
+                entityResultModel.ResultMessage = await _localizationService.getLocalization("txt_dosya_alinamadi", "File could not be retrieved");
+
                 return entityResultModel;
             }
             if (string.IsNullOrEmpty(mainPath))
             {
-                entityResultModel.ResultMessage = "Dosya kayıt yolu bulunamadı.";
+                
+                entityResultModel.ResultMessage = await _localizationService.getLocalization("txt_dosya_kayit_yolu_bulunamadi", "File save path not found");
                 return entityResultModel;
             }
 
-            var validateFileSize = _validationService.ValidateFileSize(file, maxFileSizeMb);
+            var validateFileSize =await _validationService.ValidateFileSizeAsync(file, maxFileSizeMb);
             if (validateFileSize.Result != EntityResult.Success) return validateFileSize;
 
-            var validateFileExtension = _validationService.ValidateFileExtension(file, acceptExtensions);
+            var validateFileExtension =await _validationService.ValidateFileExtensionAsync(file, acceptExtensions);
             if (validateFileExtension.Result != EntityResult.Success) return validateFileExtension;
 
 
@@ -49,8 +53,8 @@ public class FileService : IFileService
             string guid = Guid.NewGuid().ToString();
             var path = mainPath + guid + extension;
             var fileSizeMB = (file?.Length ?? 0) / (1024.0 * 1024.0);
-            
-            using (var stream = new FileStream("wwwroot/"+path, FileMode.CreateNew))
+
+            using (var stream = new FileStream("wwwroot/" + path, FileMode.CreateNew))
             {
                 await file.CopyToAsync(stream);
             }
@@ -68,7 +72,8 @@ public class FileService : IFileService
         }
         catch (System.Exception)
         {
-            entityResultModel.ResultMessage = "Beklenmedik bir hata oluştu.";
+            entityResultModel.ResultMessage = await _localizationService.getLocalization("txt_beklenmedik_bir_hata_olustu", "Unknow error. Please try again later");
+
             return entityResultModel;
         }
 

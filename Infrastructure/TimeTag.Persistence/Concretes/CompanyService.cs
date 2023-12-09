@@ -15,13 +15,15 @@ namespace TimeTag.Persistence.Concretes;
 public class CompanyService : ICompanyService
 {
     private readonly EntityDbContext _context;
+    private readonly ILocalizationService _localizationService;
 
     public CompanyService(
-        EntityDbContext context
+        EntityDbContext context,
+        ILocalizationService localizationService
     )
     {
         _context = context;
-
+        _localizationService = localizationService;
     }
     EntityResultModel entityResultModel = new();
     public async Task<EntityResultModel> AddCompany(int userId, int licanceId, string title, string address, string description, string webSite, int? fileUploadId)
@@ -31,13 +33,13 @@ public class CompanyService : ICompanyService
             var isUserExist = _context.Users.Any(q => q.Id == userId);
             if (!isUserExist)
             {
-                entityResultModel.ResultMessage = "İlgili kullanıcı bulunamadı.";
+                entityResultModel.ResultMessage = await _localizationService.getLocalization("txt_kullanici_bulunamadi", "User not found");
                 return entityResultModel;
             }
             var licanceEntity = await _context.Licances.Where(q => q.Id == licanceId && q.IsAdded == false).FirstOrDefaultAsync();
             if (licanceEntity == null)
             {
-                entityResultModel.ResultMessage = "lisans anahtarı geçersiz";
+                entityResultModel.ResultMessage = await _localizationService.getLocalization("txt_lisans_anahtari_gecersiz", "Licance key is invalid");
                 return entityResultModel;
             }
             Company company = new()
@@ -59,7 +61,7 @@ public class CompanyService : ICompanyService
         }
         catch (System.Exception)
         {
-            entityResultModel.ResultMessage = "Beklenmedik bir hata oluştu.";
+            entityResultModel.ResultMessage = await _localizationService.getLocalization("txt_beklenmedik_bir_hata_olustu", "Unknow error. Please try again later");
             return entityResultModel;
         }
 
@@ -72,7 +74,8 @@ public class CompanyService : ICompanyService
             Company company = await _context.Companies.Where(q => q.Id == companyId).FirstOrDefaultAsync();
             if (company == null)
             {
-                entityResultModel.ResultMessage = "Firma bulunamadı.";
+
+                entityResultModel.ResultMessage = await _localizationService.getLocalization("txt_firma_bulunamadi", "Company not found");
                 return entityResultModel;
             }
 
@@ -82,7 +85,7 @@ public class CompanyService : ICompanyService
             company.Description = description;
             company.WebSite = webSite;
             company.rlt_FileUpload_Id = fileUploadId > 0 ? fileUploadId : company.rlt_FileUpload_Id;
-            company.LastUpdateTime = DateTime.Now;             
+            company.LastUpdateTime = DateTime.Now;
             _context.Companies.Update(company);
             await _context.SaveChangesAsync();
             entityResultModel.Result = EntityResult.Success;
@@ -90,7 +93,7 @@ public class CompanyService : ICompanyService
         }
         catch (System.Exception)
         {
-            entityResultModel.ResultMessage = "Beklenmedik bir hata oluştu.";
+            entityResultModel.ResultMessage = await _localizationService.getLocalization("txt_beklenmedik_bir_hata_olustu", "Unknow error. Please try again later");
             return entityResultModel;
         }
 
@@ -98,11 +101,12 @@ public class CompanyService : ICompanyService
 
     public async Task<CompanyDTO> GetCompany(int companyId)
     {
-        CompanyDTO company ;
-        company = await _context.Companies.Where(q=> q.Id == companyId).Select(q=> new CompanyDTO {
+        CompanyDTO company;
+        company = await _context.Companies.Where(q => q.Id == companyId).Select(q => new CompanyDTO
+        {
             Id = q.Id,
-            RecordCreateTime = q.RecordCreateTime,            
-            Title = q.Title,    
+            RecordCreateTime = q.RecordCreateTime,
+            Title = q.Title,
             Address = q.Address,
             WebSite = q.WebSite,
             Description = q.Description,
@@ -113,20 +117,21 @@ public class CompanyService : ICompanyService
 
     public async Task<List<CompanyDTO>> GetCompanies(int userId)
     {
-        var userCompanies = await _context.Companies.Where(q=> q.Owner.Id == userId).Select(c=> new CompanyDTO {
+        var userCompanies = await _context.Companies.Where(q => q.Owner.Id == userId).Select(c => new CompanyDTO
+        {
             Id = c.Id,
             RecordCreateTime = c.RecordCreateTime,
             ImageUrl = c.Logo.FileUrl,
             Title = c.Title,
             Address = c.Address,
             Description = c.Description,
-            WebSite= c.WebSite 
+            WebSite = c.WebSite
         }).ToListAsync();
         return userCompanies;
     }
 
     public bool IsCompanyExist(int companyId)
     {
-        return _context.Companies.Any(q=> q.Id == companyId);
+        return _context.Companies.Any(q => q.Id == companyId);
     }
 }

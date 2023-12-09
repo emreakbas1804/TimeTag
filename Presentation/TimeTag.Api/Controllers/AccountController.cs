@@ -36,10 +36,10 @@ namespace TimeTag.Api.Controllers
         [HttpPost("Register")]
         public async Task<IActionResult> Register(RegisterDTO model)
         {
-            var checkEmail = _validationService.ValidateEmail(model.Email);
+            var checkEmail =await _validationService.ValidateEmailAsync(model.Email);
             if (checkEmail.Result != EntityResult.Success) return Ok(checkEmail);
 
-            var checkPassword = _validationService.ValidatePassword(model.Password);
+            var checkPassword =await _validationService.ValidatePassword(model.Password);
             if (checkPassword.Result != EntityResult.Success) return Ok(checkPassword);
 
             var addUserResult = await _userService.AddUser(model);
@@ -49,7 +49,7 @@ namespace TimeTag.Api.Controllers
         [HttpPost("Login")]
         public async Task<IActionResult> Login(string email, string password)
         {
-            var checkEmail = _validationService.ValidateEmail(email);
+            var checkEmail =await _validationService.ValidateEmailAsync(email);
             if (checkEmail.Result != EntityResult.Success) return Ok(checkEmail);
 
             var userLogin = await _userService.Login(email, password);

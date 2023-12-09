@@ -19,19 +19,22 @@ namespace TimeTag.Api.Controllers
         private readonly ICompanyService _companyService;
         private readonly IFileService _fileService;
         private readonly IDepartmentService _departmentService;
+        private readonly ILocalizationService _localizationService;
         EntityResultModel entityResultModel = new();
 
         public CompanyController(
             ILicanceService licanceService,
             ICompanyService companyService,
             IFileService fileService,
-            IDepartmentService departmentService
+            IDepartmentService departmentService,
+            ILocalizationService localizationService
         )
         {
             _licanceService = licanceService;
             _companyService = companyService;
             _fileService = fileService;
             _departmentService = departmentService;
+            _localizationService = localizationService;
         }
 
         #region Company
@@ -43,7 +46,7 @@ namespace TimeTag.Api.Controllers
             var licanceId = await _licanceService.GetLicanceId(serialNumber);
             if (licanceId <= 0)
             {
-                entityResultModel.ResultMessage = "Lisans anahtarı geçersiz";
+                entityResultModel.ResultMessage = await _localizationService.getLocalization("txt_lisans_anahtari_gecersiz", "Licance key is invalid");
                 return Ok(entityResultModel);
             }
 
@@ -96,7 +99,7 @@ namespace TimeTag.Api.Controllers
             var company = await _companyService.GetCompany(companyId);
             if (company == null)
             {
-                entityResultModel.ResultMessage = "Firma bulunamadı.";
+                entityResultModel.ResultMessage = await _localizationService.getLocalization("txt_firma_bulunamadi", "Company not found");
                 return Ok(entityResultModel);
             }
 
@@ -134,7 +137,7 @@ namespace TimeTag.Api.Controllers
             var department = await _departmentService.GetDepartment(departmentId);
             if (department == null)
             {
-                entityResultModel.ResultMessage = "Departman bulunamadı.";
+                entityResultModel.ResultMessage = await _localizationService.getLocalization("txt_departman_bulunamadi", "Department not found");
                 return Ok(entityResultModel);
             }
             entityResultModel.Result = EntityResult.Success;
@@ -150,7 +153,7 @@ namespace TimeTag.Api.Controllers
             var departments = await _departmentService.GetDepartments(companyId);
             if (departments == null)
             {
-                entityResultModel.ResultMessage = "Departman bulunamadı.";
+                entityResultModel.ResultMessage = await _localizationService.getLocalization("txt_departman_bulunamadi", "Department not found");
                 return Ok(entityResultModel);
             }
             entityResultModel.Result = EntityResult.Success;
