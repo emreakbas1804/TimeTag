@@ -26,8 +26,7 @@ namespace TimeTag.Domain.Entities
         [ForeignKey(nameof(rlt_Licance_Id))]
         public virtual Licance Licance { get; set; }
 
-        public virtual ICollection<Company_Department> Departments { get; set; }
-        public virtual ICollection<Company_Employee> Employees { get; set; }
+        public virtual ICollection<Company_Department> Departments { get; set; }        
 
     }
 
@@ -42,7 +41,7 @@ namespace TimeTag.Domain.Entities
 
         [ForeignKey(nameof(rlt_Company_Id))]
         public Company Company { get; set; }
-        public virtual ICollection<Company_Employee> Employees { get; set; }
+        public virtual ICollection<Company_Department_Employee> Employees { get; set; }
     }
 
 

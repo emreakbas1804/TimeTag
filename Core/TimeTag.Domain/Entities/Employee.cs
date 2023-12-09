@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 using TimeTag.Domain.Enums;
 
 namespace TimeTag.Domain.Entities;
-public class Company_Employee : BaseModel
+public class Company_Department_Employee : BaseModel
 {
     public string NameSurname { get; set; }
     public string Title { get; set; }
@@ -26,12 +26,12 @@ public class Company_Employee : BaseModel
     [ForeignKey(nameof(rlt_Department_Id))]
     public Company_Department Department { get; set; }
 
-    public virtual ICollection<Company_EmployeeBank> Banks { get; set; }
-    public virtual ICollection<Company_EmployeeLog> Logs { get; set; }    
-    public virtual ICollection<Company_EmployeeToken> Tokens {get;set;}
+    public virtual ICollection<Company_Department_Employee_Bank> Banks { get; set; }
+    public virtual ICollection<Company_Department_Employee_Bank> Logs { get; set; }    
+    public virtual ICollection<Company_Department_Employee_Token> Tokens {get;set;}
 
 }
-public class Company_EmployeeBank : BaseModel
+public class Company_Department_Employee_Bank : BaseModel
 {
     public string Name { get; set; }
     public string OwnerName { get; set; }
@@ -39,9 +39,9 @@ public class Company_EmployeeBank : BaseModel
     public int rlt_Employee_Id { get; set; }
 
     [ForeignKey(nameof(rlt_Employee_Id))]
-    public Company_Employee Employee { get; set; }
+    public Company_Department_Employee Employee { get; set; }
 }
-public class Company_EmployeeLog : BaseModel
+public class Company_Department_Employee_Log : BaseModel
 {
     public DateTime ProcessTime { get; set; }
     public LogType Type { get; set; }
@@ -50,14 +50,14 @@ public class Company_EmployeeLog : BaseModel
     public int rlt_Employee_Id { get; set; }
 
     [ForeignKey(nameof(rlt_Employee_Id))]
-    public Company_Employee Employee { get; set; }
+    public Company_Department_Employee Employee { get; set; }
 }
 
-public class Company_EmployeeToken : BaseModel
+public class Company_Department_Employee_Token : BaseModel
 {
     public string Token { get; set; }
     public int rlt_Employee_Id { get; set; }
     [ForeignKey(nameof(rlt_Employee_Id))]
-    public Company_Employee Employee { get; set; }
+    public Company_Department_Employee Employee { get; set; }
 }
 

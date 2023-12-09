@@ -19,10 +19,10 @@ namespace TimeTag.Persistence.Context
         public DbSet<Licance> Licances { get; set; }
         public DbSet<Company> Companies { get; set; }
         public DbSet<Company_Department> Company_Departments { get; set; }
-        public DbSet<Company_Employee> Company_Employees { get; set; }
-        public DbSet<Company_EmployeeBank> Company_EmployeeBanks { get; set; }
-        public DbSet<Company_EmployeeLog> Company_EmployeeLogs { get; set; }        
-        public DbSet<Company_EmployeeToken> Company_EmployeeTokens {get;set;}
+        public DbSet<Company_Department_Employee> Department_Employees { get; set; }
+        public DbSet<Company_Department_Employee_Bank> Employee_Banks { get; set; }
+        public DbSet<Company_Department_Employee_Log> Employee_Logs { get; set; }        
+        public DbSet<Company_Department_Employee_Token> Employee_Tokens {get;set;}
         public DbSet<AppDomain> AppDomains {get;set;}
         public DbSet<Localization> Localizations { get; set; }
         public DbSet<Language> Languages { get; set; }

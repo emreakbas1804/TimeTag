@@ -27,7 +27,7 @@ public class EmployeeService : IEmployeeService
     {
         try
         {
-            Company_Employee employee = new()
+            Company_Department_Employee employee = new()
             {                
                 rlt_Department_Id = employeeModel.DepartmentId,
                 rlt_FileUpload_Id = employeeModel.rlt_FileUpload_Id,
@@ -40,7 +40,7 @@ public class EmployeeService : IEmployeeService
                 StartedJobTime = employeeModel.StartedJobTime,
                 IsActive = true,
             };
-            await _context.Company_Employees.AddAsync(employee);
+            await _context.Department_Employees.AddAsync(employee);
             await _context.SaveChangesAsync();
             entityResultModel.Result = EntityResult.Success;
             return entityResultModel;
@@ -56,7 +56,7 @@ public class EmployeeService : IEmployeeService
     {
         try
         {
-            var employeeEntity = await _context.Company_Employees.Where(q => q.Id == employeeId && q.IsActive).AsNoTracking().FirstOrDefaultAsync();
+            var employeeEntity = await _context.Department_Employees.Where(q => q.Id == employeeId && q.IsActive).AsNoTracking().FirstOrDefaultAsync();
             if (employeeEntity == null)
             {
                 entityResultModel.ResultMessage = "Kullanıcı bulunamadı.";
@@ -72,7 +72,7 @@ public class EmployeeService : IEmployeeService
             employeeEntity.StartedJobTime = startedJobTime;
             employeeEntity.IsActive = isActive;
             employeeEntity.rlt_FileUpload_Id = rlt_FileUpload_Id == 0 ? null : rlt_FileUpload_Id;
-            _context.Company_Employees.Update(employeeEntity);
+            _context.Department_Employees.Update(employeeEntity);
             await _context.SaveChangesAsync();
             entityResultModel.Result = EntityResult.Success;
             return entityResultModel;
@@ -88,7 +88,7 @@ public class EmployeeService : IEmployeeService
     {
         try
         {
-            var employeesQuery = _context.Company_Employees.Where(q => q.Department.Company.Id == companyId && q.IsActive);
+            var employeesQuery = _context.Department_Employees.Where(q => q.Department.Company.Id == companyId && q.IsActive);
             if (departmentId > 0 && departmentId != null)
             {
                 employeesQuery = employeesQuery.Where(q => q.Department.Id == departmentId);
@@ -121,7 +121,7 @@ public class EmployeeService : IEmployeeService
     {
         try
         {
-            var employee = await _context.Company_Employees.Where(q => q.Id == employeeId && q.IsActive).Select(c => new CompanyEmployeeDTO
+            var employee = await _context.Department_Employees.Where(q => q.Id == employeeId && q.IsActive).Select(c => new CompanyEmployeeDTO
             {
                 Id = c.Id,
                 NameSurname = c.NameSurname,
@@ -152,7 +152,7 @@ public class EmployeeService : IEmployeeService
 
     public async Task<int> GetEmployeesCompanyCount(int companyId, int? departmentId)
     {
-        var query = _context.Company_Employees.Where(q => q.Department.Company.Id == companyId);
+        var query = _context.Department_Employees.Where(q => q.Department.Company.Id == companyId);
         if (departmentId > 0)
         {
             query = query.Where(q => q.Department.Id == departmentId);
@@ -169,21 +169,21 @@ public class EmployeeService : IEmployeeService
     {
         try
         {
-            var isEmployeeExist = _context.Company_Employees.Any(q => q.Id == employeeId);
+            var isEmployeeExist = _context.Department_Employees.Any(q => q.Id == employeeId);
             if (!isEmployeeExist)
             {
                 entityResultModel.ResultMessage = "Kullanıcı bulunamadı.";
                 return entityResultModel;
             }
 
-            Company_EmployeeBank bank = new()
+            Company_Department_Employee_Bank bank = new()
             {
                 rlt_Employee_Id = employeeId,
                 Name = bankName,
                 OwnerName = ownerName,
                 Iban = iban,
             };
-            await _context.Company_EmployeeBanks.AddAsync(bank);
+            await _context.Employee_Banks.AddAsync(bank);
             await _context.SaveChangesAsync();
             entityResultModel.Result = EntityResult.Success;
             return entityResultModel;
@@ -200,17 +200,17 @@ public class EmployeeService : IEmployeeService
     {
         try
         {
-            var isBankExist = _context.Company_EmployeeBanks.Any(q => q.Id == bankId);
+            var isBankExist = _context.Employee_Banks.Any(q => q.Id == bankId);
             if (!isBankExist)
             {
                 entityResultModel.ResultMessage = "Banka bilgisi bulunamadı";
                 return entityResultModel;
             }
-            var bankEntity = await _context.Company_EmployeeBanks.Where(q => q.Id == bankId).FirstOrDefaultAsync();
+            var bankEntity = await _context.Employee_Banks.Where(q => q.Id == bankId).FirstOrDefaultAsync();
             bankEntity.Name = bankName;
             bankEntity.OwnerName = ownerName;
             bankEntity.Iban = iban;
-            _context.Company_EmployeeBanks.Update(bankEntity);
+            _context.Employee_Banks.Update(bankEntity);
             await _context.SaveChangesAsync();
             entityResultModel.Result = EntityResult.Success;
             return entityResultModel;
@@ -226,7 +226,7 @@ public class EmployeeService : IEmployeeService
     {
         try
         {
-            var bankQuery = _context.Company_EmployeeBanks.Where(q => q.Employee.Id == employeeId && q.Employee.IsActive);
+            var bankQuery = _context.Employee_Banks.Where(q => q.Employee.Id == employeeId && q.Employee.IsActive);
             if (bankId > 0)
             {
                 bankQuery = bankQuery.Where(q => q.Id == bankId);
@@ -256,13 +256,13 @@ public class EmployeeService : IEmployeeService
     {
         try
         {
-            var bankEntity = await _context.Company_EmployeeBanks.Where(q => q.Id == bankId).AsNoTracking().FirstOrDefaultAsync();
+            var bankEntity = await _context.Employee_Banks.Where(q => q.Id == bankId).AsNoTracking().FirstOrDefaultAsync();
             if (bankEntity == null)
             {
                 entityResultModel.ResultMessage = "Banak bilgisi bulunamadı.";
                 return entityResultModel;
             }
-            _context.Company_EmployeeBanks.Remove(bankEntity);
+            _context.Employee_Banks.Remove(bankEntity);
             await _context.SaveChangesAsync();
             entityResultModel.Result = EntityResult.Success;
             return entityResultModel;
@@ -283,13 +283,13 @@ public class EmployeeService : IEmployeeService
         try
         {
             var ipAddress = _httpContextAccessor.HttpContext.Connection.RemoteIpAddress?.ToString();
-            var emploeeId = await _context.Company_EmployeeTokens.Where(q => q.Token == token).Select(c => c.Employee.Id).FirstOrDefaultAsync();
+            var emploeeId = await _context.Employee_Tokens.Where(q => q.Token == token).Select(c => c.Employee.Id).FirstOrDefaultAsync();
             if (emploeeId == 0)
             {
                 entityResultModel.ResultMessage = "Kullanıcı bulunamadı.";
                 return entityResultModel;
             }
-            Company_EmployeeLog loginJob = new()
+            Company_Department_Employee_Log loginJob = new()
             {
                 ProcessTime = DateTime.Now,
                 Type = type,
@@ -297,7 +297,7 @@ public class EmployeeService : IEmployeeService
                 Token = token,
                 rlt_Employee_Id = emploeeId
             };
-            await _context.Company_EmployeeLogs.AddAsync(loginJob);
+            await _context.Employee_Logs.AddAsync(loginJob);
             await _context.SaveChangesAsync();
             entityResultModel.Result = EntityResult.Success;
             return entityResultModel;
@@ -316,7 +316,7 @@ public class EmployeeService : IEmployeeService
     {
         try
         {
-            var query = _context.Company_EmployeeLogs.Where(q=> q.rlt_Employee_Id == emploeeId);
+            var query = _context.Employee_Logs.Where(q=> q.rlt_Employee_Id == emploeeId);
             if(startDate != null ){
                 query = query.Where(q=> q.RecordCreateTime > startDate);
             }
