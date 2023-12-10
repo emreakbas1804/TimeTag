@@ -62,8 +62,10 @@ export class AccountService {
     return throwError(() => message);
   }
 
-  logOut(){
-    localStorage.clear();
+  logOut(){    
+    localStorage.removeItem("accessToken");
+    localStorage.removeItem("currentCompanyId");
+    localStorage.removeItem("user");
     this.user.next(null);
   }
 

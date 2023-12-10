@@ -20,6 +20,7 @@ import { MyEmployeesComponent } from './Employee/my-employees/my-employees.compo
 import { EmployeeDetailComponent } from './Employee/employee-detail/employee-detail.component';
 import { BankAccountsComponent } from './Employee/bank-accounts/bank-accounts.component';
 import { TimeLogsComponent } from './Employee/time-logs/time-logs.component';
+import { TranslateModule } from '@ngx-translate/core';
 
 @NgModule({
   providers :[
@@ -49,7 +50,8 @@ import { TimeLogsComponent } from './Employee/time-logs/time-logs.component';
     MatTableModule,
     MatPaginatorModule,
     MatSnackBarModule,
-    CommonModule  
+    CommonModule,
+    TranslateModule  
   ],
  
 })

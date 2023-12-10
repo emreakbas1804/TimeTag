@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { ActivatedRoute, Route, Router } from '@angular/router';
+import { TranslateService } from '@ngx-translate/core';
 import { tap } from 'rxjs';
 import { Result } from 'src/app/Models/EntityResultModel';
 import { AccountService } from 'src/app/Services/httpService/account.service';
@@ -12,7 +13,7 @@ import { AccountService } from 'src/app/Services/httpService/account.service';
 })
 export class LoginComponent implements OnInit {
 
-  constructor(private accountService: AccountService, private activatedRoute: ActivatedRoute, private route: Router) { }
+  constructor(private accountService: AccountService, private activatedRoute: ActivatedRoute, private route: Router, private translateService : TranslateService) { }
   returnUrl = "/panel";
   info: string | null = null;
   infoColor: string | null = null;
@@ -25,8 +26,8 @@ export class LoginComponent implements OnInit {
   }
 
   login(form: NgForm) {
-    if (form.invalid) {
-      this.info = "Form validation error";
+    if (form.invalid) {      
+      this.info = this.translateService.instant("General.formValidationError");
       this.infoColor = "danger";
       return;
     }

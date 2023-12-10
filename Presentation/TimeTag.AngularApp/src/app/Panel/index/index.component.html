@@ -11,7 +11,7 @@
                     <div class="col-md-4">
                         <div class="card select2-card">
                             <select id="selectCompany" class="select2" [(ngModel)]="selectedCompany">
-                                <option [value]=0>My Companies</option>
+                                <option [value]=0>{{"Panel-index.myCompanies" | translate}}                      </option>
                                 <option [value]="company.id" *ngFor="let company of companies">{{ company.title }}
                                 </option>
                             </select>
@@ -23,7 +23,7 @@
                     <div class="col-md-5">
                         <div class="card p-4 mt-2 card-chart">
                             <h1 class="h3">
-                                My Departments                           
+                                {{"Panel-index.myDepartments" | translate}}                      
                                 <i class="bi bi-collection"></i>
                             </h1>
                             <p class="badge-count">{{departmentCount}}</p>
@@ -34,7 +34,7 @@
                     <div class="col-md-5">
                         <div class="card p-4 mt-2 card-chart">
                             <h1 class="h3">
-                                My Emploeyees                                
+                                {{"Panel-index.myEmployees" | translate}}                                    
                                 <i class="bi bi-person"></i>
                             </h1>
                             <p class="badge-count">{{employeeCount}}</p>

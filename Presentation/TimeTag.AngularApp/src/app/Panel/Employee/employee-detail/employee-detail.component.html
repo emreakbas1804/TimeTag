@@ -8,8 +8,10 @@
             <div class="main-container">
                 <div class="row">
                     <h1 class="h3">{{employee.nameSurname}}
-                        <a [routerLink]="['/panel/logs', employeeId]"class="router-link router-link-right">Show logs</a>
-                        <a [routerLink]="['/panel/bank-accounts', employeeId]" class="router-link router-link-right">Show bank accounts</a>
+                        <a [routerLink]="['/panel/logs', employeeId]"class="router-link router-link-right">
+                            {{"Employee-detail.showLogs" | translate}}
+                        </a>
+                        <a [routerLink]="['/panel/bank-accounts', employeeId]" class="router-link router-link-right">{{"Employee-detail.showBankAccounts" | translate}}</a>
                     </h1>
                     <hr>
 
@@ -21,24 +23,24 @@
 
                                 <!-- Name -->
                                 <div class="form-group row mb-3">
-                                    <label class="col-sm-3 col-form-label required">Full Name </label>
+                                    <label class="col-sm-3 col-form-label required">{{"Employee-detail.fullName" | translate}} </label>
                                     <div class="col-sm-9">
-                                        <input type="text" class="form-input" placeholder="Name Surname" name="fullName"
+                                        <input type="text" class="form-input" placeholder="{{'Employee-detail.fullName' | translate}}" name="fullName"
                                             [(ngModel)]="employee.nameSurname" required #fullName="ngModel" [maxlength]="30">
                                         <div class="text-danger mt-1" *ngIf="fullName.invalid && fullName.touched">
-                                            Name Surname is required
+                                            {{"Employee-detail.nameSurnameIsRequired" | translate}}
                                         </div>
                                     </div>
                                 </div>
 
                                 <!-- Department -->
                                 <div class="form-group row mb-3">
-                                    <label class="col-sm-3 col-form-label required">Department </label>
+                                    <label class="col-sm-3 col-form-label required">{{"Employee-detail.department" | translate}} </label>
                                     <div class="col-sm-9">
                                         <div class="card select2-card">
                                             <select id="selectDepartment" class="select2"
                                                 [(ngModel)]="selectedDepartment" name="selectDepartment">
-                                                <option [value]=0>Select department</option>
+                                                <option [value]=0>{{"Employee-detail.selectDepartment" | translate}}</option>
                                                 <option [value]="department.id" *ngFor="let department of departments">
                                                     {{ department.name }} </option>
                                             </select>
@@ -48,36 +50,36 @@
 
                                 <!-- Title -->
                                 <div class="form-group row mb-3">
-                                    <label class="col-sm-3 col-form-label">Title </label>
+                                    <label class="col-sm-3 col-form-label">{{"Employee-detail.title" | translate}} </label>
                                     <div class="col-sm-9">
-                                        <input type="text" class="form-input" placeholder="Title"
+                                        <input type="text" class="form-input" placeholder="{{'Employee-detail.title' | translate}}" 
                                             [(ngModel)]="employee.title" name="title" #title="ngModel" [maxlength]="30">
                                     </div>
                                 </div>
 
                                 <!-- Phone -->
                                 <div class="form-group row mb-3">
-                                    <label class="col-sm-3 col-form-label">Phone </label>
+                                    <label class="col-sm-3 col-form-label">{{"Employee-detail.phone" | translate}} </label>
                                     <div class="col-sm-9">
-                                        <input type="text" class="form-input" placeholder="Phone"
+                                        <input type="text" class="form-input" placeholder="{{'Employee-detail.phone' | translate}}" 
                                             [(ngModel)]="employee.phone" name="phone" #phone="ngModel" [maxlength]="20">
                                     </div>
                                 </div>
 
                                 <!-- Address -->
                                 <div class="form-group row mb-3">
-                                    <label class="col-sm-3 col-form-label">Address </label>
+                                    <label class="col-sm-3 col-form-label">{{"Employee-detail.address" | translate}} </label>
                                     <div class="col-sm-9">
-                                        <input type="text" class="form-input" placeholder="Address"
+                                        <input type="text" class="form-input" placeholder="{{'Employee-detail.address' | translate}}" 
                                             [(ngModel)]="employee.address" name="address" #address="ngModel">
                                     </div>
                                 </div>
 
                                 <!-- Email -->
                                 <div class="form-group row mb-3">
-                                    <label class="col-sm-3 col-form-label">Email </label>
+                                    <label class="col-sm-3 col-form-label">{{"Employee-detail.email" | translate}} </label>
                                     <div class="col-sm-9">
-                                        <input type="text" class="form-input" placeholder="Email"
+                                        <input type="text" class="form-input" placeholder="{{'Employee-detail.email' | translate}}" 
                                             [(ngModel)]="employee.email" name="email" #email="ngModel">
                                     </div>
                                 </div>
@@ -85,7 +87,7 @@
 
                                 <!-- Birth day -->
                                 <div class="form-group row mb-3">
-                                    <label class="col-sm-3 col-form-label">Birth Day </label>
+                                    <label class="col-sm-3 col-form-label">{{"Employee-detail.birthDay" | translate}} </label>
                                     <div class="col-sm-9">
                                         <input type="date" [(ngModel)]="employee.birthDay" name="birthDay"
                                             #birthDay="ngModel">
@@ -94,7 +96,7 @@
 
                                 <!-- Photo -->
                                 <div class="form-group row mb-3">
-                                    <label class="col-sm-3 col-form-label">Photo </label>
+                                    <label class="col-sm-3 col-form-label">{{"Employee-detail.photo" | translate}} </label>
                                     <div class="col-sm-9">
                                         <div class="row">
                                             <div class="col-10">
@@ -119,18 +121,14 @@
                                 </div>
 
                                 <div *ngIf="!loading">
-                                    <button type="submit">Update Employee</button>
+                                    <button type="submit">{{"Employee-detail.updateEmployee" | translate}}</button>
                                 </div>
 
                             </form>
                         
                     </div>
 
-                    <div class="col-md-4">
-                        <div class="row">
                  
-                        </div>
-                    </div>
 
                     
 

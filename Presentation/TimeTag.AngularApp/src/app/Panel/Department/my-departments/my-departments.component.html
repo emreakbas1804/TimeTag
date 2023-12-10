@@ -8,12 +8,12 @@
             <div class="main-container">
                 <div class="row">
                     <div class="col-md-10 mt-3">
-                        <h1 class="h3">My Departments
-                            <a routerLink="/panel/add-department" class="router-link router-link-right">Create department</a>
+                        <h1 class="h3"> {{"My-departments.myDepartments" | translate}} 
+                            <a routerLink="/panel/add-department" class="router-link router-link-right">{{"My-departments.createDepartment" | translate}} </a>
                         </h1>
                         <hr>
 
-                        <p class="text-muted">Your company list is here</p>
+                        <p class="text-muted">{{"My-departments.yourDepartmentListHere" | translate}} </p>
                         <div class="table-container">
 
 
@@ -21,27 +21,28 @@
 
 
                                 <ng-container matColumnDef="name">
-                                    <th mat-header-cell *matHeaderCellDef class="h5 text-center">Name</th>
+                                    <th mat-header-cell *matHeaderCellDef class="h5 text-center">{{"My-departments.name" | translate}} </th>
                                     <td mat-cell *matCellDef="let element">{{element.name}}</td>
                                 </ng-container>
 
                                 
                                 <ng-container matColumnDef="startJobTime">
-                                    <th mat-header-cell *matHeaderCellDef class="h5 text-center">Start Work Time</th>
+                                    <th mat-header-cell *matHeaderCellDef class="h5 text-center">{{"My-departments.startWorkTime" | translate}} </th>
                                     <td mat-cell *matCellDef="let element">{{element.startJobTime}}</td>
                                 </ng-container>
 
                                 <ng-container matColumnDef="finishJobTime">
-                                    <th mat-header-cell *matHeaderCellDef class="h5 text-center">Finish Work Time</th>
+                                    <th mat-header-cell *matHeaderCellDef class="h5 text-center">{{"My-departments.finishWorkTime" | translate}} </th>
                                     <td mat-cell *matCellDef="let element">{{element.finishJobTime}}</td>
                                 </ng-container>
 
 
                                 <ng-container matColumnDef="id">
-                                    <th mat-header-cell *matHeaderCellDef class="h5 text-center">Edit</th>
+                                    <th mat-header-cell *matHeaderCellDef class="h5 text-center">{{"My-departments.edit" | translate}} </th>
                                     <td mat-cell *matCellDef="let element">
-                                        <a [routerLink]="['/panel/edit-department', element.id]" class="btn-edit">Edit
-                                            department <i class="bi bi-pencil"></i></a>
+                                        <a [routerLink]="['/panel/edit-department', element.id]" class="btn-edit">
+                                            {{"My-departments.editDepartment" | translate}} 
+                                        <i class="bi bi-pencil"></i></a>
 
                                     </td>
                                 </ng-container>

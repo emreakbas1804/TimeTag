@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
+import { TranslateService } from '@ngx-translate/core';
 import { Result } from 'src/app/Models/EntityResultModel';
 import { RegisterModel } from 'src/app/Models/RegisterModel';
 import { AccountService } from 'src/app/Services/httpService/account.service';
@@ -11,7 +12,7 @@ declare var $: any;
 })
 export class RegisterComponent implements OnInit {
 
-  constructor(private accountService: AccountService) { }
+  constructor(private accountService: AccountService, private translateService : TranslateService) { }
   info: string | null = null;
   infoColor: string | null = null;
   loading: boolean = false;
@@ -29,7 +30,7 @@ export class RegisterComponent implements OnInit {
 
   register(form: NgForm) {
     if (form.invalid) {
-      this.info = "Form validation error";
+      this.info = this.translateService.instant("General.formValidationError")
       this.infoColor = "danger";
       window.scroll({
         top: 0,

@@ -19,11 +19,13 @@ export class RequestHeaderInterceptor implements HttpInterceptor {
   intercept(request: HttpRequest<unknown>, next: HttpHandler): Observable<HttpEvent<unknown>> {
 
     const jwtToken = localStorage.getItem("accessToken");
+    const langCode = localStorage.getItem("langCode") ?? "en";
     if (jwtToken) {
       const clonedRequest = request.clone({
         setHeaders: {
           "Authorization": `Bearer ${jwtToken}`,
-          "AccessToken": "1234567!"
+          "AccessToken": "1234567!",
+          "langCode" : langCode
         }
       })
       

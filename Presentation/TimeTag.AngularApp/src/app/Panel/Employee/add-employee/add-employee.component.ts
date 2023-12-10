@@ -1,6 +1,7 @@
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { Router } from '@angular/router';
+import { TranslateService } from '@ngx-translate/core';
 import { firstValueFrom } from 'rxjs';
 import { Result } from 'src/app/Models/EntityResultModel';
 import { SnackBarService } from 'src/app/Services/customService/snack-bar.service';
@@ -21,7 +22,7 @@ export class AddEmployeeComponent implements OnInit {
   departments: any[] = [];
   selectedDepartment: any = 0;
   
-  constructor(private snackBarService: SnackBarService, private employeeService: EmployeeService, private companyService: CompanyService, private router: Router) { }
+  constructor(private snackBarService: SnackBarService, private employeeService: EmployeeService, private companyService: CompanyService, private router: Router, private translateService : TranslateService) { }
 
   async ngOnInit(): Promise<void> {
     await this.getDepartments();
@@ -40,7 +41,7 @@ export class AddEmployeeComponent implements OnInit {
 
   addEmployee(form: NgForm) {
     if (form.invalid || this.selectedDepartment == 0) {
-      this.snackBarService.error("Form validation error");
+      this.snackBarService.error(this.translateService.instant("General.formValidationError"));
       return;
     }
     this.loading = true;
@@ -49,7 +50,7 @@ export class AddEmployeeComponent implements OnInit {
       next: response => {
         this.loading = false;
         if (response.result == Result.Success) {
-          this.snackBarService.success("Added employee");
+          this.snackBarService.success(this.translateService.instant("General.createdEmployee"));
           form.reset();
           this.selectedFile = null;
         }
@@ -59,7 +60,7 @@ export class AddEmployeeComponent implements OnInit {
         }
       },
       error: err => {
-        this.snackBarService.error("UnKnow Error. Please try again later.");
+        this.snackBarService.error(this.translateService.instant("General.anUnexpectedErrorOccurred"))
         this.loading = false;
       }
     })
@@ -86,12 +87,12 @@ export class AddEmployeeComponent implements OnInit {
     const file = event.target.files[0];
 
     if (!this.allowedTypes.includes(file.type)) {
-      this.snackBarService.error("File type is invalid");
+      this.snackBarService.error(this.translateService.instant("General.fileSizeConnotBiggerThan10Mb"));
       return
     }
     const maxSize = 10 * 1024 * 1024; // 10MB
     if (file.size > maxSize) {
-      this.snackBarService.error("File size con not bigger than 10 MB");
+      this.snackBarService.error(this.translateService.instant("General.fileSizeConnotBiggerThan10Mb"));
       return
     }
     if (file) {

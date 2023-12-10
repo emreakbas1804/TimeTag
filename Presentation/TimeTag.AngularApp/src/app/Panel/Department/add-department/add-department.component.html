@@ -10,65 +10,68 @@
 
                     <div class="col-md-8 mt-3">
 
-                        <h1 class="h3">Create Department
-                            <a routerLink="/panel/my-departments" class="router-link router-link-right">My
-                                Departments</a>
+                        <h1 class="h3">{{"Add-department.createDepartment" | translate}}
+                            <a routerLink="/panel/my-departments" class="router-link router-link-right">
+                                {{"Add-department.myDepartments" | translate}}    
+                            </a>
                         </h1>
                         <hr>
-                        <p class="text-muted">You can add a department and specify employees belonging to this
-                            department</p>
+                        <p class="text-muted">
+                            {{"Add-department.youCanAddADepartmentAndSpecifyEmployeeBelongingToThisDepartment" | translate}}    
+                            
+                        </p>
 
                         <div class="mt-5">
 
                             <form #form="ngForm" (ngSubmit)="addDepartment(form)">
                                 <!-- Name -->
                                 <div class="form-group row mb-3">
-                                    <label class="col-sm-2 col-form-label required">Name </label>
+                                    <label class="col-sm-2 col-form-label required">{{"Add-department.name" | translate}}</label>
                                     <div class="col-sm-10">
-                                        <input type="text" class="form-input" placeholder="Name" name="name" ngModel required #name="ngModel">
+                                        <input type="text" class="form-input" placeholder="{{'Add-department.name' | translate}}" name="name" ngModel required #name="ngModel">
                                         <div class="text-danger mt-1" *ngIf="name.invalid && name.touched">
-                                            Name is required
+                                            {{"Add-department.nameIsRequired" | translate}}    
                                         </div>
                                     </div>
                                 </div>
 
                                 <!-- Address -->
                                 <div class="form-group row mb-3">
-                                    <label class="col-sm-2 col-form-label">Address </label>
+                                    <label class="col-sm-2 col-form-label">{{"Add-department.address" | translate}}     </label>
                                     <div class="col-sm-10">
-                                        <input type="text" class="form-input" placeholder="Address" ngModel name="address" #address="ngModel">
+                                        <input type="text" class="form-input" placeholder="{{'Add-department.address' | translate}}" ngModel name="address" #address="ngModel">
                                     </div>
                                 </div>
 
                                 <!-- Description -->
                                 <div class="form-group row mb-3">
-                                    <label class="col-sm-2 col-form-label">Description </label>
+                                    <label class="col-sm-2 col-form-label">{{"Add-department.description" | translate}}     </label>
                                     <div class="col-sm-10">
-                                        <input type="text" class="form-input" placeholder="Description" ngModel
+                                        <input type="text" class="form-input" placeholder="{{'Add-department.description' | translate}}" ngModel
                                             name="description" #description="ngModel">
                                     </div>
                                 </div>
 
                                 <!-- Start Work time -->
                                 <div class="form-group row mb-3">
-                                    <label class="col-sm-2 col-form-label required">Start Time </label>
+                                    <label class="col-sm-2 col-form-label required">{{"Add-department.startTime" | translate}}     </label>
                                     <div class="col-sm-10">
-                                        <input placeholder="Start Work Time" [ngxTimepicker]="startWorkTime" [format]="24" ngModel required #startJobTime ="ngModel" name="startJobTime">
+                                        <input placeholder="{{'Add-department.startTime' | translate}}" [ngxTimepicker]="startWorkTime" [format]="24" ngModel required #startJobTime ="ngModel" name="startJobTime">
                                         <ngx-material-timepicker #startWorkTime></ngx-material-timepicker>
                                         <div class="text-danger mt-1" *ngIf="startJobTime.invalid && startJobTime.touched">
-                                            Start work time is required
+                                            {{"Add-department.startTimeIsRequired" | translate}}    
                                         </div>
                                     </div>
                                 </div>
 
                                  <!-- Finish Work time -->
                                  <div class="form-group row mb-3">
-                                    <label class="col-sm-2 col-form-label required">Finish Time </label>
+                                    <label class="col-sm-2 col-form-label required">{{"Add-department.finishTime" | translate}}    </label>
                                     <div class="col-sm-10">
-                                        <input placeholder="Finish Work Time" [ngxTimepicker]="finishWorkTime" [format]="24" ngModel required #finishJobTime ="ngModel" name="finishJobTime" >
+                                        <input placeholder="{{'Add-department.finishTime' | translate}}" [ngxTimepicker]="finishWorkTime" [format]="24" ngModel required #finishJobTime ="ngModel" name="finishJobTime" >
                                         <ngx-material-timepicker #finishWorkTime></ngx-material-timepicker>
                                         <div class="text-danger mt-1" *ngIf="finishJobTime.invalid && finishJobTime.touched">
-                                            Finish work time is required
+                                            {{"Add-department.finishTimeIsRequired" | translate}}    
                                         </div>
                                     </div>
                                 </div>
@@ -79,7 +82,7 @@
                                 </div>
 
                                 <div *ngIf="!loading">
-                                    <button type="submit">Create Department</button>
+                                    <button type="submit">{{"Add-department.createDepartment" | translate}}    </button>
                                 </div>
 
                             </form>
