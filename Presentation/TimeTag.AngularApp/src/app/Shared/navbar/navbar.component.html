@@ -10,31 +10,28 @@
         </div>
   
         <div class="navb-items d-none d-md-flex">
+            
             <div class="item">
-                <a routerLink="/">SATIN AL</a>
+                <a href="/#features">{{"Navbar.Features" | translate}}</a>
             </div>
   
             <div class="item">
-                <a routerLink="/services">ÖZELLİKLER</a>
+                <a href="/#howToUse">{{"Navbar.HowToUse" | translate}}</a>
             </div>
   
             <div class="item">
-                <a routerLink="/cases">NASIL KULLANILIR</a>
-            </div>
-  
-            <div class="item">
-                <a routerLink="/about">İLETİŞİM</a>
+                <a href="/#contact">{{"Navbar.Contact" | translate}}</a>
             </div>
   
             <div class="item-button">
-                <a routerLink="/panel" type="button">PANEL</a>
+                <a routerLink="/panel" type="button">{{"Navbar.Panel" | translate}}</a>
             </div>
         </div>
   
         <!-- Button trigger modal -->
         <div class="mobile-toggler d-lg-none">
             <a data-bs-toggle="modal" data-bs-target="#navbModal">
-                <i class="fa-solid fa-bars"></i>x
+                <i class="bi bi-list"></i>
             </a>
         </div>
   
@@ -51,23 +48,20 @@
   
                     <div class="modal-body">
   
+
                         <div class="modal-line">
-                          <i class="fa-solid fa-cart-shopping"></i><a href="/">SATIN AL</a>
+                            <a href="/#features">{{"Navbar.Features" | translate}}</a>
                         </div>
   
                         <div class="modal-line">
-                            <i class="fa-solid fa-bell-concierge"></i><a href="/services">ÖZELLİKLER</a>
+                            <a href="/#howToUse">{{"Navbar.HowToUse" | translate}}</a>
                         </div>
   
                         <div class="modal-line">
-                            <i class="fa-solid fa-file-lines"></i> <a href="/cases">NASIL KULLANILIR</a>
+                            <a href="/#contact">{{"Navbar.Contact" | translate}}</a>
                         </div>
   
-                        <div class="modal-line">
-                            <i class="fa-solid fa-circle-info"></i><a href="/about">İLETİŞİM</a>
-                        </div>
-  
-                        <a routeLink="panel" class="navb-button" type="button">PANEL</a>
+                        <a routeLink="/panel" class="navb-button" type="button">{{"Navbar.Panel" | translate}}</a>
                     </div>
   
                     <div class="mobile-modal-footer">

@@ -43,15 +43,15 @@ public class UserService : IUserService
             bool isUserExist = IsUserExistByEmail(model.Email);
             if (isUserExist)
             {
-                entityResultModel.Result = EntityResult.Error;                
-                entityResultModel.ResultMessage = await _localizationService.getLocalization("txt_mail_adresi_sistemimizde_kayitli","Email address registered in our system");
+                entityResultModel.Result = EntityResult.Error;
+                entityResultModel.ResultMessage = await _localizationService.getLocalization("txt_mail_adresi_sistemimizde_kayitli", "Email address registered in our system");
                 return entityResultModel;
             }
             bool isPhoneExist = IsPhoneExist(model.Phone);
             if (isPhoneExist)
             {
                 entityResultModel.Result = EntityResult.Error;
-                entityResultModel.ResultMessage = await _localizationService.getLocalization("txt_telefon_numarasi_sistemimizde_kayitli","Phone number registered in our system");
+                entityResultModel.ResultMessage = await _localizationService.getLocalization("txt_telefon_numarasi_sistemimizde_kayitli", "Phone number registered in our system");
             }
             model.Password = _cryptoService.HashPassword(model.Password);
             User user = new User()
@@ -69,8 +69,8 @@ public class UserService : IUserService
             entityResultModel.Result = EntityResult.Success;
         }
         catch (System.Exception)
-        {            
-            entityResultModel.ResultMessage = await _localizationService.getLocalization("txt_beklenmedik_bir_hata_olustu","Unknow error. Please try again later");
+        {
+            entityResultModel.ResultMessage = await _localizationService.getLocalization("txt_beklenmedik_bir_hata_olustu", "Unknow error. Please try again later");
         }
         return entityResultModel;
     }
@@ -86,22 +86,22 @@ public class UserService : IUserService
                 if (userEntity.Password == password)
                 {
                     AddLoginLog(userEntity.Id, true);
-                    string role = await _context.Users.Where(q=> q.Email == email).Select(c=> c.Role.Name).FirstOrDefaultAsync() ?? "User";
+                    string role = await _context.Users.Where(q => q.Email == email).Select(c => c.Role.Name).FirstOrDefaultAsync() ?? "User";
                     return await GenerateTokenAsync(userEntity, role);
                 }
                 else
                 {
                     AddLoginLog(userEntity.Id, false);
                     entityResultModel.ResultMessage = "Mail adresi veya parola hatalı";
-                    entityResultModel.ResultMessage = await _localizationService.getLocalization("txt_mail_adresi_veya_parola_hatali","Email address or password is incorrect");
+                    entityResultModel.ResultMessage = await _localizationService.getLocalization("txt_mail_adresi_veya_parola_hatali", "Email address or password is incorrect");
                     return entityResultModel;
                 }
             }
-            entityResultModel.ResultMessage = await _localizationService.getLocalization("txt_mail_adresi_bulunamadi","Email address not found");
+            entityResultModel.ResultMessage = await _localizationService.getLocalization("txt_mail_adresi_bulunamadi", "Email address not found");
         }
         catch (System.Exception)
         {
-            entityResultModel.ResultMessage = await _localizationService.getLocalization("txt_beklenmedik_bir_hata_olustu","Unknow error. Please try again later");
+            entityResultModel.ResultMessage = await _localizationService.getLocalization("txt_beklenmedik_bir_hata_olustu", "Unknow error. Please try again later");
         }
 
         return entityResultModel;
@@ -154,7 +154,7 @@ public class UserService : IUserService
         }
         catch (System.Exception)
         {
-            entityResultModel.ResultMessage = await _localizationService.getLocalization("txt_beklenmedik_bir_hata_olustu","Unknow error. Please try again later");
+            entityResultModel.ResultMessage = await _localizationService.getLocalization("txt_beklenmedik_bir_hata_olustu", "Unknow error. Please try again later");
         }
         return entityResultModel;
     }
@@ -215,4 +215,85 @@ public class UserService : IUserService
         return currentUser;
     }
 
+    public async Task<EntityResultModel> UpdateUser(int userId, string email, string phone, string password)
+    {
+        try
+        {
+            var userEntity = await _context.Users.Where(q => q.Id == userId).FirstOrDefaultAsync();
+            if (userEntity == null)
+            {
+                entityResultModel.ResultMessage = await _localizationService.getLocalization("txt_kullanici_bulunamadi", "User not found");
+                return entityResultModel;
+            }
+
+            userEntity.Email = email;
+            userEntity.Phone = phone;
+            if (!string.IsNullOrEmpty(password))
+            {
+                userEntity.Password = _cryptoService.HashPassword(password);
+            }
+            _context.Users.Update(userEntity);
+            await _context.SaveChangesAsync();
+            entityResultModel.Result = EntityResult.Success;
+            return entityResultModel;
+        }
+        catch (System.Exception)
+        {
+            entityResultModel.ResultMessage = await _localizationService.getLocalization("txt_beklenmedik_bir_hata_olustu", "Unknow error. Please try again later");
+            return entityResultModel;
+        }
+
+    }
+
+    public async Task<EntityResultModel> GetUserProfile(int userId)
+    {
+        try
+        {
+            var userEntity = await _context.Users.Where(q => q.Id == userId).Select(c => new
+            {
+                Name = c.Name,
+                Surname = c.Surname,
+                Email = c.Email,
+                Phone = c.Phone,
+                Password = ""
+            }).FirstOrDefaultAsync();
+            if (userEntity == null)
+            {
+                entityResultModel.ResultMessage = await _localizationService.getLocalization("txt_kullanici_bulunamadi", "User not found");
+                return entityResultModel;
+            }
+            entityResultModel.Result = EntityResult.Success;
+            entityResultModel.ResultObject = userEntity;
+            return entityResultModel;
+        }
+        catch (System.Exception)
+        {
+            entityResultModel.ResultMessage = await _localizationService.getLocalization("txt_beklenmedik_bir_hata_olustu", "Unknow error. Please try again later");
+            return entityResultModel;
+        }
+
+    }
+
+    public async Task<EntityResultModel> AddContactMessage(string nameSurname, string phone, string email, string message)
+    {
+        try
+        {
+            Contact contactMessage = new()
+            {
+                Email = email,
+                NameSurname = nameSurname,
+                Phone = phone,
+                Message = message
+            };
+            await _context.Contacts.AddAsync(contactMessage);
+            await _context.SaveChangesAsync();
+            entityResultModel.Result = EntityResult.Success;
+            return entityResultModel;
+        }
+        catch (System.Exception)
+        {
+            entityResultModel.ResultMessage = await _localizationService.getLocalization("txt_beklenmedik_bir_hata_olustu", "Unknow error. Please try again later");
+            return entityResultModel;
+        }
+    }
 }

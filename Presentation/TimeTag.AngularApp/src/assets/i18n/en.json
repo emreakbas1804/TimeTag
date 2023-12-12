@@ -1,4 +1,10 @@
 {
+    "Navbar" : {
+        "Features" : "FEATURES",
+        "HowToUse" : "HOW TO USE" ,
+        "Contact" : "CONTACT",
+        "Panel" : "PANEL"
+    },
     "Panel-navbar" : {
         "profile" : "Profile",
         "logOut" : "Log out"        
@@ -10,7 +16,8 @@
         "myDepartments" : "My departments",
         "createEmployee" : "Create Employee",
         "myEmployees" : "My employees",
-        "profile" : "Profile"
+        "profile" : "Profile",
+        "homePage"  :"Home Page"
     },
     "Login" : {
         "welcomeToTimeTag" : "Welcome to time tag",
@@ -198,7 +205,61 @@
         "createdEmployee" : "Created Employee",
         "createdBankAccount"  :"Created Bank Account",
         "updatedEmployee" : "Updated Employee",
-        "youMustAddADepartmentForAddEmployee" : "You must add a departman for add employee"
+        "youMustAddADepartmentForAddEmployee" : "You must add a departman for add employee",
+        "updatedProfile" : "Updated Profile",
+        "gettedOffer"  :"Your message has been delivered. We will get back to you as soon as possible"
+    },
+    "Profile" : {
+        "youCanInstantlyUpdateYourProfileInformation" : "You can instantly update your profile information",
+        "name" : "Name",
+        "surname" : "Surname",
+        "email" : "Email",
+        "phone" : "Phone",
+        "password" : "Password",
+        "passwordShouldBeLongerThan5Char" : "Password should be longer than 5 char",
+        "updateProfile" : "Update Profile",
+        "emailIsRequired" :"Email is required",
+        "phoneIsRequired" : "Phone is required" 
+    },
+    "Home" : {
+        "manageYourTimeEffectively" : "Manage Your Time Effectively!",
+        "section1Message"  :"The cornerstone of every business is the correct and effective management of time. Time Tag is a user-friendly application that allows employees to easily track their entry and exit times.",
+        "ConversionToDigital" : "CONVERSION TO DIGITAL",
+        "section3and1" : "Quick and Easy Tracking",
+        "section3and2" : "Time Tag offers the opportunity to track personnel entry and exit times with a fast and user-friendly interface. Easily manage your business processes with a few clicks.",
+        "section3and3" : "Language Options",
+        "section3and4" : "Time Tag is equipped with multi-language support to provide a user-friendly experience. Users can use the application in their native language according to their own preferences.",
+        "section3and5" : "Effective Time Manage",
+        "section3and6" : "Time Tag offers the opportunity to track personnel entry and exit times with a fast and user-friendly interface. Easily manage your business processes with a few clicks.",
+        "section3and7" : "Department Manage",
+        "section3and8" : "Time Tag allows you to organize your business processes by adding different companies and departments. In this way, it offers customized solutions for large and diverse organizations.",
+        "section3and9" : "User-Friendly Interface",
+        "section3and10" : "The application is designed with a user-friendly interface. Staff can easily access basic functions such as company and department management and use the application without any problems.",
+        "section3and11" : "Security Protocols",
+        "section3and12" : "The application regularly updates its security protocols to minimize vulnerabilities and protect against current threats.",
+        "section4and1"  :"How to Use?",
+        "section4and2" : "Login or Sign Up",
+        "section4and3" : "Select 'Login' or 'Register' on the home page",
+        "section4and4" : "If you do not have an account, complete the registration process.",
+        "section4and5" : "Add Company and Department",
+        "section4and6" : "Create company information with the serial number you have",
+        "section4and7" : "Identify your company's departments",
+        "section4and8" : "Set Department Working Hours",
+        "section4and9" : "Specify shift start times when adding a department.",
+        "section4and10" : "Specify end hours when adding a department.",
+        "section4and11" : "Track your staff",
+        "section4and12" : "Inform your staff and deliver their cards.",
+        "section4and13" : "Your account is ready to use!",
+        "RequestAnOffer" : "REQUEST AN OFFER",
+        "nameSurname" :"Name Surname",
+        "phone" : "Phone",
+        "email" : "Email",
+        "nameSurnameIsRequired" :"Name surname is required",
+        "phoneIsRequired" :"Phone is required",
+        "emailIsRequired" : "Email is required",
+        "messageIsRequired" : "Message information cannot be left blank",
+        "requestAnOffer"  :"Request an Offer"
+ 
     }
     
 }

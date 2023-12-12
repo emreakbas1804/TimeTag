@@ -9,7 +9,7 @@ body {
 .account {
   background-image: url("/./assets/images/account-bg.jpg");
   width: 100%;
-  min-height: 100vh;
+  min-height: 101vh;
   background-size: cover;
   background-position: center;
   box-sizing: border-box;

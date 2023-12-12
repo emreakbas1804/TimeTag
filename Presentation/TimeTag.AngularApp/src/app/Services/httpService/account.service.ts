@@ -6,6 +6,7 @@ import { environment } from 'src/environments/environment';
 import { EntityResultModel, Result } from '../../Models/EntityResultModel';
 import { JsonPipe } from '@angular/common';
 import { RegisterModel } from '../../Models/RegisterModel';
+import { EmailValidator } from '@angular/forms';
 
 @Injectable({
   providedIn: 'root'
@@ -27,7 +28,7 @@ export class AccountService {
 
       tap(response => {
         if (response.result == Result.Success) {
-          this.handleUser(response.resultObject.token, response.resultObject.firstName, response.resultObject.surName);          
+          this.handleUser(response.resultObject.token, response.resultObject.firstName, response.resultObject.surName);
         }
       }),
 
@@ -42,8 +43,39 @@ export class AccountService {
     body = body.set("Email", user.Email);
     body = body.set("Password", user.Password);
     body = body.set("Phone", user.Phone)
-    
+
     return this.http.post<EntityResultModel>(this.apiUrl + "/account/register", body).pipe(
+      catchError(this.handleError)
+    );
+  }
+
+  getUserProfile() {
+    return this.http.get<EntityResultModel>(this.apiUrl + "/account/getUserProfile").pipe(
+      catchError(this.handleError)
+    );
+  }
+  updateProfile( email: any, phone: any, password: string) {
+
+    const formData: FormData = new FormData();
+    formData.append("email", email);
+    formData.append("phone", phone);
+    formData.append("password", password);
+
+
+    return this.http.put<EntityResultModel>(this.apiUrl + "/account/updateUserProfile", formData).pipe(
+      catchError(this.handleError)
+    );
+  }
+
+  addContactMessage(nameSurname : any, phone : any, email : any, message : any){
+    const formData: FormData = new FormData();
+    formData.append("nameSurname", nameSurname);
+    formData.append("phone", phone);
+    formData.append("email", email);
+    formData.append("message", message);
+
+
+    return this.http.post<EntityResultModel>(this.apiUrl + "/account/addContactMessage", formData).pipe(
       catchError(this.handleError)
     );
   }
@@ -62,18 +94,18 @@ export class AccountService {
     return throwError(() => message);
   }
 
-  logOut(){    
+  logOut() {
     localStorage.removeItem("accessToken");
     localStorage.removeItem("currentCompanyId");
     localStorage.removeItem("user");
     this.user.next(null);
   }
 
-  private handleUser(jwtToken: string, firstName : string, surName: string) {
+  private handleUser(jwtToken: string, firstName: string, surName: string) {
     const user = new UserModel(jwtToken);
     this.user.next(user);
     localStorage.setItem("accessToken", jwtToken);
-    localStorage.setItem("user", firstName + "-"+ surName);   
+    localStorage.setItem("user", firstName + "-" + surName);
   }
 
 }

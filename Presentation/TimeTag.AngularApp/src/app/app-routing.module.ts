@@ -16,6 +16,7 @@ import { MyEmployeesComponent } from './Panel/Employee/my-employees/my-employees
 import { EmployeeDetailComponent } from './Panel/Employee/employee-detail/employee-detail.component';
 import { BankAccountsComponent } from './Panel/Employee/bank-accounts/bank-accounts.component';
 import { TimeLogsComponent } from './Panel/Employee/time-logs/time-logs.component';
+import { ProfileComponent } from './Panel/profile/profile.component';
 
 const routes: Routes = [
 
@@ -34,6 +35,7 @@ const routes: Routes = [
   { path: "panel/employee-detail/:Id:", component: EmployeeDetailComponent, canActivate: [PanelGuard] },
   { path: "panel/bank-accounts/:Id:", component: BankAccountsComponent, canActivate: [PanelGuard] },
   { path: "panel/logs/:Id:", component: TimeLogsComponent, canActivate: [PanelGuard] },
+  { path: "panel/profile", component: ProfileComponent, canActivate: [PanelGuard] }
 ];
 
 @NgModule({

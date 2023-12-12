@@ -26,6 +26,7 @@ namespace TimeTag.Persistence.Context
         public DbSet<AppDomain> AppDomains {get;set;}
         public DbSet<Localization> Localizations { get; set; }
         public DbSet<Language> Languages { get; set; }
+        public DbSet<Contact> Contacts {get;set;}
 
     }
 }

@@ -13,5 +13,10 @@ public interface IUserService
     Task<EntityResultModel> GenerateTokenAsync(User userEntity, string role);
     void AddLoginLog(int userId, bool isSuccessLogin);
     CurrentUser GetCurrentUser(string jwtToken);
+
+    Task<EntityResultModel> UpdateUser(int userId, string email, string phone, string password);
+    Task<EntityResultModel> GetUserProfile(int userId);
+
+    Task<EntityResultModel> AddContactMessage(string nameSurname, string phone, string email, string message);
     
 }
