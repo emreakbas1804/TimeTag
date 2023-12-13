@@ -17,12 +17,14 @@ import { EmployeeDetailComponent } from './Panel/Employee/employee-detail/employ
 import { BankAccountsComponent } from './Panel/Employee/bank-accounts/bank-accounts.component';
 import { TimeLogsComponent } from './Panel/Employee/time-logs/time-logs.component';
 import { ProfileComponent } from './Panel/profile/profile.component';
+import { ForgotPasswordComponent } from './Home/forgot-password/forgot-password.component';
 
 const routes: Routes = [
 
   { path: "", component: IndexComponent },
   { path: "register", component: RegisterComponent },
   { path: "login", component: LoginComponent },
+  { path: "forgot-password", component: ForgotPasswordComponent },
   { path: "panel", component: PanelIndexComponent, canActivate: [PanelGuard] },
   { path: "panel/add-company", component: AddCompanyComponent, canActivate: [PanelGuard] },
   { path: "panel/my-companies", component: MyCompaniesComponent, canActivate: [PanelGuard] },

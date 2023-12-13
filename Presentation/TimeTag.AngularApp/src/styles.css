@@ -234,7 +234,9 @@ button:hover {
   
 }
 
-
+.modal{
+  z-index: 999;
+}
 .snackBar-success{
   background-color: #1ea97c; /* Yeşil renk */
   color: #fff;
@@ -242,6 +244,8 @@ button:hover {
 .snackBar-error{
   background-color: #e83d3d; /* Yeşil renk */
   color: #fff;
+  z-index: 9999999999999 !important;
+  
 }
 .snackBar-warning{
   background-color: #316fc9; /* Yeşil renk */

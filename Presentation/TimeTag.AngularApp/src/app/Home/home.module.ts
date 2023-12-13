@@ -8,6 +8,7 @@ import { HttpLoaderFactory, SharedModule } from '../Shared/shared.module';
 import { FormsModule } from '@angular/forms';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { HttpClient } from '@angular/common/http';
+import { ForgotPasswordComponent } from './forgot-password/forgot-password.component';
 
 
 
@@ -15,7 +16,8 @@ import { HttpClient } from '@angular/common/http';
   declarations: [
     IndexComponent,
     RegisterComponent,
-    LoginComponent
+    LoginComponent,
+    ForgotPasswordComponent
   ],
   imports: [
     CommonModule,

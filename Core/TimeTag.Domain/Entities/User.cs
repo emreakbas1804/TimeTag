@@ -12,13 +12,14 @@ public class User : BaseModel
     public string Password { get; set; }
     public string Email { get; set; }
     public Confirm EmailConfirm { get; set; } = Confirm.WaitingForConfirm;
-    public string Phone { get; set; }   
-    public int rlt_Role_Id { get; set; } 
+    public string Phone { get; set; }
+    public int rlt_Role_Id { get; set; }
     [ForeignKey(nameof(rlt_Role_Id))]
     public Role Role { get; set; }
-    public virtual ICollection<User_LoginLog> LoginLogs{get;set;}
-    public virtual ICollection<User_Token> User_Tokens{get;set;}
+    public virtual ICollection<User_LoginLog> LoginLogs { get; set; }
+    public virtual ICollection<User_Token> User_Tokens { get; set; }
     public virtual ICollection<Company> Companies { get; set; }
+    public virtual ICollection<SecurityCode> SecurityCodes { get; set; }
 }
 
 public class Role : BaseModel
@@ -29,7 +30,7 @@ public class Role : BaseModel
 
 public class User_LoginLog : BaseModel
 {
-    public string IpAddress { get; set; }        
+    public string IpAddress { get; set; }
     public bool IsSuccessLogin { get; set; }
     public string ReferanceUrl { get; set; }
     public int rlt_User_Id { get; set; }

@@ -18,8 +18,6 @@ namespace TimeTag.Api.Controllers
         private readonly IValidationService _validationService;
         private readonly IUserService _userService;
         private readonly ILocalizationService _localizationService;
-        EntityResultModel entityResultModel = new();
-        private object await_validationService;
 
         public AccountController(
             IValidationService validationService,
@@ -86,11 +84,32 @@ namespace TimeTag.Api.Controllers
         }
 
         [HttpPost("AddContactMessage")]
-        public async Task<IActionResult> AddContactMessage(string nameSurname, string phone,string email ,string message)
+        public async Task<IActionResult> AddContactMessage(string nameSurname, string phone, string email, string message)
         {
-            var addContactMessage = await _userService.AddContactMessage(nameSurname,phone,email,message);
+            var addContactMessage = await _userService.AddContactMessage(nameSurname, phone, email, message);
             return Ok(addContactMessage);
         }
+
+        [HttpPost("ForgotPassword")]
+        public async Task<IActionResult> ForgotPassword(string email)
+        {
+            var sendEmail = await _userService.ForgotPassword(email);
+            return Ok(sendEmail);
+        }
+
+        [HttpPost("ResetPassword")]
+        public async Task<IActionResult> ResetPassword(string email, string code, string password)
+        {
+            var validatePassword = await _validationService.ValidatePassword(password);
+            if (validatePassword.Result != EntityResult.Success)
+            {
+                return Ok(validatePassword);
+            }
+            var resetPassword =await _userService.ResetPassword(email, code, password);
+            return Ok(resetPassword);
+        }
+
+
 
 
 

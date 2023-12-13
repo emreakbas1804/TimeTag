@@ -18,5 +18,8 @@ public interface IUserService
     Task<EntityResultModel> GetUserProfile(int userId);
 
     Task<EntityResultModel> AddContactMessage(string nameSurname, string phone, string email, string message);
+
+    Task<EntityResultModel> ForgotPassword(string email);
+    Task<EntityResultModel> ResetPassword(string email, string code, string password);
     
 }

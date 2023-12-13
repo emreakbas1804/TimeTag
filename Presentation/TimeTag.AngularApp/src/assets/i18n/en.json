@@ -46,6 +46,22 @@
         "email" : "Email",
         "password" : "Password"
     },
+    "Forgot-password" : {
+        "forgotPassword" : "Forgot Password",
+        "sendVerificationCode" : "Send verification code",
+        "youCanResetPasswordWithTheVerificationCodeSentYourEmailAddress"  :"You can reset your password with the verification code sent to your e-mail address",
+        "email" : "Email",
+        "emailIsRequired" :"Email is required",
+        "register" : "Register",
+        "login"  :"Login",
+        "theVerificationCodeHasBeenSentToYourEmailAccount"  :"The verification code has been sent to your email account",
+        "ResetPassword" : "RESET PASSWORD",
+        "verificationCode" : "Verification Code",
+        "verificationCodeShouldBe6char"  :"Verification code is should be 6 char",
+        "password" : "Password",
+        "passwordShoulBeLongerThan5Char" :"Password should be longer than 5 char"
+        
+    },
     "Add-company" : {
         "welcomeToTimeTag" : "Welcome to time tag",
         "myCompanies" : "My companies",
@@ -207,7 +223,8 @@
         "updatedEmployee" : "Updated Employee",
         "youMustAddADepartmentForAddEmployee" : "You must add a departman for add employee",
         "updatedProfile" : "Updated Profile",
-        "gettedOffer"  :"Your message has been delivered. We will get back to you as soon as possible"
+        "gettedOffer"  :"Your message has been delivered. We will get back to you as soon as possible",
+        "changedPassword" : "Changed Password"
     },
     "Profile" : {
         "youCanInstantlyUpdateYourProfileInformation" : "You can instantly update your profile information",

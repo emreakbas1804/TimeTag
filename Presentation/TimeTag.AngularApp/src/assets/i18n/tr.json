@@ -1,4 +1,10 @@
 {
+    "Navbar" : {
+        "Features" : "ÖZELLİKLER",
+        "HowToUse" : "NASIL KULLANILIR" ,
+        "Contact" : "İLETİŞİM",
+        "Panel" : "PANEL"
+    },
     "Panel-navbar": {
         "profile": "Profil",
         "logOut": "Çıkış yap"
@@ -39,6 +45,21 @@
         "phone": "Telefon",
         "email": "Email",
         "password": "Parola"
+    },
+    "Forgot-password" : {
+        "forgotPassword" : "Parola mı unuttum",
+        "sendVerificationCode" : "Doğrulama kodu gönder",
+        "youCanResetPasswordWithTheVerificationCodeSentYourEmailAddress"  :"Mail adresine giden doğrulama kodu ile parolanı sıfırlayabilirsin.",
+        "email" : "Email",
+        "emailIsRequired" :"Email zorunlu",
+        "register" : "Kayıt ol",
+        "login"  :"Giriş yap",
+        "theVerificationCodeHasBeenSentToYourEmailAccount"  :"Doğrulama kodu mail hesabınıza gönderildi",
+        "ResetPassword" : "PAROLAMI SIFIRLA",
+        "verificationCode" : "Doğrulama kodu",
+        "verificationCodeShouldBe6char"  :"Doğrulama kodu 6 karakterli olmalıdır",
+        "password" : "Parola",
+        "passwordShoulBeLongerThan5Char" :"Parola uzunluğu 5 karakterden fazla olmalıdır"
     },
     "Add-company": {
         "welcomeToTimeTag": "Time tag'e Hoşgeldiniz",
@@ -201,7 +222,8 @@
         "updatedEmployee": "Personel güncellendi",
         "youMustAddADepartmentForAddEmployee": "Personel eklemek için öncelikle bir departman eklemelisiniz",
         "updatedProfile": "Profil bilgileriniz güncellendi",
-        "gettedOffer"  :"Mesajınız iletildi. en kısa zamanda sizlere geri dönüş yapacağız"
+        "gettedOffer"  :"Mesajınız iletildi. en kısa zamanda sizlere geri dönüş yapacağız",
+        "changedPassword" : "Parola değiştirildi"
     },
     "Profile": {
         "youCanInstantlyUpdateYourProfileInformation": "Profil bilgilerinizi anında güncelleyebilirsiniz",

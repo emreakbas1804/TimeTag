@@ -17,6 +17,7 @@ using System;
 using Microsoft.VisualBasic;
 using Microsoft.Extensions.Configuration;
 using System.Dynamic;
+using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace TimeTag.Persistence.Concretes;
 public class UserService : IUserService
@@ -26,14 +27,16 @@ public class UserService : IUserService
     private readonly IHttpContextAccessor _httpContextAccessor;
     private readonly IConfiguration _configuration;
     private readonly ILocalizationService _localizationService;
+    private readonly IEmailService _emailService;
     EntityResultModel entityResultModel = new();
-    public UserService(EntityDbContext context, ICryptoService cryptoService, IHttpContextAccessor httpContextAccessor, IConfiguration configuration, ILocalizationService localizationService)
+    public UserService(EntityDbContext context, ICryptoService cryptoService, IHttpContextAccessor httpContextAccessor, IConfiguration configuration, ILocalizationService localizationService, IEmailService emailService)
     {
         _context = context;
         _cryptoService = cryptoService;
         _httpContextAccessor = httpContextAccessor;
         _configuration = configuration;
         _localizationService = localizationService;
+        _emailService = emailService;
     }
 
     public async Task<EntityResultModel> AddUser(RegisterDTO model)
@@ -287,6 +290,86 @@ public class UserService : IUserService
             };
             await _context.Contacts.AddAsync(contactMessage);
             await _context.SaveChangesAsync();
+            entityResultModel.Result = EntityResult.Success;
+            return entityResultModel;
+        }
+        catch (System.Exception)
+        {
+            entityResultModel.ResultMessage = await _localizationService.getLocalization("txt_beklenmedik_bir_hata_olustu", "Unknow error. Please try again later");
+            return entityResultModel;
+        }
+    }
+
+    public async Task<EntityResultModel> ForgotPassword(string email)
+    {
+        try
+        {
+            var userEntity = await _context.Users.Where(q => q.Email == email).FirstOrDefaultAsync();
+            if (userEntity == null)
+            {
+                entityResultModel.ResultMessage = await _localizationService.getLocalization("txt_kullanici_bulunamadi", "User not found");
+                return entityResultModel;
+            }
+
+
+            Random random = new();
+            var code = random.Next(100000, 1000000);
+            SecurityCode securityCode = new()
+            {
+                ProcessTime = DateTime.Now,
+                ExpiryDate = DateTime.Now.AddMinutes(45),
+                Email = email,
+                Code = code,
+                Type = SecurityCodeType.ForgotPassword,
+                rlt_User_Id = userEntity.Id
+            };
+            await _context.SecurityCodes.AddAsync(securityCode);
+            await _context.SaveChangesAsync();
+            // email gönderilecek
+            var schema = _emailService.GetForgotPasswordEmailSchema(userEntity.Name + " " + userEntity.Surname, code.ToString());
+            var sendEmail = await _emailService.SendMail(email, "Forgot Password", schema);
+            if (sendEmail.Result != EntityResult.Success)
+            {
+                entityResultModel.ResultMessage = sendEmail.ResultMessage;
+                return entityResultModel;
+            }
+            entityResultModel.Result = EntityResult.Success;
+            return entityResultModel;
+        }
+        catch (System.Exception)
+        {
+            entityResultModel.ResultMessage = await _localizationService.getLocalization("txt_beklenmedik_bir_hata_olustu", "Unknow error. Please try again later");
+            return entityResultModel;
+        }
+    }
+
+    public async Task<EntityResultModel> ResetPassword(string email, string code, string password)
+    {
+        try
+        {
+            var userEntity = await _context.Users.Where(q => q.Email == email).FirstOrDefaultAsync();
+            if (userEntity == null)
+            {
+                entityResultModel.ResultMessage = await _localizationService.getLocalization("txt_kullanici_bulunamadi", "User not found");
+            }
+
+            var securityCode = await _context.SecurityCodes.Where(q => q.Code.ToString() == code && q.Email == email && q.Type == SecurityCodeType.ForgotPassword).FirstOrDefaultAsync();
+            if (securityCode == null)
+            {
+                entityResultModel.ResultMessage = await _localizationService.getLocalization("txt_dogrulama_kodu_hatali", "Verification code is incorrect");
+                return entityResultModel;
+            }
+            if (securityCode.ExpiryDate < DateTime.Now)
+            {
+                entityResultModel.ResultMessage = await _localizationService.getLocalization("txt_dogrulama_kodu_zaman_asimina_ugradi", "Verification code has timed out.");
+                return entityResultModel;
+            }
+
+            userEntity.Password = _cryptoService.HashPassword(password);
+            userEntity.LastUpdateTime = DateTime.Now;
+            _context.Users.Update(userEntity);
+            await _context.SaveChangesAsync();
+
             entityResultModel.Result = EntityResult.Success;
             return entityResultModel;
         }

@@ -13,7 +13,7 @@ namespace TimeTag.Persistence.ServiceRegistirations
     {
         public static void AddPersistanceServices(this IServiceCollection services)
         {
-            
+
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
 
             services.AddScoped<ICryptoService, CryptoService>();
@@ -26,6 +26,7 @@ namespace TimeTag.Persistence.ServiceRegistirations
             services.AddScoped<IDepartmentService, DepartmentService>();
             services.AddScoped<IEmployeeService, EmployeeService>();
             services.AddScoped<ILocalizationService, LocalizationService>();
+            services.AddScoped<IEmailService, EmailService>();
         }
     }
 }

@@ -54,7 +54,7 @@ export class AccountService {
       catchError(this.handleError)
     );
   }
-  updateProfile( email: any, phone: any, password: string) {
+  updateProfile(email: any, phone: any, password: string) {
 
     const formData: FormData = new FormData();
     formData.append("email", email);
@@ -67,7 +67,7 @@ export class AccountService {
     );
   }
 
-  addContactMessage(nameSurname : any, phone : any, email : any, message : any){
+  addContactMessage(nameSurname: any, phone: any, email: any, message: any) {
     const formData: FormData = new FormData();
     formData.append("nameSurname", nameSurname);
     formData.append("phone", phone);
@@ -76,6 +76,26 @@ export class AccountService {
 
 
     return this.http.post<EntityResultModel>(this.apiUrl + "/account/addContactMessage", formData).pipe(
+      catchError(this.handleError)
+    );
+  }
+
+  forgotPassword(email: any) {
+    var body = new HttpParams();
+    body = body.set("email", email);
+
+    return this.http.post<EntityResultModel>(this.apiUrl + "/account/forgotPassword", body).pipe(
+      catchError(this.handleError)
+    );
+  }
+
+  resetPassword(email : any, code : any, password : any){
+    var body = new HttpParams();
+    body = body.set("email", email);
+    body = body.set("code", code);
+    body = body.set("password", password);
+
+    return this.http.post<EntityResultModel>(this.apiUrl + "/account/resetPassword", body).pipe(
       catchError(this.handleError)
     );
   }
