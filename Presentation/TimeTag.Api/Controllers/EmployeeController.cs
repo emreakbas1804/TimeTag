@@ -5,6 +5,8 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
+using Microsoft.IdentityModel.Tokens;
 using TimeTag.Application.Abstractions;
 using TimeTag.Application.Attr;
 using TimeTag.Application.DTO;
@@ -20,6 +22,9 @@ namespace TimeTag.Api.Controllers
         private readonly IEmployeeService _employeeService;
         private readonly IFileService _fileService;
         private readonly ILocalizationService _localizationService;
+        private readonly IUserService _userService;
+        private readonly IValidationService _validationService;
+        private readonly ICryptoService _cryptoService;
         EntityResultModel entityResultModel = new();
 
         public EmployeeController(
@@ -27,7 +32,10 @@ namespace TimeTag.Api.Controllers
             IDepartmentService departmentService,
             IEmployeeService employeeService,
             IFileService fileService,
-            ILocalizationService localizationService
+            ILocalizationService localizationService,
+            IUserService userService,
+            IValidationService validationService,
+            ICryptoService cryptoService
         )
         {
             _companyService = companyService;
@@ -35,6 +43,9 @@ namespace TimeTag.Api.Controllers
             _employeeService = employeeService;
             _fileService = fileService;
             _localizationService = localizationService;
+            _userService = userService;
+            _validationService = validationService;
+            _cryptoService = cryptoService;
         }
 
         #region  Employee
@@ -43,28 +54,46 @@ namespace TimeTag.Api.Controllers
         [HttpPost("AddEmployee")]
         public async Task<IActionResult> AddEmployee(AddEmployeeDTO employeeModel)
         {
+
+            var checkEmail = await _validationService.ValidateEmailAsync(employeeModel.Email);
+            if (checkEmail.Result != EntityResult.Success) return Ok(checkEmail);
+
             var isCompanyExist = _companyService.IsCompanyExist(employeeModel.CompanyId);
-            if (!isCompanyExist)
-            {
-                entityResultModel.ResultMessage = await _localizationService.getLocalization("txt_firma_bulunamadi", "Company not found");
-                return Ok(entityResultModel);
-            }
+            if (!isCompanyExist) { entityResultModel.ResultMessage = await _localizationService.getLocalization("txt_firma_bulunamadi", "Company not found"); return Ok(entityResultModel); }
 
             var isDepartmentExist = _departmentService.IsDepartmentExist(employeeModel.DepartmentId);
-            if (!isDepartmentExist)
+            if (!isDepartmentExist) { entityResultModel.ResultMessage = await _localizationService.getLocalization("txt_departman_bulunamadi", "Department not found"); return Ok(entityResultModel); };
+
+            employeeModel.Password = _cryptoService.GenerateRandomPassword();
+            var addUser = await _userService.AddUser(new RegisterDTO()
             {
-                entityResultModel.ResultMessage = await _localizationService.getLocalization("txt_departman_bulunamadi", "Department not found");
+                Name = employeeModel.NameSurname?.Split(" ")[0],
+                Surname = employeeModel.NameSurname.Split(" ")[1],
+                Email = employeeModel.Email,
+                Password = employeeModel.Password,
+                IsFirstLogin = true,
+                Phone = employeeModel.Phone
+            });
+            if (addUser.Result != EntityResult.Success)
+            {
+                employeeModel.rlt_User_Id = await _userService.GetUserIdByEmail(employeeModel.Email);
+            }
+            else
+            {
+                employeeModel.rlt_User_Id = addUser.Id;
             }
 
-            
+
             if (employeeModel.Photo != null)
             {
                 string[] accepFileExtensions = { ".jpg", ".jpeg", ".png", ".webp", };
                 var fileUpload = await _fileService.UploadFile(employeeModel.Photo, "/images/users/profileImages/", 10, accepFileExtensions);
-                if (fileUpload.Result != EntityResult.Success) return Ok(fileUpload);               
+                if (fileUpload.Result != EntityResult.Success) return Ok(fileUpload);
                 employeeModel.rlt_FileUpload_Id = fileUpload.Id;
-            }            
+            }
+
             var addEmployee = await _employeeService.AddEmployee(employeeModel);
+
             return Ok(addEmployee);
         }
 
@@ -82,9 +111,9 @@ namespace TimeTag.Api.Controllers
             {
                 string[] accepFileExtensions = { ".jpg", ".jpeg", ".png", ".webp", };
                 var fileUpload = await _fileService.UploadFile(photo, "/images/users/profileImages/", 10, accepFileExtensions);
-                if (fileUpload.Result != EntityResult.Success) return Ok(fileUpload);               
+                if (fileUpload.Result != EntityResult.Success) return Ok(fileUpload);
                 rlt_FileUpload_Id = fileUpload.Id;
-            }  
+            }
             var updateEmployee = await _employeeService.UpdateEmployee(departmentId, employeeId, nameSurname, title, phone, address, email, isActive, birthDay, startedJobTime, rlt_FileUpload_Id);
             return Ok(updateEmployee);
         }
@@ -156,12 +185,13 @@ namespace TimeTag.Api.Controllers
 
         #endregion
 
-        
+
         #region Employee logs to job
 
         [HttpPost("AddLogEmployeeToJob")]
-        public async Task<IActionResult> AddLogEmployeeToJob(string token, LogType type)
+        public async Task<IActionResult> AddLogEmployeeToJob(string token)
         {
+            var type = await _employeeService.GetLogType(token);
             var loginEmployeeToJob = await _employeeService.AddLogEmployeeToJob(token, type);
             return Ok(loginEmployeeToJob);
         }
@@ -169,10 +199,37 @@ namespace TimeTag.Api.Controllers
 
         [Authorize]
         [HttpGet("GetLogsEmployee")]
-        public async Task<IActionResult> GetLogsEmployee(int employeeId,DateTime? startDate , DateTime? endDate,int page =1, int count = 5)
+        public async Task<IActionResult> GetLogsEmployee(int employeeId, DateTime? startDate, DateTime? endDate, int page = 1, int count = 5)
         {
-            var loginEmployeeToJobLog = await _employeeService.GetLogsEmployee(employeeId, startDate, endDate,page,count);
+            var loginEmployeeToJobLog = await _employeeService.GetLogsEmployee(employeeId, startDate, endDate, page, count);
             return Ok(loginEmployeeToJobLog);
+        }
+
+        [Authorize]
+        [HttpGet("GetLogsCurrentEmployee")]
+        public async Task<IActionResult> GetLogsCurrentEmployee(DateTime? startDate, DateTime? endDate, int page = 1, int count = 5)
+        {
+            var employeeId = await _employeeService.GetEmployeeIdByUserId(currentUser.Id);
+            var loginEmployeeToJobLog = await _employeeService.GetLogsEmployee(employeeId, startDate, endDate, page, count);
+            return Ok(loginEmployeeToJobLog);
+        }
+
+
+        [Authorize]
+        [HttpGet("GetLog")]
+        public async Task<IActionResult> GetLog(int logId)
+        {
+            var logEntity = await _employeeService.GetLog(logId);
+            return Ok(logEntity);
+        }
+
+
+        [Authorize]
+        [HttpPut("UpdateLog")]
+        public async Task<IActionResult> UpdateLog(int logId, LogType type, DateTime processTime)
+        {
+            var logEntity = await _employeeService.UpdateLog(logId, type, processTime);
+            return Ok(logEntity);
         }
 
 

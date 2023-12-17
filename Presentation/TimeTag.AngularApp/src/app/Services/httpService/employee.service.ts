@@ -18,10 +18,11 @@ export class EmployeeService {
     )
   }
 
-  addEmployee(companyId: any, departmentId: any, nameSurname: any, title: any, phone: any, address: any, email: any, birthDay: any, photo: any) {
+  addEmployee(companyId: any, departmentId: any, tokenId : any,nameSurname: any, title: any, phone: any, address: any, email: any, birthDay: any, photo: any) {
     const formData: FormData = new FormData();
     formData.append("companyId", companyId);
     formData.append("departmentId", departmentId);
+    formData.append("tokenId", tokenId);
     formData.append("nameSurname", nameSurname);
     formData.append("title", title);
     formData.append("phone", phone);
@@ -81,13 +82,37 @@ export class EmployeeService {
       catchError(this.handleError),
     )
   }
-  getTimeLogs(employeeId: any, startDate : any, endDate : any, page : any, count : any) {
-    const params = new HttpParams().set('employeeId', employeeId).set("startDate",startDate).set("endDate",endDate).set("page",page).set("count",count);
-  
+  getTimeLogs(employeeId: any, startDate: any, endDate: any, page: any, count: any) {
+    const params = new HttpParams().set('employeeId', employeeId).set("startDate", startDate).set("endDate", endDate).set("page", page).set("count", count);
+
     return this.http.get<EntityResultModel>(this.apiUrl + "/employee/getLogsEmployee", { params }).pipe(
       catchError(this.handleError),
     )
   }
+
+  getCurrentEmployeeTimeLogs(startDate: any, endDate: any, page: any, count: any) {
+    const params = new HttpParams().set("startDate", startDate).set("endDate", endDate).set("page", page).set("count", count);
+
+    return this.http.get<EntityResultModel>(this.apiUrl + "/employee/getLogsCurrentEmployee", { params }).pipe(
+      catchError(this.handleError),
+    )
+  }
+  getLog(logId: any) {
+    const params = new HttpParams().set("logId", logId);
+    return this.http.get<EntityResultModel>(this.apiUrl + "/employee/getLog", { params }).pipe(
+      catchError(this.handleError)
+    );
+  }
+  updateLog(logId: any, type: any, processTime: any) {
+    const formData: FormData = new FormData();
+    formData.append("logId", logId);
+    formData.append("type", type);
+    formData.append("processTime", processTime);
+    return this.http.put<EntityResultModel>(this.apiUrl + "/employee/updateLog", formData).pipe(
+      catchError(this.handleError)
+    );
+  }
+
   handleError(err: HttpErrorResponse) {
     let message = "Beklenmedik bir hata oluştu";
     return throwError(() => message);

@@ -64,12 +64,14 @@ public class UserService : IUserService
                 Email = model.Email,
                 Phone = model.Phone,
                 Password = model.Password,
+                IsFirstLogin = model.IsFirstLogin,
                 rlt_Role_Id = _context.Roles.Where(q => q.IsSystemRole).Select(c => c.Id).FirstOrDefault()
             };
             await _context.Users.AddAsync(user);
             await _context.SaveChangesAsync();
 
             entityResultModel.Result = EntityResult.Success;
+            entityResultModel.Id = user.Id;
         }
         catch (System.Exception)
         {
@@ -86,6 +88,12 @@ public class UserService : IUserService
             var userEntity = await _context.Users.Where(q => q.Email == email).FirstOrDefaultAsync();
             if (userEntity != null)
             {
+                if (userEntity.IsFirstLogin)
+                {                                        
+                    entityResultModel.ResultMessage = await _localizationService.getLocalization("txt_parola_degistirmelisiniz", "You must change the your password");
+                    entityResultModel.Result = EntityResult.Warning;
+                    return entityResultModel;
+                }
                 if (userEntity.Password == password)
                 {
                     AddLoginLog(userEntity.Id, true);
@@ -320,14 +328,14 @@ public class UserService : IUserService
                 ExpiryDate = DateTime.Now.AddMinutes(45),
                 Email = email,
                 Code = code,
-                Type = SecurityCodeType.ForgotPassword,
+                Type = SecurityCodeType.ChangePassword,
                 rlt_User_Id = userEntity.Id
             };
             await _context.SecurityCodes.AddAsync(securityCode);
             await _context.SaveChangesAsync();
             // email gönderilecek
-            var schema = _emailService.GetForgotPasswordEmailSchema(userEntity.Name + " " + userEntity.Surname, code.ToString());
-            var sendEmail = await _emailService.SendMail(email, "Forgot Password", schema);
+            var schema = _emailService.GetChangePasswordEmailSchema(userEntity.Name + " " + userEntity.Surname, code.ToString());
+            var sendEmail = await _emailService.SendMail(email, "Change Password", schema);
             if (sendEmail.Result != EntityResult.Success)
             {
                 entityResultModel.ResultMessage = sendEmail.ResultMessage;
@@ -353,7 +361,7 @@ public class UserService : IUserService
                 entityResultModel.ResultMessage = await _localizationService.getLocalization("txt_kullanici_bulunamadi", "User not found");
             }
 
-            var securityCode = await _context.SecurityCodes.Where(q => q.Code.ToString() == code && q.Email == email && q.Type == SecurityCodeType.ForgotPassword).FirstOrDefaultAsync();
+            var securityCode = await _context.SecurityCodes.Where(q => q.Code.ToString() == code && q.Email == email && q.Type == SecurityCodeType.ChangePassword).FirstOrDefaultAsync();
             if (securityCode == null)
             {
                 entityResultModel.ResultMessage = await _localizationService.getLocalization("txt_dogrulama_kodu_hatali", "Verification code is incorrect");
@@ -367,6 +375,7 @@ public class UserService : IUserService
 
             userEntity.Password = _cryptoService.HashPassword(password);
             userEntity.LastUpdateTime = DateTime.Now;
+            userEntity.IsFirstLogin = false;
             _context.Users.Update(userEntity);
             await _context.SaveChangesAsync();
 
@@ -379,4 +388,10 @@ public class UserService : IUserService
             return entityResultModel;
         }
     }
+
+    public async Task<int> GetUserIdByEmail(string email)
+    {
+        return await _context.Users.Where(c => c.Email == email).Select(q => q.Id).FirstOrDefaultAsync();
+    }
+
 }

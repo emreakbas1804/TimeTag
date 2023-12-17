@@ -41,10 +41,17 @@ public class EmployeeService : IEmployeeService
                 BirthDay = employeeModel.BirthDay,
                 StartedJobTime = employeeModel.StartedJobTime,
                 IsActive = true,
+                rlt_User_Id = employeeModel.rlt_User_Id
             };
-            await _context.Department_Employees.AddAsync(employee);
+            await _context.Department_Employees.AddAsync(employee);            
+            await _context.SaveChangesAsync();
+            
+            var tokenEntity = await _context.Employee_Tokens.Where(q => q.Id == employeeModel.TokenId).FirstOrDefaultAsync();
+            tokenEntity.rlt_Employee_Id = employee.Id;
+            _context.Employee_Tokens.Update(tokenEntity);
             await _context.SaveChangesAsync();
             entityResultModel.Result = EntityResult.Success;
+            entityResultModel.ResultMessage = employeeModel.Password;
             return entityResultModel;
         }
         catch (System.Exception)
@@ -210,7 +217,7 @@ public class EmployeeService : IEmployeeService
         {
             var isBankExist = _context.Employee_Banks.Any(q => q.Id == bankId);
             if (!isBankExist)
-            {                
+            {
                 entityResultModel.ResultMessage = await _localizationService.getLocalization("txt_banka_bilgisi_bulunamadi", "Bank info not found");
 
                 return entityResultModel;
@@ -295,7 +302,7 @@ public class EmployeeService : IEmployeeService
         try
         {
             var ipAddress = _httpContextAccessor.HttpContext.Connection.RemoteIpAddress?.ToString();
-            var emploeeId = await _context.Employee_Tokens.Where(q => q.Token == token).Select(c => c.Employee.Id).FirstOrDefaultAsync();
+            var emploeeId = await GetEmployeeIdByToken(token);
             if (emploeeId == 0)
             {
                 entityResultModel.ResultMessage = await _localizationService.getLocalization("txt_kullanici_bulunamadi", "User not found");
@@ -350,8 +357,8 @@ public class EmployeeService : IEmployeeService
                                 c.ProcessTime.TimeOfDay > TimeSpan.Parse(c.Employee.Department.StartJobTime)
             }).OrderBy(c => c.Id).Skip((page - 1) * count).Take(count).ToListAsync();
             if (logDetails == null)
-            {                
-                await _localizationService.getLocalization("txt_kullanici_kayitlari_bulunamadi","User logs not found");
+            {
+                await _localizationService.getLocalization("txt_kullanici_kayitlari_bulunamadi", "User logs not found");
                 return entityResultModel;
             }
             dynamic logs = new
@@ -371,6 +378,78 @@ public class EmployeeService : IEmployeeService
         }
     }
 
+    public async Task<int> GetEmployeeIdByUserId(int userId)
+    {
+        return await _context.Users.Where(q => q.Id == userId).Select(c => c.Employees.OrderBy(c => c.Id).Select(a => a.Id).LastOrDefault()).FirstOrDefaultAsync();
+    }
+
+    public async Task<EntityResultModel> GetLog(int logId)
+    {
+        try
+        {
+            var logEntity = await _context.Employee_Logs.Where(q => q.Id == logId).Select(c => new
+            {
+                Type = c.Type,
+                ProcessTime = c.ProcessTime
+            }).FirstOrDefaultAsync();
+            entityResultModel.Result = EntityResult.Success;
+            entityResultModel.ResultObject = logEntity;
+            return entityResultModel;
+        }
+        catch (System.Exception)
+        {
+            entityResultModel.ResultMessage = await _localizationService.getLocalization("txt_beklenmedik_bir_hata_olustu", "Unknow error. Please try again later");
+            return entityResultModel;
+        }
+    }
+
+    public async Task<EntityResultModel> UpdateLog(int logId, LogType type, DateTime processTime)
+    {
+        try
+        {
+            var logEntity = await _context.Employee_Logs.Where(q => q.Id == logId).FirstOrDefaultAsync();
+            if (logEntity == null)
+            {
+                entityResultModel.ResultMessage = await _localizationService.getLocalization("txt_kayit_bulunamadi", "Log could not found");
+                return entityResultModel;
+            }
+            logEntity.Type = type;
+            logEntity.ProcessTime = processTime;
+            _context.Employee_Logs.Update(logEntity);
+            await _context.SaveChangesAsync();
+            entityResultModel.Result = EntityResult.Success;
+            return entityResultModel;
+        }
+        catch (System.Exception)
+        {
+            entityResultModel.ResultMessage = await _localizationService.getLocalization("txt_beklenmedik_bir_hata_olustu", "Unknow error. Please try again later");
+            return entityResultModel;
+        }
+    }
+
+    public async Task<LogType> GetLogType(string token)
+    {
+        var emploeeId = await GetEmployeeIdByToken(token);
+        DateTime today = DateTime.Today;
+        int recordCount = _context.Employee_Logs.Count(c => c.ProcessTime > today);
+        var type = LogType.Logout;
+        if (recordCount % 2 == 0)
+        {
+            type = LogType.Login;
+        }
+        var isOtherDay = _context.Department_Employees.Where(c => c.Id == emploeeId).Select(q => TimeSpan.Parse(q.Department.FinishJobTime) > TimeSpan.Parse(q.Department.StartJobTime)).FirstOrDefault();
+        if (isOtherDay)
+        {
+            type = type == LogType.Login ? LogType.Logout : LogType.Login;
+        }
+        return type;
+
+    }
+
+    public async Task<int> GetEmployeeIdByToken(string token)
+    {
+        return await _context.Employee_Tokens.Where(q => q.Token == token).Select(c => c.Employee.Id).FirstOrDefaultAsync();
+    }
 
 
 

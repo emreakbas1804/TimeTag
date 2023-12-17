@@ -20,15 +20,25 @@ export class AddEmployeeComponent implements OnInit {
   previewUrl: any = null;
   allowedTypes = ["image/jpeg", "image/jpg", "image/webp", "image/png"];
   departments: any[] = [];
+  tokens: any[] = [];
   selectedDepartment: any = 0;
+  selectedToken: any = 0;
   
   constructor(private snackBarService: SnackBarService, private employeeService: EmployeeService, private companyService: CompanyService, private router: Router, private translateService : TranslateService) { }
 
   async ngOnInit(): Promise<void> {
     await this.getDepartments();
+    await this.getTokens();
     $("#selectDepartment").select2();
+    $("#selectToken").select2();
+
+    if (this.tokens.length == 0) {
+      this.snackBarService.warning(this.translateService.instant("General.thereIsNoAnyCard"));
+      this.router.navigate(['/panel']);
+    }
+
     if (this.departments.length == 0) {
-      this.snackBarService.warning("You must add a departman for add employee");
+      this.snackBarService.warning(this.translateService.instant("General.thereIsNoAnyDepartment"));
       this.router.navigate(['/panel/add-department']);
     }
 
@@ -37,16 +47,24 @@ export class AddEmployeeComponent implements OnInit {
         this.selectedDepartment = $("#selectDepartment").val();
       }
     });
+
+    $('#selectToken').on('change', async (event: any) => {
+      if ($("#selectToken").val() != 0) {
+        this.selectedToken = $("#selectToken").val();
+      }
+    });
+
+
   }
 
   addEmployee(form: NgForm) {
-    if (form.invalid || this.selectedDepartment == 0) {
+    if (form.invalid || this.selectedDepartment == 0 || this.selectedToken == 0) {
       this.snackBarService.error(this.translateService.instant("General.formValidationError"));
       return;
     }
     this.loading = true;
     var companyId = this.companyService.getCurrentCompany();
-    this.employeeService.addEmployee(companyId, this.selectedDepartment, form.value.fullName, form.value.title, form.value.phone, form.value.address, form.value.email, form.value.birthDay, this.selectedFile).subscribe({
+    this.employeeService.addEmployee(companyId, this.selectedDepartment, this.selectedToken,form.value.fullName, form.value.title, form.value.phone, form.value.address, form.value.email, form.value.birthDay, this.selectedFile).subscribe({
       next: response => {
         this.loading = false;
         if (response.result == Result.Success) {
@@ -72,7 +90,7 @@ export class AddEmployeeComponent implements OnInit {
   async getDepartments() {
     var companyId = this.companyService.getCurrentCompany();
     const response = await firstValueFrom(this.companyService.getDepartments(companyId));
-    if (response.result == Result.Success) {
+    if (response.result == Result.Success && response.resultObject != null) {
 
       this.departments = response.resultObject.map((item: { id: any, name: any }) => ({
         name: item.name,
@@ -81,6 +99,19 @@ export class AddEmployeeComponent implements OnInit {
       ));
     }
 
+  }
+
+  async getTokens(){
+    var companyId = this.companyService.getCurrentCompany();
+    const response = await firstValueFrom(this.companyService.getCompanyTokens(companyId));
+    if (response.result == Result.Success && response.resultObject != null) {
+
+      this.tokens = response.resultObject.map((item: { id: any, token: any }) => ({
+        token: item.token,
+        id: item.id,
+      }
+      ));
+    }
   }
 
   onFileSelected(event: any): void {

@@ -144,8 +144,9 @@
         "youCanAddAEmployeeAndYouCanFallowHis" :"You can add a employee and you can fallow his",
         "fullName" : "Full name",
         "nameSurnameIsRequired" : "Name surname is required",
-        "department" : "Department",
+        "department" : "Department",        
         "selectDepartment" : "Select Department",
+        "selectCard" : "Select Card",
         "title" :"Title",
         "phone" : "Phone",
         "address" : "Address",
@@ -201,12 +202,21 @@
         "logOut" : "Log out",
         "isLatedToJob" : "Is lated to job",
         "yes" : "Yes",
-        "no" : "No"
+        "no" : "No",
+        "editLog" : "Edit log"
     },
     "Panel-index" : {
         "myDepartments" :"My departments",
         "myEmployees" : "My employees",
-        "myCompanies" : "My companies"
+        "myCompanies" : "My companies",
+        "loginLogoutLogs" : "My Login - Logout Logs",
+        "startDate" :"Start Date",
+        "endDate" :"End Date",
+        "nameSurname" :"Name Surname",
+        "processTime" :"Process Time",
+        "type" : "Type",
+        "login" : "Login",
+        "logOut" : "Log out"
     },
     "General" : {
         "formValidationError" :"Form validation error",
@@ -224,7 +234,10 @@
         "youMustAddADepartmentForAddEmployee" : "You must add a departman for add employee",
         "updatedProfile" : "Updated Profile",
         "gettedOffer"  :"Your message has been delivered. We will get back to you as soon as possible",
-        "changedPassword" : "Changed Password"
+        "changedPassword" : "Changed Password",
+        "updatedLog"  :"Updated Log",
+        "thereIsNoAnyDepartment" : "You cannot add staff without a department.",
+        "thereIsNoAnyCard" : "There is no idle card information left in your membership."
     },
     "Profile" : {
         "youCanInstantlyUpdateYourProfileInformation" : "You can instantly update your profile information",
@@ -277,6 +290,20 @@
         "messageIsRequired" : "Message information cannot be left blank",
         "requestAnOffer"  :"Request an Offer"
  
+    },
+    "Edit-timeLog" : {
+        "editLog" : "Edit Log",
+        "youCanEditYourEmployeeLog" : "You can edit your employee's login-logout Log",
+        "type" : "Type",
+        "login" : "Login",
+        "logOut" : "Logout",
+        "time" : "Time",
+        "updateLog" : "Update Log",
+        "processTime"  : "Process Time"
+    },
+    "Languages" : {
+        "en" : "English",
+        "tr" : "Turkish"
     }
     
 }

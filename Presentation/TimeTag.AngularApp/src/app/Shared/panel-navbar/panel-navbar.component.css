@@ -28,9 +28,9 @@ ul li {
 }
 
 .dropdown span {
-    border-radius: 50%;
-    background-color: #012035;
-    color: white;
+    border-radius: 50% !important;
+    background-color: #012035 !important;
+    color: white !important;
     font-size: 13px;
     padding: 13px 8px;
     transition: all .3s;
@@ -59,8 +59,8 @@ ul li {
 }
 
 .dropdown .logOut {
-    background-color: red;
-    color: white;
+    background-color: red !important;
+    color: white !important;
     cursor: pointer;
 
 }
@@ -100,13 +100,16 @@ ul li {
 
 
 select {
+    /* Tarayıcı kontrolünü sıfırla */
+    appearance: none;
+    -webkit-appearance: none;
     border: 1px solid #ccc;
     border-radius: 4px;
     padding: 5px 10px;
     font-size: 19px;
     font-family: sans-serif;
     color: #333;
-    background-color: #fff;
+    background-color: #fff !important;
     width: 150px;
 }
 

@@ -25,8 +25,8 @@ export class CompanyService {
     );
   }
 
-  addCompany(title: any, address: any, description: any, webSite: any, licanceKey: any, logo : any) {
-    
+  addCompany(title: any, address: any, description: any, webSite: any, licanceKey: any, logo: any) {
+
     const formData: FormData = new FormData();
     formData.append("title", title);
     formData.append("address", address);
@@ -42,14 +42,14 @@ export class CompanyService {
   }
 
   updateCompany(companyId: any, title: any, address: any, description: any, webSite: any, logo: any) {
-    
+
     const formData: FormData = new FormData();
     formData.append('logo', logo);
-    formData.append("companyId",companyId);
-    formData.append("title",title);
-    formData.append("address",address);
-    formData.append("description",description);
-    formData.append("webSite",webSite);
+    formData.append("companyId", companyId);
+    formData.append("title", title);
+    formData.append("address", address);
+    formData.append("description", description);
+    formData.append("webSite", webSite);
     return this.http.post<EntityResultModel>(this.apiUrl + "/company/updateCompany", formData).pipe(
       catchError(this.handleError)
     );
@@ -63,7 +63,7 @@ export class CompanyService {
   }
 
 
-  addDepartment(companyId: any, name : any, address : any, description : any, startJobTime : any, finishJobTime : any ){
+  addDepartment(companyId: any, name: any, address: any, description: any, startJobTime: any, finishJobTime: any) {
 
     const formData: FormData = new FormData();
     formData.append("companyId", companyId);
@@ -79,43 +79,49 @@ export class CompanyService {
 
   }
 
-  getDepartments(companyId: any){
+  getDepartments(companyId: any) {
 
     const params = new HttpParams().set('companyId', companyId);
 
-    return this.http.get<EntityResultModel>(this.apiUrl + "/company/getDepartments",{params}).pipe(
+    return this.http.get<EntityResultModel>(this.apiUrl + "/company/getDepartments", { params }).pipe(
       catchError(this.handleError)
     );
 
   }
 
-  getDepartment(departmentId : any){
+  getDepartment(departmentId: any) {
     const params = new HttpParams().set('departmentId', departmentId);
     return this.http.get<EntityResultModel>(this.apiUrl + "/company/getDepartment", { params }).pipe(
       catchError(this.handleError),
     )
   }
 
-  updateDepartment(departmentId : any, name : any, address : any, description : any, startJobTime : any, finishJobTime : any){
+  updateDepartment(departmentId: any, name: any, address: any, description: any, startJobTime: any, finishJobTime: any) {
     const formData: FormData = new FormData();
     formData.append('departmentId', departmentId);
-    formData.append("name",name);
-    formData.append("address",address);    
-    formData.append("description",description);
-    formData.append("startJobTime",startJobTime);
-    formData.append("finishJobTime",finishJobTime);
+    formData.append("name", name);
+    formData.append("address", address);
+    formData.append("description", description);
+    formData.append("startJobTime", startJobTime);
+    formData.append("finishJobTime", finishJobTime);
     return this.http.put<EntityResultModel>(this.apiUrl + "/company/updateDepartment", formData).pipe(
       catchError(this.handleError)
     );
   }
 
-  deleteDepartment(departmentId : any){
+  deleteDepartment(departmentId: any) {
     const params = new HttpParams().set('departmentId', departmentId);
     return this.http.delete<EntityResultModel>(this.apiUrl + "/company/deleteDepartment", { params }).pipe(
       catchError(this.handleError),
     )
   }
 
+  getCompanyTokens(companyId: any) {
+    const params = new HttpParams().set('companyId', companyId);
+    return this.http.get<EntityResultModel>(this.apiUrl + "/company/getCompanyTokens", { params }).pipe(
+      catchError(this.handleError),
+    )
+  }
 
 
   setCurrentCompany(id: number) {

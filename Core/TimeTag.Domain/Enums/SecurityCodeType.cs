@@ -1,5 +1,5 @@
 namespace TimeTag.Domain.Enums;
 public enum SecurityCodeType
 {
-    ForgotPassword= 0,
+    ChangePassword= 0,
 }

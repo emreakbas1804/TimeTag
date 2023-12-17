@@ -22,6 +22,7 @@ import { BankAccountsComponent } from './Employee/bank-accounts/bank-accounts.co
 import { TimeLogsComponent } from './Employee/time-logs/time-logs.component';
 import { TranslateModule } from '@ngx-translate/core';
 import { ProfileComponent } from './profile/profile.component';
+import { EditTimeLogComponent } from './Employee/edit-time-log/edit-time-log.component';
 
 @NgModule({
   providers :[
@@ -40,7 +41,7 @@ import { ProfileComponent } from './profile/profile.component';
     MyEmployeesComponent,
     EmployeeDetailComponent,
     BankAccountsComponent,    
-    TimeLogsComponent, ProfileComponent
+    TimeLogsComponent, ProfileComponent, EditTimeLogComponent
   ],
   imports: [
     CommonModule,

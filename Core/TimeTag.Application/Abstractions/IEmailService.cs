@@ -6,5 +6,5 @@ namespace TimeTag.Application.Abstractions;
 public interface IEmailService
 {
     Task<EntityResultModel> SendMail(string email, string subject, string bodyHtml);
-    string GetForgotPasswordEmailSchema(string userName, string code);
+    string GetChangePasswordEmailSchema(string userName, string code);
 }

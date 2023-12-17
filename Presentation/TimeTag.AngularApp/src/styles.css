@@ -27,7 +27,7 @@ input {
   border: 1px solid #316fc9 !important;
   background-color: rgba(27, 27, 29, 0.08) !important;
   outline: none !important;
-  box-shadow: none !important;
+  box-shadow: none !important;  
 }
 
 button {
@@ -238,16 +238,21 @@ button:hover {
   z-index: 999;
 }
 .snackBar-success{
-  background-color: #1ea97c; /* Yeşil renk */
+  background-color: #1ea97c; 
   color: #fff;
 }
 .snackBar-error{
-  background-color: #e83d3d; /* Yeşil renk */
+  background-color: #e83d3d; 
   color: #fff;
   z-index: 9999999999999 !important;
   
 }
 .snackBar-warning{
-  background-color: #316fc9; /* Yeşil renk */
+  background-color: #316fc9; 
   color: #fff;
+}
+.dropdown-item
+{
+  background-color: white !important; 
+  color: black !important;
 }

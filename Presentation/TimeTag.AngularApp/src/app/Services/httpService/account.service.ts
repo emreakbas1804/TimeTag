@@ -19,12 +19,12 @@ export class AccountService {
 
 
 
-  login(email: string, password: string) {
-    var body = new HttpParams();
-    body = body.set("email", email);
-    body = body.set("password", password);
+  login(email: string, password: string) {    
+    const formData: FormData = new FormData();
+    formData.append("email", email);
+    formData.append("password", password);
 
-    return this.http.post<EntityResultModel>(this.apiUrl + "/account/login", body).pipe(
+    return this.http.post<EntityResultModel>(this.apiUrl + "/account/login", formData).pipe(
 
       tap(response => {
         if (response.result == Result.Success) {

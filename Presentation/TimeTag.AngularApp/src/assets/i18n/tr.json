@@ -145,6 +145,7 @@
         "nameSurnameIsRequired": "Ad soyad zorunlu",
         "department": "Departman",
         "selectDepartment": "Departman seç",
+        "selectCard" : "Kart Seç",
         "title": "Unvan",
         "phone": "Telefon",
         "address": "Adres",
@@ -200,12 +201,21 @@
         "logOut": "Çıkış",
         "isLatedToJob": "Geç kaldı mı?",
         "yes": "Evet",
-        "no": "Hayır"
+        "no": "Hayır",
+        "editLog" : "Kaydı düzenle"
     },
     "Panel-index": {
         "myDepartments": "Departmanlarım",
         "myEmployees": "Personellerim",
-        "myCompanies": "Firmalarım"
+        "myCompanies": "Firmalarım",
+        "loginLogoutLogs" : "Giriş - Çıkış Kayıtlarım",
+        "startDate" :"Başlangıç Tarihi",
+        "endDate" :"Bitiş Tarihi",
+        "nameSurname" :"Ad Soyad",
+        "processTime" :"İşlem zamanı",
+        "type" : "Tip",
+        "login" : "Giriş",
+        "logOut" : "Çıkış"
     },
     "General": {
         "formValidationError": "Form eksiksiz ve doğru doldurulmalı.",
@@ -223,7 +233,10 @@
         "youMustAddADepartmentForAddEmployee": "Personel eklemek için öncelikle bir departman eklemelisiniz",
         "updatedProfile": "Profil bilgileriniz güncellendi",
         "gettedOffer"  :"Mesajınız iletildi. en kısa zamanda sizlere geri dönüş yapacağız",
-        "changedPassword" : "Parola değiştirildi"
+        "changedPassword" : "Parola değiştirildi",
+        "updatedLog"  :"Kayıt güncellendi",
+        "thereIsNoAnyDepartment" : "Departman eklemeden personel ekleyemezsiniz.",
+        "thereIsNoAnyCard" : "Üyeliğinizde boşta kart bilgisi kalmamıştır"
     },
     "Profile": {
         "youCanInstantlyUpdateYourProfileInformation": "Profil bilgilerinizi anında güncelleyebilirsiniz",
@@ -276,5 +289,20 @@
         "messageIsRequired" : "Mesaj bilgisi boş geçilemez",
         "requestAnOffer"  :"Teklif İste"
 
+    },
+    "Edit-timeLog" : {
+        "editLog" : "Kaydı düzenle",
+        "youCanEditYourEmployeeLog" : "Personelinin kaydını anında güncelleyebilirsiniz",
+        "type" : "Tip",
+        "login" : "Giriş",
+        "logOut" : "Çıkış",
+        "time" : "Zaman",
+        "updateLog" : "Kaydı güncelle",
+        "processTime"  : "İşlem zamanı"
+    },
+    "Languages" : {
+        "en" : "İngilizce",
+        "tr" : "Türkçe"
     }
+
 }

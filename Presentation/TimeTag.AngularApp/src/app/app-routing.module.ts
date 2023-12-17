@@ -18,6 +18,7 @@ import { BankAccountsComponent } from './Panel/Employee/bank-accounts/bank-accou
 import { TimeLogsComponent } from './Panel/Employee/time-logs/time-logs.component';
 import { ProfileComponent } from './Panel/profile/profile.component';
 import { ForgotPasswordComponent } from './Home/forgot-password/forgot-password.component';
+import { EditTimeLogComponent } from './Panel/Employee/edit-time-log/edit-time-log.component';
 
 const routes: Routes = [
 
@@ -37,6 +38,7 @@ const routes: Routes = [
   { path: "panel/employee-detail/:Id:", component: EmployeeDetailComponent, canActivate: [PanelGuard] },
   { path: "panel/bank-accounts/:Id:", component: BankAccountsComponent, canActivate: [PanelGuard] },
   { path: "panel/logs/:Id:", component: TimeLogsComponent, canActivate: [PanelGuard] },
+  { path: "panel/edit-log/:Id:", component: EditTimeLogComponent, canActivate: [PanelGuard] },
   { path: "panel/profile", component: ProfileComponent, canActivate: [PanelGuard] }
 ];
 

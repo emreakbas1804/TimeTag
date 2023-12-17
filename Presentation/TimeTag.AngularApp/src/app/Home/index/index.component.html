@@ -254,14 +254,12 @@
                     <select #langSelect (change)="changeLang(langSelect.value)">
                         <option *ngFor="let lang of translateService.getLangs()" [value]="lang"
                             [selected]="lang === translateService.currentLang">
-                            {{lang}}
+                            {{ 'Languages.' + lang | translate }}
                         </option>
                     </select>
                     <li>
                         <i class="bi bi-envelope-arrow-down"></i>
                         info&#64;timetag.com
-
-
                     </li>
 
                     <li>

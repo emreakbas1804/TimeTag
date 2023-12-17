@@ -48,7 +48,7 @@ public class EmailService : IEmailService
         }
     }
 
-    public string GetForgotPasswordEmailSchema(string userName, string code)
+    public string GetChangePasswordEmailSchema(string userName, string code)
     {
         // HTML e-posta gövdesi
         string emailBody = $@"<!DOCTYPE html>
@@ -91,7 +91,7 @@ public class EmailService : IEmailService
             </head>
             <body>
             <div class='container'>
-                <h1>Forgot Password</h1>
+                <h1>Change Password</h1>
                 <p>Hello, {userName}</p>
                 <p>You can use the following 6-digit code to reset your password</p>
                 <div class='code'>{code}</div>                

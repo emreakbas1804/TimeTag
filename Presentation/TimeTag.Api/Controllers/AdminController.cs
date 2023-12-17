@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Diagnostics;
 using System.Security.AccessControl;
@@ -40,9 +41,9 @@ namespace TimeTag.Api.Controllers
 
 
         [HttpPost("AddLicance")]
-        public async Task<IActionResult> AddLicance()
+        public async Task<IActionResult> AddLicance(List<string> tokens)
         {
-            var serialNumber = await _licanceService.AddLicance();
+            var serialNumber = await _licanceService.AddLicance(tokens);
             entityResultModel.Result = EntityResult.Success;
             entityResultModel.ResultObject = serialNumber;
             return Ok(entityResultModel);

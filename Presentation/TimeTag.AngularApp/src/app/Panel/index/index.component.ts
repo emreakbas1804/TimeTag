@@ -1,4 +1,6 @@
-import { ChangeDetectorRef, Component, OnInit, ViewEncapsulation } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit, ViewChild, ViewEncapsulation } from '@angular/core';
+import { MatPaginator } from '@angular/material/paginator';
+import { MatTableDataSource } from '@angular/material/table';
 import { firstValueFrom } from 'rxjs';
 import { Result } from 'src/app/Models/EntityResultModel';
 import { CompanyService } from 'src/app/Services/httpService/company.service';
@@ -19,6 +21,15 @@ export class IndexComponent implements OnInit {
   selectedCompany: any = 0;
   employeeCount = 0;
   departmentCount = 0;
+  startDate : any;
+  endDate : any;
+  page : any = 1;
+  count : any = 5;
+  logLenght : any = null;
+  dataSourceList: any[] = [];
+  displayedColumns: string[] = ["nameSurname", "processTime", "type"];
+  dataSourcee = new MatTableDataSource<any>(this.dataSourceList);
+  @ViewChild(MatPaginator, { static: true }) paginator!: MatPaginator;
   async ngOnInit(): Promise<void> {
     await this.getCompanies();
 
@@ -46,6 +57,7 @@ export class IndexComponent implements OnInit {
 
     await this.getDepartmentsCount();
     await this.getEmployeesCount();
+    await this.getTimeLogs();
   }
   
 
@@ -70,6 +82,31 @@ export class IndexComponent implements OnInit {
     if (response.result == Result.Success) {
       this.employeeCount = response.resultObject;
     }
+  }
+
+  async getTimeLogs(startDate? : any, endDate? : any) {  
+    this.startDate = startDate != undefined ? startDate : null;
+    this.endDate = endDate != undefined ? endDate : null;
+    const response = await firstValueFrom(this.employeeService.getCurrentEmployeeTimeLogs(this.startDate, this.endDate, this.page, this.count));    
+    if (response.result == Result.Success) {
+
+      this.dataSourceList = response.resultObject?.logDetails.map((item: { nameSurname: any, processTime: any, type: any, isLatedToJob :any }) => ({
+        nameSurname: item.nameSurname,
+        processTime: item.processTime,
+        type : item.type,
+        isLatedToJob : item.isLatedToJob,             
+      }
+      ));
+      this.logLenght = response.resultObject?.totalCount;
+      this.dataSourcee.data = this.dataSourceList;
+    }
+
+  }
+
+  async changedPage(event: any) {           
+    this.page = event.pageIndex + 1;
+    this.count = event.pageSize;
+    await this.getTimeLogs();
   }
 
 

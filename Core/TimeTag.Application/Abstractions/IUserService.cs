@@ -21,5 +21,7 @@ public interface IUserService
 
     Task<EntityResultModel> ForgotPassword(string email);
     Task<EntityResultModel> ResetPassword(string email, string code, string password);
+
+    Task<int> GetUserIdByEmail(string email);
     
 }

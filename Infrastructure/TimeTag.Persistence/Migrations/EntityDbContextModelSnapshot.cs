@@ -177,11 +177,16 @@ namespace TimeTag.Persistence.Migrations
                     b.Property<int?>("rlt_FileUpload_Id")
                         .HasColumnType("int");
 
+                    b.Property<int?>("rlt_User_Id")
+                        .HasColumnType("int");
+
                     b.HasKey("Id");
 
                     b.HasIndex("rlt_Department_Id");
 
                     b.HasIndex("rlt_FileUpload_Id");
+
+                    b.HasIndex("rlt_User_Id");
 
                     b.ToTable("Department_Employees");
                 });
@@ -272,12 +277,17 @@ namespace TimeTag.Persistence.Migrations
                     b.Property<string>("Token")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("rlt_Employee_Id")
+                    b.Property<int?>("rlt_Employee_Id")
+                        .HasColumnType("int");
+
+                    b.Property<int>("rlt_Licance_Id")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
 
                     b.HasIndex("rlt_Employee_Id");
+
+                    b.HasIndex("rlt_Licance_Id");
 
                     b.ToTable("Employee_Tokens");
                 });
@@ -496,6 +506,9 @@ namespace TimeTag.Persistence.Migrations
                     b.Property<int>("EmailConfirm")
                         .HasColumnType("int");
 
+                    b.Property<bool>("IsFirstLogin")
+                        .HasColumnType("bit");
+
                     b.Property<DateTime>("LastUpdateTime")
                         .HasColumnType("datetime2");
 
@@ -638,9 +651,15 @@ namespace TimeTag.Persistence.Migrations
                         .WithMany()
                         .HasForeignKey("rlt_FileUpload_Id");
 
+                    b.HasOne("TimeTag.Domain.Entities.User", "User")
+                        .WithMany("Employees")
+                        .HasForeignKey("rlt_User_Id");
+
                     b.Navigation("Department");
 
                     b.Navigation("ProfileImage");
+
+                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("TimeTag.Domain.Entities.Company_Department_Employee_Bank", b =>
@@ -669,11 +688,17 @@ namespace TimeTag.Persistence.Migrations
                 {
                     b.HasOne("TimeTag.Domain.Entities.Company_Department_Employee", "Employee")
                         .WithMany("Tokens")
-                        .HasForeignKey("rlt_Employee_Id")
+                        .HasForeignKey("rlt_Employee_Id");
+
+                    b.HasOne("TimeTag.Domain.Entities.Licance", "Licance")
+                        .WithMany("Tokens")
+                        .HasForeignKey("rlt_Licance_Id")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.Navigation("Employee");
+
+                    b.Navigation("Licance");
                 });
 
             modelBuilder.Entity("TimeTag.Domain.Entities.Localization", b =>
@@ -751,11 +776,15 @@ namespace TimeTag.Persistence.Migrations
             modelBuilder.Entity("TimeTag.Domain.Entities.Licance", b =>
                 {
                     b.Navigation("Company");
+
+                    b.Navigation("Tokens");
                 });
 
             modelBuilder.Entity("TimeTag.Domain.Entities.User", b =>
                 {
                     b.Navigation("Companies");
+
+                    b.Navigation("Employees");
 
                     b.Navigation("LoginLogs");
 

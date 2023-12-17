@@ -27,9 +27,11 @@
 
                                 <!-- Name -->
                                 <div class="form-group row mb-3">
-                                    <label class="col-sm-2 col-form-label required">{{"Add-employee.fullName" | translate}}</label>
+                                    <label class="col-sm-2 col-form-label required">{{"Add-employee.fullName" |
+                                        translate}}</label>
                                     <div class="col-sm-10">
-                                        <input type="text" class="form-input" placeholder="{{'Add-employee.fullName' | translate}}" name="fullName"
+                                        <input type="text" class="form-input"
+                                            placeholder="{{'Add-employee.fullName' | translate}}" name="fullName"
                                             ngModel required #fullName="ngModel">
                                         <div class="text-danger mt-1" *ngIf="fullName.invalid && fullName.touched">
                                             {{"Add-employee.nameSurnameIsRequired" | translate}}
@@ -39,12 +41,14 @@
 
                                 <!-- Department -->
                                 <div class="form-group row mb-3">
-                                    <label class="col-sm-2 col-form-label required">{{"Add-employee.department" | translate}} </label>
+                                    <label class="col-sm-2 col-form-label required">{{"Add-employee.department" |
+                                        translate}} </label>
                                     <div class="col-sm-10">
                                         <div class="card select2-card">
                                             <select id="selectDepartment" class="select2" name="department"
                                                 [(ngModel)]="selectedDepartment">
-                                                <option [value]=0>{{"Add-employee.selectDepartment" | translate}} </option>
+                                                <option [value]=0>{{"Add-employee.selectDepartment" | translate}}
+                                                </option>
                                                 <option [value]="department.id" *ngFor="let department of departments">
                                                     {{ department.name }} </option>
                                             </select>
@@ -52,11 +56,33 @@
                                     </div>
                                 </div>
 
+
+                                <!-- Token -->
+                                <div class="form-group row mb-3">
+                                    <label class="col-sm-2 col-form-label required">{{"Add-employee.selectCard" |
+                                        translate}}</label>
+                                    <div class="col-sm-10">
+                                        <div class="card select2-card">
+                                            <select id="selectToken" class="select2" name="token"
+                                                [(ngModel)]="selectedToken">
+                                                <option [value]=0>{{"Add-employee.selectCard" | translate}}
+                                                </option>
+                                                <option [value]="token.id" *ngFor="let token of tokens">
+                                                    {{ token.token }} </option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+
+
+
+
                                 <!-- Title -->
                                 <div class="form-group row mb-3">
                                     <label class="col-sm-2 col-form-label">{{"Add-employee.title" | translate}} </label>
                                     <div class="col-sm-10">
-                                        <input type="text" class="form-input" placeholder="{{'Add-employee.title' | translate}}" ngModel name="title"
+                                        <input type="text" class="form-input"
+                                            placeholder="{{'Add-employee.title' | translate}}" ngModel name="title"
                                             #title="ngModel">
                                     </div>
                                 </div>
@@ -65,17 +91,20 @@
                                 <div class="form-group row mb-3">
                                     <label class="col-sm-2 col-form-label">{{"Add-employee.phone" | translate}} </label>
                                     <div class="col-sm-10">
-                                        <input type="text" class="form-input" placeholder="{{'Add-employee.phone' | translate}}" ngModel name="phone"
+                                        <input type="text" class="form-input"
+                                            placeholder="{{'Add-employee.phone' | translate}}" ngModel name="phone"
                                             #phone="ngModel">
                                     </div>
                                 </div>
 
                                 <!-- Address -->
                                 <div class="form-group row mb-3">
-                                    <label class="col-sm-2 col-form-label">{{"Add-employee.address" | translate}} </label>
+                                    <label class="col-sm-2 col-form-label">{{"Add-employee.address" | translate}}
+                                    </label>
                                     <div class="col-sm-10">
-                                        <input type="text" class="form-input" placeholder="{{'Add-employee.address' | translate}}" ngModel
-                                            name="address" #address="ngModel">
+                                        <input type="text" class="form-input"
+                                            placeholder="{{'Add-employee.address' | translate}}" ngModel name="address"
+                                            #address="ngModel">
                                     </div>
                                 </div>
 
@@ -83,7 +112,8 @@
                                 <div class="form-group row mb-3">
                                     <label class="col-sm-2 col-form-label">{{"Add-employee.email" | translate}} </label>
                                     <div class="col-sm-10">
-                                        <input type="text" class="form-input" placeholder="{{'Add-employee.email' | translate}}" ngModel name="email"
+                                        <input type="text" class="form-input"
+                                            placeholder="{{'Add-employee.email' | translate}}" ngModel name="email"
                                             #email="ngModel">
                                     </div>
                                 </div>
@@ -91,7 +121,8 @@
 
                                 <!-- Birth day -->
                                 <div class="form-group row mb-3">
-                                    <label class="col-sm-2 col-form-label">{{"Add-employee.birthDay" | translate}} </label>
+                                    <label class="col-sm-2 col-form-label">{{"Add-employee.birthDay" | translate}}
+                                    </label>
                                     <div class="col-sm-10">
                                         <input type="date" ngModel name="birthDay" #birthDay="ngModel">
                                     </div>

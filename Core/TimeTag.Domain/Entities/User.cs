@@ -13,6 +13,7 @@ public class User : BaseModel
     public string Email { get; set; }
     public Confirm EmailConfirm { get; set; } = Confirm.WaitingForConfirm;
     public string Phone { get; set; }
+    public bool IsFirstLogin { get; set; }
     public int rlt_Role_Id { get; set; }
     [ForeignKey(nameof(rlt_Role_Id))]
     public Role Role { get; set; }
@@ -20,6 +21,7 @@ public class User : BaseModel
     public virtual ICollection<User_Token> User_Tokens { get; set; }
     public virtual ICollection<Company> Companies { get; set; }
     public virtual ICollection<SecurityCode> SecurityCodes { get; set; }
+    public virtual ICollection<Company_Department_Employee> Employees {get;set;}
 }
 
 public class Role : BaseModel
