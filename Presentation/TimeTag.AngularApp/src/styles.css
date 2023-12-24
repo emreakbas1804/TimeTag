@@ -9,7 +9,7 @@ body {
 .account {
   background-image: url("/./assets/images/account-bg.jpg");
   width: 100%;
-  min-height: 100vh;
+  min-height: 101vh;
   background-size: cover;
   background-position: center;
   box-sizing: border-box;
@@ -27,7 +27,7 @@ input {
   border: 1px solid #316fc9 !important;
   background-color: rgba(27, 27, 29, 0.08) !important;
   outline: none !important;
-  box-shadow: none !important;
+  box-shadow: none !important;  
 }
 
 button {
@@ -234,16 +234,25 @@ button:hover {
   
 }
 
-
+.modal{
+  z-index: 999;
+}
 .snackBar-success{
-  background-color: #1ea97c; /* Yeşil renk */
+  background-color: #1ea97c; 
   color: #fff;
 }
 .snackBar-error{
-  background-color: #e83d3d; /* Yeşil renk */
+  background-color: #e83d3d; 
   color: #fff;
+  z-index: 9999999999999 !important;
+  
 }
 .snackBar-warning{
-  background-color: #316fc9; /* Yeşil renk */
+  background-color: #316fc9; 
   color: #fff;
+}
+.dropdown-item
+{
+  background-color: white !important; 
+  color: black !important;
 }

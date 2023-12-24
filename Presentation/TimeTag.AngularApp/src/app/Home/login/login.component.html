@@ -16,7 +16,7 @@
 
                         <form #form="ngForm" (ngSubmit)="login(form)">
                             <div class="mb-3">
-                                <input type="email" class="form-input" placeholder="Email" name="email" ngModel required
+                                <input type="email" class="form-input" placeholder="{{'Login.email' | translate}}" name="email" ngModel required
                                     #name="ngModel">
                                 <div class="text-danger mt-1" *ngIf="name.invalid && name.touched">
                                     {{ "Login.emailIsRequired" | translate }}
@@ -25,7 +25,7 @@
 
 
                             <div class="mb-3 password">
-                                <input type="password" class="form-input" placeholder="Password" ngModel name="password"
+                                <input type="password" class="form-input" placeholder="{{'Login.password' | translate}}" ngModel name="password"
                                     required minlength="6" #Password="ngModel">
                                 <div class="text-danger mt-1" *ngIf="Password.invalid && Password.touched">
                                     {{ "Login.passwordShoulBeLongerThan5Char" | translate }}

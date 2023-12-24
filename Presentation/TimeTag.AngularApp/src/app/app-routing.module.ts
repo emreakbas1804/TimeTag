@@ -16,12 +16,16 @@ import { MyEmployeesComponent } from './Panel/Employee/my-employees/my-employees
 import { EmployeeDetailComponent } from './Panel/Employee/employee-detail/employee-detail.component';
 import { BankAccountsComponent } from './Panel/Employee/bank-accounts/bank-accounts.component';
 import { TimeLogsComponent } from './Panel/Employee/time-logs/time-logs.component';
+import { ProfileComponent } from './Panel/profile/profile.component';
+import { ForgotPasswordComponent } from './Home/forgot-password/forgot-password.component';
+import { EditTimeLogComponent } from './Panel/Employee/edit-time-log/edit-time-log.component';
 
 const routes: Routes = [
 
   { path: "", component: IndexComponent },
   { path: "register", component: RegisterComponent },
   { path: "login", component: LoginComponent },
+  { path: "forgot-password", component: ForgotPasswordComponent },
   { path: "panel", component: PanelIndexComponent, canActivate: [PanelGuard] },
   { path: "panel/add-company", component: AddCompanyComponent, canActivate: [PanelGuard] },
   { path: "panel/my-companies", component: MyCompaniesComponent, canActivate: [PanelGuard] },
@@ -34,6 +38,8 @@ const routes: Routes = [
   { path: "panel/employee-detail/:Id:", component: EmployeeDetailComponent, canActivate: [PanelGuard] },
   { path: "panel/bank-accounts/:Id:", component: BankAccountsComponent, canActivate: [PanelGuard] },
   { path: "panel/logs/:Id:", component: TimeLogsComponent, canActivate: [PanelGuard] },
+  { path: "panel/edit-log/:Id:", component: EditTimeLogComponent, canActivate: [PanelGuard] },
+  { path: "panel/profile", component: ProfileComponent, canActivate: [PanelGuard] }
 ];
 
 @NgModule({

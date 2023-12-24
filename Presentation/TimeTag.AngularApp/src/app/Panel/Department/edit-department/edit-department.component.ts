@@ -1,6 +1,7 @@
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { NavigationStart, Router } from '@angular/router';
+import { TranslateService } from '@ngx-translate/core';
 import { Observable, firstValueFrom } from 'rxjs';
 import { EntityResultModel, Result } from 'src/app/Models/EntityResultModel';
 import { SnackBarService } from 'src/app/Services/customService/snack-bar.service';
@@ -15,7 +16,7 @@ declare var $ : any;
 export class EditDepartmentComponent implements OnInit {
 
   loading = false;
-  constructor(private router: Router, private companyService: CompanyService, private snackBarService: SnackBarService) { }
+  constructor(private router: Router, private companyService: CompanyService, private snackBarService: SnackBarService, private translateService : TranslateService) { }
   departmentId: any = null;
   department: any = {
     name: "",
@@ -51,7 +52,7 @@ export class EditDepartmentComponent implements OnInit {
   }
   updateDepartment(form: NgForm) {
     if (form.invalid) {
-      this.snackBarService.error("Form invalid");
+      this.snackBarService.error(this.translateService.instant("General.formValidationError"));
       return;
     }
     this.loading = true;
@@ -59,13 +60,13 @@ export class EditDepartmentComponent implements OnInit {
       next: response => {
         this.loading = false;
         if (response.result == Result.Success) {
-          this.snackBarService.success("Updated company");
+          this.snackBarService.success(this.translateService.instant("General.updatedDepartment"));
         } else {
           this.snackBarService.error(response.resultMessage);
         }
       },
       error: err => {
-        this.snackBarService.error("Unknow error");
+        this.snackBarService.error(this.translateService.instant("General.anUnexpectedErrorOccurred"))
       }
     })
 
@@ -75,7 +76,7 @@ export class EditDepartmentComponent implements OnInit {
       this.loading = true;
       var response = await firstValueFrom(this.companyService.deleteDepartment(this.departmentId));
       if (response.result == Result.Success) {
-        this.snackBarService.success("Deleted department");
+        this.snackBarService.success(this.translateService.instant("General.deletedDepartment"));
         this.router.navigate(["/panel/my-departments"]);
       } else {
         this.snackBarService.error(response.resultMessage);

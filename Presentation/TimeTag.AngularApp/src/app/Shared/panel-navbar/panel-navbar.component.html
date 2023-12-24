@@ -14,10 +14,17 @@
     <div class="computer">
         <ul>
             <li>
+<<<<<<< HEAD
                 <select #langSelect (change)="translateService.use(langSelect.value)">
                     <option *ngFor="let lang of translateService.getLangs()" [value]="lang"
                         [selected]="lang === translateService.currentLang">
                         <i class="bi bi-globe"></i> {{lang}}
+=======
+                <select #langSelect (change)="changeLang(langSelect.value)">
+                    <option *ngFor="let lang of translateService.getLangs()" [value]="lang"
+                        [selected]="lang === translateService.currentLang">
+                        {{ 'Languages.' + lang | translate }}
+>>>>>>> 33172811856cd780c1ce01dd3e21954380600f2c
                     </option>
                 </select>
             </li>

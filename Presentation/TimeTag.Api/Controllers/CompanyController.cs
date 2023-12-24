@@ -108,6 +108,18 @@ namespace TimeTag.Api.Controllers
             return Ok(entityResultModel);
         }
 
+
+        [Authorize]
+        [HttpGet("GetCompanyTokens")]
+        [PermissionAttr(Permission = PermissonTags.Company)]
+        public async Task<IActionResult> GetCompanyTokens(int companyId)
+        {
+            var company = await _companyService.GetCompanyTokens(companyId);                 
+            return Ok(company);
+        }
+
+        
+        
         #endregion
 
 

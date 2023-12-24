@@ -2,6 +2,7 @@ import { DatePipe } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { Router } from '@angular/router';
+import { TranslateService } from '@ngx-translate/core';
 import { firstValueFrom } from 'rxjs';
 import { Result } from 'src/app/Models/EntityResultModel';
 import { SnackBarService } from 'src/app/Services/customService/snack-bar.service';
@@ -33,7 +34,7 @@ export class EmployeeDetailComponent implements OnInit {
     photo: "",
   }
   cdnUrl = environment.cdnUrl;  
-  constructor(private snackBarService: SnackBarService, private employeeService: EmployeeService, private companyService: CompanyService, private router: Router, private datePipe: DatePipe) { }
+  constructor(private snackBarService: SnackBarService, private employeeService: EmployeeService, private companyService: CompanyService, private router: Router, private datePipe: DatePipe, private translateService : TranslateService) { }
 
 
   async ngOnInit(): Promise<void> {
@@ -54,7 +55,7 @@ export class EmployeeDetailComponent implements OnInit {
 
   updateEmployee(form: NgForm) {
     if (form.invalid || this.selectedDepartment == 0) {
-      this.snackBarService.error("Form validation error");
+      this.snackBarService.error(this.translateService.instant("General.formValidationError"));
       return;
     }
     this.loading = true;
@@ -62,7 +63,7 @@ export class EmployeeDetailComponent implements OnInit {
       next: response => {
         this.loading = false;
         if (response.result == Result.Success) {
-          this.snackBarService.success("Updated Employee");
+          this.snackBarService.success(this.translateService.instant("General.updatedEmployee"));
           this.selectedFile = null;
         }
         else {
@@ -71,7 +72,7 @@ export class EmployeeDetailComponent implements OnInit {
         }
       },
       error: err => {
-        this.snackBarService.error("UnKnow Error. Please try again later.");
+        this.snackBarService.error(this.translateService.instant("General.anUnexpectedErrorOccurred"))
         this.loading = false;
       }
     })
@@ -107,7 +108,7 @@ export class EmployeeDetailComponent implements OnInit {
       ));
     }
     if (this.departments.length == 0) {
-      this.snackBarService.warning("You must add a departman for add employee");
+      this.snackBarService.warning(this.translateService.instant("General.youMustAddADepartmentForAddEmployee"));
       this.router.navigate(['/panel/add-department']);
     }
   }
@@ -116,12 +117,12 @@ export class EmployeeDetailComponent implements OnInit {
     const file = event.target.files[0];
 
     if (!this.allowedTypes.includes(file.type)) {
-      this.snackBarService.error("File type is invalid");
+      this.snackBarService.error(this.translateService.instant("General.fileTypeIsInvalid"));
       return
     }
     const maxSize = 10 * 1024 * 1024; // 10MB
     if (file.size > maxSize) {
-      this.snackBarService.error("File size con not bigger than 10 MB");
+      this.snackBarService.error(this.translateService.instant("General.fileSizeConnotBiggerThan10Mb"));
       return
     }
     if (file) {

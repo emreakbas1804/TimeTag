@@ -1,5 +1,6 @@
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { NgForm } from '@angular/forms';
+import { TranslateService } from '@ngx-translate/core';
 import { Result } from 'src/app/Models/EntityResultModel';
 import { SnackBarService } from 'src/app/Services/customService/snack-bar.service';
 import { CompanyService } from 'src/app/Services/httpService/company.service';
@@ -13,14 +14,14 @@ import { CompanyService } from 'src/app/Services/httpService/company.service';
 export class AddDepartmentComponent implements OnInit {
 
   loading = false;
-  constructor(private companyService: CompanyService, private snackBarService: SnackBarService) { }
+  constructor(private companyService: CompanyService, private snackBarService: SnackBarService, private translateService : TranslateService) { }
 
   ngOnInit(): void {
   }
 
   addDepartment(form: NgForm) {
     if (form.invalid) {
-      this.snackBarService.error("Form validation error");
+      this.snackBarService.error(this.translateService.instant("General.formValidationError"));
       return;
     }
     this.loading = true;
@@ -28,7 +29,7 @@ export class AddDepartmentComponent implements OnInit {
     this.companyService.addDepartment(companyId, form.value.name, form.value.address, form.value.description, form.value.startJobTime, form.value.finishJobTime).subscribe({
       next: response => {
         if (response.result == Result.Success) {
-          this.snackBarService.success("Department created");
+          this.snackBarService.success(this.translateService.instant("General.createdDepartment"));
           form.reset();
         } else this.snackBarService.error(response.resultMessage);
 
@@ -36,7 +37,7 @@ export class AddDepartmentComponent implements OnInit {
 
       },
       error: err => {
-        this.snackBarService.error("UnKnow error. Please try again later.");
+        this.snackBarService.error(this.translateService.instant("General.anUnexpectedErrorOccurred"))
         this.loading = false;
       }
     })

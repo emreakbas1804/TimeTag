@@ -28,9 +28,15 @@ ul li {
 }
 
 .dropdown span {
+<<<<<<< HEAD
     border-radius: 50%;
     background-color: #012035;
     color: white;
+=======
+    border-radius: 50% !important;
+    background-color: #012035 !important;
+    color: white !important;
+>>>>>>> 33172811856cd780c1ce01dd3e21954380600f2c
     font-size: 13px;
     padding: 13px 8px;
     transition: all .3s;
@@ -59,8 +65,13 @@ ul li {
 }
 
 .dropdown .logOut {
+<<<<<<< HEAD
     background-color: red;
     color: white;
+=======
+    background-color: red !important;
+    color: white !important;
+>>>>>>> 33172811856cd780c1ce01dd3e21954380600f2c
     cursor: pointer;
 
 }
@@ -100,13 +111,23 @@ ul li {
 
 
 select {
+<<<<<<< HEAD
+=======
+    /* Tarayıcı kontrolünü sıfırla */
+    appearance: none;
+    -webkit-appearance: none;
+>>>>>>> 33172811856cd780c1ce01dd3e21954380600f2c
     border: 1px solid #ccc;
     border-radius: 4px;
     padding: 5px 10px;
     font-size: 19px;
     font-family: sans-serif;
     color: #333;
+<<<<<<< HEAD
     background-color: #fff;
+=======
+    background-color: #fff !important;
+>>>>>>> 33172811856cd780c1ce01dd3e21954380600f2c
     width: 150px;
 }
 

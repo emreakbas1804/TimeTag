@@ -26,8 +26,7 @@ namespace TimeTag.Domain.Entities
         [ForeignKey(nameof(rlt_Licance_Id))]
         public virtual Licance Licance { get; set; }
 
-        public virtual ICollection<Company_Department> Departments { get; set; }        
-
+        public virtual ICollection<Company_Department> Departments { get; set; }             
     }
 
     public class Company_Department : BaseModel

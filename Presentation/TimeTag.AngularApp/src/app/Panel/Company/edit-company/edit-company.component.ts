@@ -7,6 +7,7 @@ import { CompanyService } from 'src/app/Services/httpService/company.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { environment } from 'src/environments/environment';
 import { SnackBarService } from 'src/app/Services/customService/snack-bar.service';
+import { TranslateService } from '@ngx-translate/core';
 @Component({
   selector: 'app-edit-company',
   templateUrl: './edit-company.component.html',
@@ -26,7 +27,7 @@ export class EditCompanyComponent implements OnInit {
     webSite: "",
     image: "",
   }
-  constructor(private router: Router, private companyService: CompanyService, private snackBarService: SnackBarService) { }
+  constructor(private router: Router, private companyService: CompanyService, private snackBarService: SnackBarService, private translateService : TranslateService) { }
 
   async ngOnInit(): Promise<void> {
     this.companyId = this.router.url.split("/")[3];
@@ -52,7 +53,7 @@ export class EditCompanyComponent implements OnInit {
 
   update(form: NgForm) {
     if (form.invalid) {
-      this.snackBarService.error("Form invalid");
+      this.snackBarService.error(this.translateService.instant("General.formValidationError"));
       return;
     }
     this.loading = true;
@@ -62,11 +63,11 @@ export class EditCompanyComponent implements OnInit {
         if(response.result == Result.Error){
           this.snackBarService.error(response.resultMessage);
         }else{
-          this.snackBarService.success("Updated company")
+          this.snackBarService.success(this.translateService.instant("General.updatedCompany"))
         }
       },
       error: err => {
-        this.snackBarService.error("UnKnow error. Please try again later.");
+        this.snackBarService.error(this.translateService.instant("General.anUnexpectedErrorOccurred"))
         this.loading = false;
       }
     });
@@ -76,12 +77,12 @@ export class EditCompanyComponent implements OnInit {
     const file = event.target.files[0];
     
     if (!this.allowedTypes.includes(file.type)) {
-      this.snackBarService.error("File type is invalid");
+      this.snackBarService.error(this.translateService.instant("General.fileTypeIsInvalid"));
       return
     }
     const maxSize = 10 * 1024 * 1024; // 10MB
     if(file.size > maxSize){
-      this.snackBarService.error("File size con not bigger than 10 MB");
+      this.snackBarService.error(this.translateService.instant("General.fileSizeConnotBiggerThan10Mb"));
       return
     }
     if (file) {

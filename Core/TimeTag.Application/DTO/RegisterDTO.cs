@@ -13,5 +13,6 @@ namespace TimeTag.Application.DTO
         [Required]
         public string Password { get; set; }
         public string Phone { get; set; }
+        public bool IsFirstLogin { get; set; }
     }
 }

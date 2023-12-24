@@ -28,6 +28,24 @@ namespace TimeTag.Persistence.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Contacts",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    NameSurname = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Phone = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Email = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Message = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    RecordCreateTime = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    LastUpdateTime = table.Column<DateTime>(type: "datetime2", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Contacts", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "FileUploads",
                 columns: table => new
                 {
@@ -126,6 +144,7 @@ namespace TimeTag.Persistence.Migrations
                     Email = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     EmailConfirm = table.Column<int>(type: "int", nullable: false),
                     Phone = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    IsFirstLogin = table.Column<bool>(type: "bit", nullable: false),
                     rlt_Role_Id = table.Column<int>(type: "int", nullable: false),
                     RecordCreateTime = table.Column<DateTime>(type: "datetime2", nullable: false),
                     LastUpdateTime = table.Column<DateTime>(type: "datetime2", nullable: false)
@@ -177,6 +196,31 @@ namespace TimeTag.Persistence.Migrations
                         principalTable: "Users",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "SecurityCodes",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    ProcessTime = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    ExpiryDate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    Email = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Code = table.Column<int>(type: "int", nullable: false),
+                    Type = table.Column<int>(type: "int", nullable: false),
+                    rlt_User_Id = table.Column<int>(type: "int", nullable: true),
+                    RecordCreateTime = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    LastUpdateTime = table.Column<DateTime>(type: "datetime2", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_SecurityCodes", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_SecurityCodes_Users_rlt_User_Id",
+                        column: x => x.rlt_User_Id,
+                        principalTable: "Users",
+                        principalColumn: "Id");
                 });
 
             migrationBuilder.CreateTable(
@@ -269,6 +313,7 @@ namespace TimeTag.Persistence.Migrations
                     IsActive = table.Column<bool>(type: "bit", nullable: false),
                     rlt_FileUpload_Id = table.Column<int>(type: "int", nullable: true),
                     rlt_Department_Id = table.Column<int>(type: "int", nullable: false),
+                    rlt_User_Id = table.Column<int>(type: "int", nullable: true),
                     RecordCreateTime = table.Column<DateTime>(type: "datetime2", nullable: false),
                     LastUpdateTime = table.Column<DateTime>(type: "datetime2", nullable: false)
                 },
@@ -285,6 +330,11 @@ namespace TimeTag.Persistence.Migrations
                         name: "FK_Department_Employees_FileUploads_rlt_FileUpload_Id",
                         column: x => x.rlt_FileUpload_Id,
                         principalTable: "FileUploads",
+                        principalColumn: "Id");
+                    table.ForeignKey(
+                        name: "FK_Department_Employees_Users_rlt_User_Id",
+                        column: x => x.rlt_User_Id,
+                        principalTable: "Users",
                         principalColumn: "Id");
                 });
 
@@ -344,7 +394,8 @@ namespace TimeTag.Persistence.Migrations
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Token = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    rlt_Employee_Id = table.Column<int>(type: "int", nullable: false),
+                    rlt_Employee_Id = table.Column<int>(type: "int", nullable: true),
+                    rlt_Licance_Id = table.Column<int>(type: "int", nullable: false),
                     RecordCreateTime = table.Column<DateTime>(type: "datetime2", nullable: false),
                     LastUpdateTime = table.Column<DateTime>(type: "datetime2", nullable: false)
                 },
@@ -355,6 +406,11 @@ namespace TimeTag.Persistence.Migrations
                         name: "FK_Employee_Tokens_Department_Employees_rlt_Employee_Id",
                         column: x => x.rlt_Employee_Id,
                         principalTable: "Department_Employees",
+                        principalColumn: "Id");
+                    table.ForeignKey(
+                        name: "FK_Employee_Tokens_Licances_rlt_Licance_Id",
+                        column: x => x.rlt_Licance_Id,
+                        principalTable: "Licances",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -391,6 +447,11 @@ namespace TimeTag.Persistence.Migrations
                 column: "rlt_FileUpload_Id");
 
             migrationBuilder.CreateIndex(
+                name: "IX_Department_Employees_rlt_User_Id",
+                table: "Department_Employees",
+                column: "rlt_User_Id");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Employee_Banks_rlt_Employee_Id",
                 table: "Employee_Banks",
                 column: "rlt_Employee_Id");
@@ -406,9 +467,19 @@ namespace TimeTag.Persistence.Migrations
                 column: "rlt_Employee_Id");
 
             migrationBuilder.CreateIndex(
+                name: "IX_Employee_Tokens_rlt_Licance_Id",
+                table: "Employee_Tokens",
+                column: "rlt_Licance_Id");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Localizations_rlt_Language_Id",
                 table: "Localizations",
                 column: "rlt_Language_Id");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_SecurityCodes_rlt_User_Id",
+                table: "SecurityCodes",
+                column: "rlt_User_Id");
 
             migrationBuilder.CreateIndex(
                 name: "IX_User_LoginLogs_rlt_User_Id",
@@ -433,6 +504,9 @@ namespace TimeTag.Persistence.Migrations
                 name: "AppDomains");
 
             migrationBuilder.DropTable(
+                name: "Contacts");
+
+            migrationBuilder.DropTable(
                 name: "Employee_Banks");
 
             migrationBuilder.DropTable(
@@ -443,6 +517,9 @@ namespace TimeTag.Persistence.Migrations
 
             migrationBuilder.DropTable(
                 name: "Localizations");
+
+            migrationBuilder.DropTable(
+                name: "SecurityCodes");
 
             migrationBuilder.DropTable(
                 name: "User_LoginLogs");

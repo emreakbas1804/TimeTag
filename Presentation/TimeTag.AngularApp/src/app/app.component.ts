@@ -11,7 +11,15 @@ export class AppComponent implements OnInit {
   title = 'TimeTag.AngularApp';
 
   constructor(private accountService: AccountService, public translateService: TranslateService) {
+<<<<<<< HEAD
     translateService.addLangs(["en", "tr"])
+=======
+    translateService.addLangs(["en", "tr"]);
+    var selectedLang = localStorage.getItem("langCode");
+    
+    
+    translateService.use(selectedLang ?? "en");
+>>>>>>> 33172811856cd780c1ce01dd3e21954380600f2c
   }
 
 

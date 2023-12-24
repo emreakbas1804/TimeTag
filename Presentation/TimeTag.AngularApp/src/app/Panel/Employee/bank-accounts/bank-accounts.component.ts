@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { Router } from '@angular/router';
+import { TranslateService } from '@ngx-translate/core';
 import { firstValueFrom } from 'rxjs';
 import { Result } from 'src/app/Models/EntityResultModel';
 import { SnackBarService } from 'src/app/Services/customService/snack-bar.service';
@@ -13,7 +14,7 @@ declare var $ : any;
 })
 export class BankAccountsComponent implements OnInit {
 
-  constructor(private employeeService : EmployeeService, private router: Router, private snackBarService : SnackBarService) { }
+  constructor(private employeeService : EmployeeService, private router: Router, private snackBarService : SnackBarService, private translateService : TranslateService) { }
   employeeId: any = null;
   banks: any[] = [];
   loading = false;
@@ -41,7 +42,7 @@ export class BankAccountsComponent implements OnInit {
 
   addBankAccount(form: NgForm) {
     if (form.invalid) {
-      this.snackBarService.error("Form validation error");
+      this.snackBarService.error(this.translateService.instant("General.formValidationError"));
       return;
     }
     this.loading = true;    
@@ -49,7 +50,7 @@ export class BankAccountsComponent implements OnInit {
       next: async response => {
         this.loading = false;
         if (response.result == Result.Success) {
-          this.snackBarService.success("Added Bank Account");
+          this.snackBarService.success(this.translateService.instant("General.createdBankAccount"));
           $('#add_bank_account_modal').modal('hide');
           form.reset();
           await this.getEmployeeBanks();
@@ -60,7 +61,7 @@ export class BankAccountsComponent implements OnInit {
         }
       },
       error: err => {
-        this.snackBarService.error("UnKnow Error. Please try again later.");
+        this.snackBarService.error(this.translateService.instant("General.anUnexpectedErrorOccurred"))
         this.loading = false;
       }
     })

@@ -1,8 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { ActivatedRoute, Route, Router } from '@angular/router';
+import { TranslateService } from '@ngx-translate/core';
 import { tap } from 'rxjs';
 import { Result } from 'src/app/Models/EntityResultModel';
+import { SnackBarService } from 'src/app/Services/customService/snack-bar.service';
 import { AccountService } from 'src/app/Services/httpService/account.service';
 
 @Component({
@@ -12,7 +14,7 @@ import { AccountService } from 'src/app/Services/httpService/account.service';
 })
 export class LoginComponent implements OnInit {
 
-  constructor(private accountService: AccountService, private activatedRoute: ActivatedRoute, private route: Router) { }
+  constructor(private accountService: AccountService, private activatedRoute: ActivatedRoute, private route: Router, private translateService : TranslateService, private snackBarService : SnackBarService) { }
   returnUrl = "/panel";
   info: string | null = null;
   infoColor: string | null = null;
@@ -25,8 +27,8 @@ export class LoginComponent implements OnInit {
   }
 
   login(form: NgForm) {
-    if (form.invalid) {
-      this.info = "Form validation error";
+    if (form.invalid) {      
+      this.info = this.translateService.instant("General.formValidationError");
       this.infoColor = "danger";
       return;
     }
@@ -35,7 +37,11 @@ export class LoginComponent implements OnInit {
       next: response => {
         if (response.result == Result.Success) {
           this.route.navigate([this.returnUrl]);
-        } else {
+        }else if(response.result == Result.Warning){
+          this.snackBarService.warning(response.resultMessage);
+          this.route.navigate(["/forgot-password"])
+        } 
+        else {
           this.info = response.resultMessage;
           this.infoColor = "danger";
           this.loading = false;

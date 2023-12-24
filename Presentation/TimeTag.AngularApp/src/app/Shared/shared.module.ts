@@ -20,8 +20,12 @@ import { TranslateHttpLoader } from '@ngx-translate/http-loader';
     CommonModule,
     RouterModule,
     HttpClientModule,
+<<<<<<< HEAD
     TranslateModule.forRoot({
       defaultLanguage : "en",
+=======
+    TranslateModule.forRoot({     
+>>>>>>> 33172811856cd780c1ce01dd3e21954380600f2c
       loader : {
         provide: TranslateLoader,
         useFactory : HttpLoaderFactory,

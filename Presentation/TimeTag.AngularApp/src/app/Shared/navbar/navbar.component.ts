@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { TranslateService } from '@ngx-translate/core';
 declare var $: any;
 @Component({
   selector: 'app-navbar',
@@ -7,7 +8,7 @@ declare var $: any;
 })
 export class NavbarComponent implements OnInit {
 
-  constructor() { }
+  constructor(public translateService: TranslateService) { }
 
   ngOnInit(): void {
     $( "#toggle-button" ).click(function() {
@@ -16,5 +17,7 @@ export class NavbarComponent implements OnInit {
       });
     });
   }
+
+
 
 }

@@ -134,4 +134,26 @@ public class CompanyService : ICompanyService
     {
         return _context.Companies.Any(q => q.Id == companyId);
     }
+
+    public async Task<EntityResultModel> GetCompanyTokens(int companyId)
+    {
+        try
+        {
+            var tokenList = await _context.Companies.Where(q => q.Id == companyId && q.Licance.Tokens.Any(a => a.rlt_Employee_Id == null)).Select(c =>
+                c.Licance.Tokens.Select(a => new
+                {
+                    Id = a.Id,
+                    Token = a.Token
+                })).FirstOrDefaultAsync();
+
+            entityResultModel.Result = EntityResult.Success;
+            entityResultModel.ResultObject = tokenList;
+            return entityResultModel;
+        }
+        catch (System.Exception)
+        {
+            entityResultModel.ResultMessage = await _localizationService.getLocalization("txt_beklenmedik_bir_hata_olustu", "Unknow error. Please try again later");
+            return entityResultModel;
+        }
+    }
 }
