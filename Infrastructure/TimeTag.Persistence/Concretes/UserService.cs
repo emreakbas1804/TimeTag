@@ -135,7 +135,7 @@ public class UserService : IUserService
         try
         {
             var tokenHandler = new JwtSecurityTokenHandler();
-            var key = Encoding.ASCII.GetBytes(Configurations.SecretKey);
+            var key = Encoding.ASCII.GetBytes("YourSecretKeyWithAtLeast32Bytesssssss");
 
             var tokenDescriptor = new SecurityTokenDescriptor
             {
@@ -162,10 +162,20 @@ public class UserService : IUserService
             };
             entityResultModel.ResultObject = tokenInfo;
             entityResultModel.Result = EntityResult.Success;
+            User_Token token = new()
+            {
+                Name = "jwt",
+                Value = tokenInfo?.tokenString,
+                ExpiryDate = tokenDescriptor.Expires.Value,
+                rlt_User_Id = userEntity.Id
+            };
+            _context.User_Tokens.Add(token);
+            await _context.SaveChangesAsync();
         }
         catch (System.Exception)
         {
             entityResultModel.ResultMessage = await _localizationService.getLocalization("txt_beklenmedik_bir_hata_olustu", "Unknow error. Please try again later");
+         
         }
         return entityResultModel;
     }
