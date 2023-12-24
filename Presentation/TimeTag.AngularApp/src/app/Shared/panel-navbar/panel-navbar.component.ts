@@ -10,11 +10,7 @@ import { AccountService } from 'src/app/Services/httpService/account.service';
 })
 export class PanelNavbarComponent implements OnInit {
 
-<<<<<<< HEAD
-  constructor(private router : Router, private accountService : AccountService, public translateService : TranslateService) { }
-=======
   constructor(private router: Router, private accountService: AccountService, public translateService: TranslateService) { }
->>>>>>> 33172811856cd780c1ce01dd3e21954380600f2c
   FirstName: string | null | undefined = "";
   LastName: string | null | undefined = "";
   ngOnInit(): void {
@@ -29,13 +25,10 @@ export class PanelNavbarComponent implements OnInit {
     this.router.navigate(["/"]);
   }
 
-<<<<<<< HEAD
-=======
   changeLang(langCode: string) {
     this.translateService.use(langCode);
     localStorage.setItem("langCode", langCode)
   }
->>>>>>> 33172811856cd780c1ce01dd3e21954380600f2c
 
 
 

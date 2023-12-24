@@ -21,11 +21,8 @@ import { EmployeeDetailComponent } from './Employee/employee-detail/employee-det
 import { BankAccountsComponent } from './Employee/bank-accounts/bank-accounts.component';
 import { TimeLogsComponent } from './Employee/time-logs/time-logs.component';
 import { TranslateModule } from '@ngx-translate/core';
-<<<<<<< HEAD
-=======
 import { ProfileComponent } from './profile/profile.component';
 import { EditTimeLogComponent } from './Employee/edit-time-log/edit-time-log.component';
->>>>>>> 33172811856cd780c1ce01dd3e21954380600f2c
 
 @NgModule({
   providers :[
