@@ -4,7 +4,7 @@
         <div class="row mt-3 justify-content-center">
 
             <div class="col-md-6 register-card">
-                <h1 class="h4">Register Free</h1>
+                <h1 class="h4">{{ "Register.registerFree" | translate }}</h1>
                 <hr>
                 <div [class.d-none]="!info">
                     <div class="alert alert-{{infoColor}} text-center" *ngIf="info != ''">
@@ -17,7 +17,8 @@
                         <input type="text" class="form-input" placeholder="Name" [(ngModel)]="registerModel.Name"
                             name="name" required #name="ngModel">
                         <div class="text-danger mt-1" *ngIf="name.invalid && name.touched">
-                            Name is required
+                            {{ "Register.nameIsRequired" | translate }}
+                            
                         </div>
                     </div>
 
@@ -25,7 +26,7 @@
                         <input type="text" class="form-input" placeholder="Surname" [(ngModel)]="registerModel.Surname"
                             name="Surname" required #Surname="ngModel">
                         <div class="text-danger mt-1" *ngIf="Surname.invalid && Surname.touched">
-                            Surname is required
+                            {{ "Register.surnameIsRequired" | translate }}                            
                         </div>
                     </div>
 
@@ -34,7 +35,7 @@
                         <input type="email" class="form-input" placeholder="Email" [(ngModel)]="registerModel.Email"
                             name="Email" required #Email="ngModel">
                         <div class="text-danger mt-1" *ngIf="Email.invalid && Email.touched">
-                            Email is required
+                            {{ "Register.emailIsRequired" | translate }}                            
                         </div>
                     </div>
 
@@ -42,7 +43,8 @@
                         <input type="text" class="form-input" placeholder="Phone" [(ngModel)]="registerModel.Phone"
                             name="Phone" required minlength="10" maxlength="16" #Phone="ngModel">
                         <div class="text-danger mt-1" *ngIf="Phone.invalid && Phone.touched">
-                            Incorrect phone number
+                            {{ "Register.incorrectPhoneNumber" | translate }}       
+                            
                         </div>
                     </div>
 
@@ -51,7 +53,7 @@
                             [(ngModel)]="registerModel.Password" name="Password" required minlength="6"
                             #Password="ngModel">
                         <div class="text-danger mt-1" *ngIf="Password.invalid && Password.touched">
-                            Password should be longer than 5 char
+                            {{ "Register.passwordShouldBeLongerThan5Char" | translate }}                                   
                         </div>
                         <i class="fa-regular fa-eye"></i>
                     </div>
@@ -61,9 +63,9 @@
                         <div class="spinner-border" *ngIf="loading"></div>
                     </div>
                     <div *ngIf="!loading">
-                        <button type="submit">Register</button>
-                        <a routerLink="/login" class="router-link">Login</a>
-                        <a routerLink="/forgot-password" class="router-link">Forgot password</a>
+                        <button type="submit">{{ "Register.register" | translate }}</button>
+                        <a routerLink="/login" class="router-link">{{ "Register.login" | translate }}</a>
+                        <a routerLink="/forgot-password" class="router-link">{{ "Register.forgotPassword" | translate }}</a>
                     </div>
 
                 </form>

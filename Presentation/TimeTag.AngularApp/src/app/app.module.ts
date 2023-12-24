@@ -9,6 +9,7 @@ import { PanelModule } from './Panel/panel.module';
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { RequestHeaderInterceptor } from './Services/httpService/request-header.interceptor';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { TranslateModule } from '@ngx-translate/core';
 
 
 
@@ -24,7 +25,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     PanelModule,
     AppRoutingModule,
     BrowserAnimationsModule,
-
+    TranslateModule
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: RequestHeaderInterceptor, multi: true },

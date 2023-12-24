@@ -1,0 +1,70 @@
+{
+    "Panel-navbar" : {
+        "profile" : "Profile",
+        "logOut" : "Log out"        
+    },
+    "Panel-sidebar" : {
+        "createCompany" : "Create company",
+        "myCompanies" : "My companies",
+        "createDepartment" : "Create department",
+        "myDepartments" : "My departments",
+        "createEmployee" : "Create Employee",
+        "myEmployees" : "My employees",
+        "profile" : "Profile"
+    },
+    "Login" : {
+        "welcomeToTimeTag" : "Welcome to time tag",
+        "youCanSignInToTheSystemWithYourRegisteredEmailAndPassword" : "You can sign in to the system with your registered e-mail and password",
+        "emailIsRequired" : "Email is required",
+        "passwordShoulBeLongerThan5Char" : "Password should be longer than 5 char",
+        "login" : "Login",
+        "register" : "Register",
+        "forgotPassword" : "Forgot Password"
+    },
+    "Register" : {
+        "registerFree" : "Register Free !",
+        "nameIsRequired" : "Name is required",
+        "surnameIsRequired" : "Surname is required",
+        "emailIsRequired" : "Email is required",
+        "incorrectPhoneNumber":"Incorrect phone number",
+        "passwordShouldBeLongerThan5Char" : "Password should be longer than 5 char",
+        "register" : "Register",
+        "login" : "Login",
+        "forgotPassword" :"Forgot Password"
+    },
+    "Add-company" : {
+        "welcomeToTimeTag" : "Welcome to time tag",
+        "myCompanies" : "My companies",
+        "youCanRegisterCompanyToSystemWithYourLicanceKey" : " You can register company to system with your licanceKey",
+        "title" :"Title",
+        "titleIsRequired" : "Title is required",
+        "address" : "Address",
+        "description" : "Description",
+        "webSite" : "Web Site",
+        "licanceKey" : "Licance Key",
+        "licanceKeyIsRequired"  :"Licance key is required",
+        "logo" : "Logo",
+        "createCompany" : "Create company"
+    },
+    "My-companies" : {
+        "myCompanies" :"My companies",
+        "createCompany" : "Create company",
+        "yourCompanyListIsHere" : "Your company list is here",
+        "title" : "Title",
+        "registeredTime" : "Registered Time",
+        "image" : "Image",
+        "edit"  :"Edit",
+        "editCompany" : "Edit company"
+    },
+    "Edit-company" : {
+        "updateYourCompany" : "Update Your Company",
+        "youCanInstantlyUpdateYourCompany'sInformation" : "You can instantly update your company's information",
+        "title" : "Title",
+        "address"  :"Address",
+        "description" : "Description",
+        "webSite" : "Web Site",
+        "logo" : "Logo",
+        "updateCompany" : "Update Company"
+    }
+    
+}

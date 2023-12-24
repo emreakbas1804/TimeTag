@@ -23,46 +23,51 @@ ul li {
     padding: 0px;
     margin: 0px;
     margin-right: 20px;
-    display: inline;
+    display: inline-block;
 
 }
 
-.dropdown span{
+.dropdown span {
     border-radius: 50%;
-    background-color: #012035;    
+    background-color: #012035;
     color: white;
     font-size: 13px;
     padding: 13px 8px;
-    transition: all .3s;    
+    transition: all .3s;
 }
-.dropdown span i{
+
+.dropdown span i {
     margin-left: 4px;
 }
-.dropdown-toggle::after{    
-    position: absolute;    
+
+.dropdown-toggle::after {
+    position: absolute;
     content: none;
 }
-.dropdown ul{
+
+.dropdown ul {
     float: right;
-    
+
 }
-.dropdown ul li{
+
+.dropdown ul li {
     font-size: 18px;
-    text-align: center;    
+    text-align: center;
     display: block;
     margin-right: 0px;
     padding: 6px 0px;
 }
 
-.dropdown .logOut{
+.dropdown .logOut {
     background-color: red;
     color: white;
-    cursor: pointer;   
-    
+    cursor: pointer;
+
 }
-.dropdown .logOut:hover{
+
+.dropdown .logOut:hover {
     background-color: rgb(242, 93, 93);
-    color: white;       
+    color: white;
 }
 
 @media (max-width:767px) {
@@ -90,4 +95,28 @@ ul li {
         right: 10px;
         top: 20px;
     }
+}
+
+
+
+select {
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    padding: 5px 10px;
+    font-size: 19px;
+    font-family: sans-serif;
+    color: #333;
+    background-color: #fff;
+    width: 150px;
+}
+
+select option {
+    padding: 5px 10px;
+    font-size: 19px;
+    font-family: sans-serif;
+    color: #333;
+}
+
+select:focus {
+    outline: none;
 }

@@ -4,8 +4,10 @@ import { IndexComponent } from './index/index.component';
 import { RouterModule } from '@angular/router';
 import { RegisterComponent } from './register/register.component';
 import { LoginComponent } from './login/login.component';
-import { SharedModule } from '../Shared/shared.module';
+import { HttpLoaderFactory, SharedModule } from '../Shared/shared.module';
 import { FormsModule } from '@angular/forms';
+import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
+import { HttpClient } from '@angular/common/http';
 
 
 
@@ -19,7 +21,8 @@ import { FormsModule } from '@angular/forms';
     CommonModule,
     RouterModule,
     SharedModule,
-    FormsModule
+    FormsModule,
+    TranslateModule
   ]
 })
 export class HomeModule { }

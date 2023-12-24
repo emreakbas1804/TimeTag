@@ -14,13 +14,21 @@
     <div class="computer">
         <ul>
             <li>
+                <select #langSelect (change)="translateService.use(langSelect.value)">
+                    <option *ngFor="let lang of translateService.getLangs()" [value]="lang"
+                        [selected]="lang === translateService.currentLang">
+                        <i class="bi bi-globe"></i> {{lang}}
+                    </option>
+                </select>
+            </li>
+            <li>
                 <div class="dropdown">
-                    <span class="dropdown-toggle" type="button"  data-bs-toggle="dropdown">
+                    <span class="dropdown-toggle" type="button" data-bs-toggle="dropdown">
                         {{FirstName?.charAt(0)}}{{LastName?.charAt(0)}}<i class="bi bi-person"></i>
                     </span>
                     <ul class="dropdown-menu">
-                        <li><a class="dropdown-item" routerLink="/panel/profile">Profile</a></li>
-                        <li><a class="dropdown-item logOut" (click)="logOut()">Log out</a></li>
+                        <li><a class="dropdown-item" routerLink="/panel/profile">{{ "Panel-navbar.profile" | translate }}</a></li>
+                        <li><a class="dropdown-item logOut" (click)="logOut()">{{ "Panel-navbar.logOut" | translate }}</a></li>
 
                     </ul>
                 </div>

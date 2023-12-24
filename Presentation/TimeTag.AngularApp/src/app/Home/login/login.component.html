@@ -4,9 +4,9 @@
         <div class="container">
             <div class="row mt-3 justify-content-center">
                 <div class="col-md-6 login-card">
-                    <h1 class="h4">Welcome to Time Tag</h1>
+                    <h1 class="h4">{{ "Login.welcomeToTimeTag" | translate }}</h1>
                     <hr>
-                    <p>You can sign in to the system with your registered e-mail and password</p>              
+                    <p>{{ "Login.youCanSignInToTheSystemWithYourRegisteredEmailAndPassword" | translate }}</p>              
                     <div [class.d-none]="!info">
                         <div class="alert alert-{{infoColor}} text-center" *ngIf="info != ''">
                             {{info}}
@@ -19,7 +19,7 @@
                                 <input type="email" class="form-input" placeholder="Email" name="email" ngModel required
                                     #name="ngModel">
                                 <div class="text-danger mt-1" *ngIf="name.invalid && name.touched">
-                                    Email is required
+                                    {{ "Login.emailIsRequired" | translate }}
                                 </div>
                             </div>
 
@@ -28,7 +28,7 @@
                                 <input type="password" class="form-input" placeholder="Password" ngModel name="password"
                                     required minlength="6" #Password="ngModel">
                                 <div class="text-danger mt-1" *ngIf="Password.invalid && Password.touched">
-                                    Password should be longer then 5 char
+                                    {{ "Login.passwordShoulBeLongerThan5Char" | translate }}
                                 </div>
                                 <i class="fa-regular fa-eye"></i>
                             </div>
@@ -38,9 +38,9 @@
                             </div>
                             
                             <div *ngIf="!loading" class="">
-                                <button type="submit">Login</button>
-                                <a routerLink="/register" class="router-link">Register</a>
-                                <a routerLink="/forgot-password" class="router-link">Forgot password</a>
+                                <button type="submit">{{ "Login.login" | translate }}</button>
+                                <a routerLink="/register" class="router-link">{{ "Login.register" | translate }}</a>
+                                <a routerLink="/forgot-password" class="router-link">{{ "Login.forgotPassword" | translate }}</a>
                             </div>
 
                         </form>

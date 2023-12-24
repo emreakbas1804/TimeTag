@@ -10,30 +10,30 @@
 
                     <div class="col-md-8 mt-3">
 
-                        <h1 class="h3">Welcome to Time Tag
-                            <a routerLink="/panel/my-companies" class="router-link router-link-right">My Companies</a>
+                        <h1 class="h3">{{"Add-company.welcomeToTimeTag" | translate}} 
+                            <a routerLink="/panel/my-companies" class="router-link router-link-right">{{"Add-company.myCompanies" | translate}}</a>
                         </h1>
                         <hr>
-                        <p class="text-muted">You can register company to system with your licanceKey</p>
+                        <p class="text-muted"> {{"Add-company.youCanRegisterCompanyToSystemWithYourLicanceKey" | translate}}</p>
 
                         <div class="mt-5">
 
                             <form #form="ngForm" (ngSubmit)="addCompany(form)">
                                 <!-- Title -->
                                 <div class="form-group row mb-3">
-                                    <label class="col-sm-2 col-form-label required">Title </label>
+                                    <label class="col-sm-2 col-form-label required">{{"Add-company.title" | translate}} </label>
                                     <div class="col-sm-10">
                                         <input type="text" class="form-input" placeholder="Title" name="title" ngModel
                                             required #title="ngModel">
                                         <div class="text-danger mt-1" *ngIf="title.invalid && title.touched">
-                                            Title is required
+                                            {{"Add-company.titleIsRequired" | translate}}                                             
                                         </div>
                                     </div>
                                 </div>
 
                                 <!-- Address -->
                                 <div class="form-group row mb-3">
-                                    <label class="col-sm-2 col-form-label">Address </label>
+                                    <label class="col-sm-2 col-form-label">{{"Add-company.address" | translate}}  </label>
                                     <div class="col-sm-10">
                                         <input type="text" class="form-input" placeholder="Address" ngModel
                                             name="address" #address="ngModel">
@@ -42,7 +42,7 @@
 
                                 <!-- Description -->
                                 <div class="form-group row mb-3">
-                                    <label class="col-sm-2 col-form-label">Description </label>
+                                    <label class="col-sm-2 col-form-label">{{"Add-company.description" | translate}}   </label>
                                     <div class="col-sm-10">
                                         <input type="text" class="form-input" placeholder="Description" ngModel
                                             name="description" #description="ngModel">
@@ -51,7 +51,7 @@
 
                                 <!-- Web Site -->
                                 <div class="form-group row mb-3">
-                                    <label class="col-sm-2 col-form-label">Web Site</label>
+                                    <label class="col-sm-2 col-form-label">{{"Add-company.webSite" | translate}}</label>
                                     <div class="col-sm-10">
                                         <input type="text" class="form-input" placeholder="Web Site" ngModel
                                             name="webSite" #webSite="ngModel">
@@ -60,12 +60,12 @@
 
                                 <!-- Licance key -->
                                 <div class="form-group row mb-3">
-                                    <label class="col-sm-2 col-form-label required">Licance Key </label>
+                                    <label class="col-sm-2 col-form-label required">{{"Add-company.licanceKey" | translate}}</label>
                                     <div class="col-sm-10">
                                         <input type="text" class="form-input" placeholder="Licance key"
                                             name="licanceKey" ngModel required #licanceKey="ngModel">
                                         <div class="text-danger mt-1" *ngIf="licanceKey.invalid && licanceKey.touched">
-                                            Licance key is required
+                                            {{"Add-company.licanceKeyIsRequired" | translate}}                                            
                                         </div>
                                     </div>
                                 </div>
@@ -73,7 +73,7 @@
                                 
                                 <!-- Logo -->
                                 <div class="form-group row mb-3">
-                                    <label class="col-sm-2 col-form-label">Logo </label>
+                                    <label class="col-sm-2 col-form-label">{{"Add-company.logo" | translate}}  </label>
                                     <div class="col-sm-10">
                                         <div class="row">
                                             <div class="col-10">
@@ -95,7 +95,7 @@
                                 </div>
 
                                 <div *ngIf="!loading" class="">
-                                    <button type="submit">Create Company</button>
+                                    <button type="submit">{{"Add-company.createCompany" | translate}}</button>
                                 </div>
 
                             </form>

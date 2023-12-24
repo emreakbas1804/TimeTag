@@ -10,9 +10,9 @@
 
                     <div class="col-md-8 mt-3">
 
-                        <h1 class="h3">Update Your Company</h1>
+                        <h1 class="h3">{{"Edit-company.updateYourCompany" | translate}}</h1>
                         <hr>
-                        <p class="text-muted">You can instantly update your company's receipt</p>
+                        <p class="text-muted">{{"Edit-company.youCanInstantlyUpdateYourCompany'sInformation" | translate}}</p>
                       
                         <div class="mt-5">
 
@@ -20,7 +20,7 @@
                                
                                 <!-- Title -->
                                 <div class="form-group row mb-3">
-                                    <label class="col-sm-2 col-form-label required">Title </label>
+                                    <label class="col-sm-2 col-form-label required">{{"Edit-company.title" | translate}} </label>
                                     <div class="col-sm-10">
                                         <input type="text" class="form-input" placeholder="Title" name="title" [(ngModel)]="company.title" required #title="ngModel" disabled>
                                     </div>
@@ -28,7 +28,7 @@
 
                                 <!-- Address -->
                                 <div class="form-group row mb-3">
-                                    <label class="col-sm-2 col-form-label">Address </label>
+                                    <label class="col-sm-2 col-form-label">{{"Edit-company.address" | translate}} </label>
                                     <div class="col-sm-10">
                                         <input type="text" class="form-input" placeholder="Address" [(ngModel)]="company.address" name="address" #address="ngModel">
                                     </div>
@@ -36,7 +36,7 @@
 
                                 <!-- Desciription -->
                                 <div class="form-group row mb-3">
-                                    <label class="col-sm-2 col-form-label">Description </label>
+                                    <label class="col-sm-2 col-form-label">{{"Edit-company.description" | translate}} </label>
                                     <div class="col-sm-10">
                                         <input type="text" class="form-input" placeholder="Description" [(ngModel)]="company.description" name="description" #description="ngModel">
                                     </div>
@@ -44,7 +44,7 @@
 
                                 <!-- Web Site -->
                                 <div class="form-group row mb-3">
-                                    <label class="col-sm-2 col-form-label">Web site </label>
+                                    <label class="col-sm-2 col-form-label">{{"Edit-company.webSite" | translate}}</label>
                                     <div class="col-sm-10">
                                         <input type="text" class="form-input" placeholder="Web Site" [(ngModel)]="company.webSite" name="webSite" #webSite="ngModel">
                                     </div>
@@ -52,7 +52,7 @@
 
                                 <!-- Logo -->
                                 <div class="form-group row mb-3">
-                                    <label class="col-sm-2 col-form-label">Logo </label>
+                                    <label class="col-sm-2 col-form-label">{{"Edit-company.logo" | translate}} </label>
                                     <div class="col-sm-10">
                                         <div class="row">                                           
                                             <div class="col-10">
@@ -73,7 +73,7 @@
                                 </div>
 
                                 <div *ngIf="!loading" class="">
-                                    <button type="submit">Update company</button>
+                                    <button type="submit">{{"Edit-company.updateCompany" | translate}}</button>
                                 </div>
 
                             </form>

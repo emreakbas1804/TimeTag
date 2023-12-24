@@ -1,0 +1,69 @@
+{
+    "Panel-navbar": {
+        "profile": "Profil",
+        "logOut": "Çıkış yap"
+    },
+    "Panel-sidebar": {
+        "createCompany": "Firma ekle",
+        "myCompanies": "Firmalarım",
+        "createDepartment": "Departman ekle",
+        "myDepartments": "Departmanlarım",
+        "createEmployee": "Personel ekle",
+        "myEmployees": "Personellerim",
+        "profile": "Profil"
+    },
+    "Login": {
+        "welcomeToTimeTag": "Time tag'e Hoşgeldiniz",
+        "youCanSignInToTheSystemWithYourRegisteredEmailAndPassword": "Sistemimizde kayıtlı email adresi ve parola ile kolayca giriş yapabilirsiniz",
+        "emailIsRequired": "Email zorunlu",
+        "passwordShoulBeLongerThan5Char": "Parola uzunluğu 5 karakterden fazla olmalıdır",
+        "login": "Giriş yap",
+        "register": "Kayıt ol",
+        "forgotPassword": "Şifremi unuttum"
+    },
+    "Register": {
+        "registerFree": "Ücretsiz kaydol !",
+        "nameIsRequired": "İsim zorunlu",
+        "surnameIsRequired": "Soy isim zorunlu",
+        "emailIsRequired": "Email adresi zorunlu",
+        "incorrectPhoneNumber": "Geçersiz telefon numarası",
+        "passwordShouldBeLongerThan5Char": "Parola uzunluğu 5 karakterden fazla olmalıdır",
+        "register": "Register",
+        "login": "Login",
+        "forgotPassword": "Forgot Password"
+    },
+    "Add-company": {
+        "welcomeToTimeTag": "Time tag'e Hoşgeldiniz",
+        "myCompanies": "Firmalarım",
+        "youCanRegisterCompanyToSystemWithYourLicanceKey": "Elinizdeki lisans anahtarı ile sistemimize kayıt olabilirsiniz",
+        "title": "Firma ismi",
+        "titleIsRequired": "Firma ismi zorunlu",
+        "address": "Adres",
+        "description": "Açıklama",
+        "webSite": "Web Site",
+        "licanceKey": "Lisans Anahtarı",
+        "licanceKeyIsRequired": "Lisans anahtarı zorunlu",
+        "logo": "Logo",
+        "createCompany" : "Firma ekle"
+    },
+    "My-companies" : {
+        "myCompanies" :"Firmalarım",
+        "createCompany" : "Firma ekle",
+        "yourCompanyListIsHere" : "Firma listen burada",
+        "title" : "Firma ismi",
+        "registeredTime" : "Kayıt tarihi",
+        "image" : "Görsel",
+        "edit"  :"Düzenle",
+        "editCompany" : "Firmayı düzenle"
+    },
+    "Edit-company" : {
+        "updateYourCompany" : "Firmanı güncelle",
+        "youCanInstantlyUpdateYourCompany'sInformation" : "Şirket bilgilerinizi anında güncelleyebilirsiniz",
+        "title" : "Firma ismi",
+        "address"  :"Adres",
+        "description" : "Açıklama",
+        "webSite" : "Web Site",
+        "logo" : "Logo",
+        "updateCompany" : "Firmayı güncelle"
+    }
+}
