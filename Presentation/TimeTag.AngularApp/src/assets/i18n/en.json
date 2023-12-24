@@ -1,10 +1,13 @@
 {
+<<<<<<< HEAD
+=======
     "Navbar" : {
         "Features" : "FEATURES",
         "HowToUse" : "HOW TO USE" ,
         "Contact" : "CONTACT",
         "Panel" : "PANEL"
     },
+>>>>>>> 33172811856cd780c1ce01dd3e21954380600f2c
     "Panel-navbar" : {
         "profile" : "Profile",
         "logOut" : "Log out"        
@@ -16,8 +19,12 @@
         "myDepartments" : "My departments",
         "createEmployee" : "Create Employee",
         "myEmployees" : "My employees",
+<<<<<<< HEAD
+        "profile" : "Profile"
+=======
         "profile" : "Profile",
         "homePage"  :"Home Page"
+>>>>>>> 33172811856cd780c1ce01dd3e21954380600f2c
     },
     "Login" : {
         "welcomeToTimeTag" : "Welcome to time tag",
@@ -26,9 +33,13 @@
         "passwordShoulBeLongerThan5Char" : "Password should be longer than 5 char",
         "login" : "Login",
         "register" : "Register",
+<<<<<<< HEAD
+        "forgotPassword" : "Forgot Password"
+=======
         "forgotPassword" : "Forgot Password",
         "email" : "Email",
         "password" : "Password"        
+>>>>>>> 33172811856cd780c1ce01dd3e21954380600f2c
     },
     "Register" : {
         "registerFree" : "Register Free !",
@@ -39,6 +50,9 @@
         "passwordShouldBeLongerThan5Char" : "Password should be longer than 5 char",
         "register" : "Register",
         "login" : "Login",
+<<<<<<< HEAD
+        "forgotPassword" :"Forgot Password"
+=======
         "forgotPassword" :"Forgot Password",
         "name" : "Name",
         "surname" : "Surname",
@@ -61,6 +75,7 @@
         "password" : "Password",
         "passwordShoulBeLongerThan5Char" :"Password should be longer than 5 char"
         
+>>>>>>> 33172811856cd780c1ce01dd3e21954380600f2c
     },
     "Add-company" : {
         "welcomeToTimeTag" : "Welcome to time tag",
@@ -95,6 +110,8 @@
         "webSite" : "Web Site",
         "logo" : "Logo",
         "updateCompany" : "Update Company"
+<<<<<<< HEAD
+=======
     },
     "Add-department" : {
         "createDepartment" : "Create department",
@@ -304,6 +321,7 @@
     "Languages" : {
         "en" : "English",
         "tr" : "Turkish"
+>>>>>>> 33172811856cd780c1ce01dd3e21954380600f2c
     }
     
 }

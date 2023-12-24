@@ -1,10 +1,13 @@
 {
+<<<<<<< HEAD
+=======
     "Navbar" : {
         "Features" : "ÖZELLİKLER",
         "HowToUse" : "NASIL KULLANILIR" ,
         "Contact" : "İLETİŞİM",
         "Panel" : "PANEL"
     },
+>>>>>>> 33172811856cd780c1ce01dd3e21954380600f2c
     "Panel-navbar": {
         "profile": "Profil",
         "logOut": "Çıkış yap"
@@ -16,8 +19,12 @@
         "myDepartments": "Departmanlarım",
         "createEmployee": "Personel ekle",
         "myEmployees": "Personellerim",
+<<<<<<< HEAD
+        "profile": "Profil"
+=======
         "profile": "Profil",
         "homePage"  :"Ana sayfa"
+>>>>>>> 33172811856cd780c1ce01dd3e21954380600f2c
     },
     "Login": {
         "welcomeToTimeTag": "Time tag'e Hoşgeldiniz",
@@ -26,9 +33,13 @@
         "passwordShoulBeLongerThan5Char": "Parola uzunluğu 5 karakterden fazla olmalıdır",
         "login": "Giriş yap",
         "register": "Kayıt ol",
+<<<<<<< HEAD
+        "forgotPassword": "Şifremi unuttum"
+=======
         "forgotPassword": "Şifremi unuttum",
         "email": "Email",
         "password": "Parola"
+>>>>>>> 33172811856cd780c1ce01dd3e21954380600f2c
     },
     "Register": {
         "registerFree": "Ücretsiz kaydol !",
@@ -37,6 +48,11 @@
         "emailIsRequired": "Email adresi zorunlu",
         "incorrectPhoneNumber": "Geçersiz telefon numarası",
         "passwordShouldBeLongerThan5Char": "Parola uzunluğu 5 karakterden fazla olmalıdır",
+<<<<<<< HEAD
+        "register": "Register",
+        "login": "Login",
+        "forgotPassword": "Forgot Password"
+=======
         "register": "Kayıt ol",
         "login": "Giriş yap",
         "forgotPassword": "Şifremi unuttum",
@@ -60,6 +76,7 @@
         "verificationCodeShouldBe6char"  :"Doğrulama kodu 6 karakterli olmalıdır",
         "password" : "Parola",
         "passwordShoulBeLongerThan5Char" :"Parola uzunluğu 5 karakterden fazla olmalıdır"
+>>>>>>> 33172811856cd780c1ce01dd3e21954380600f2c
     },
     "Add-company": {
         "welcomeToTimeTag": "Time tag'e Hoşgeldiniz",
@@ -73,6 +90,30 @@
         "licanceKey": "Lisans Anahtarı",
         "licanceKeyIsRequired": "Lisans anahtarı zorunlu",
         "logo": "Logo",
+<<<<<<< HEAD
+        "createCompany" : "Firma ekle"
+    },
+    "My-companies" : {
+        "myCompanies" :"Firmalarım",
+        "createCompany" : "Firma ekle",
+        "yourCompanyListIsHere" : "Firma listen burada",
+        "title" : "Firma ismi",
+        "registeredTime" : "Kayıt tarihi",
+        "image" : "Görsel",
+        "edit"  :"Düzenle",
+        "editCompany" : "Firmayı düzenle"
+    },
+    "Edit-company" : {
+        "updateYourCompany" : "Firmanı güncelle",
+        "youCanInstantlyUpdateYourCompany'sInformation" : "Şirket bilgilerinizi anında güncelleyebilirsiniz",
+        "title" : "Firma ismi",
+        "address"  :"Adres",
+        "description" : "Açıklama",
+        "webSite" : "Web Site",
+        "logo" : "Logo",
+        "updateCompany" : "Firmayı güncelle"
+    }
+=======
         "createCompany": "Firma ekle"
     },
     "My-companies": {
@@ -305,4 +346,5 @@
         "tr" : "Türkçe"
     }
 
+>>>>>>> 33172811856cd780c1ce01dd3e21954380600f2c
 }

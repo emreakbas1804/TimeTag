@@ -8,7 +8,10 @@ import { HttpLoaderFactory, SharedModule } from '../Shared/shared.module';
 import { FormsModule } from '@angular/forms';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { HttpClient } from '@angular/common/http';
+<<<<<<< HEAD
+=======
 import { ForgotPasswordComponent } from './forgot-password/forgot-password.component';
+>>>>>>> 33172811856cd780c1ce01dd3e21954380600f2c
 
 
 
