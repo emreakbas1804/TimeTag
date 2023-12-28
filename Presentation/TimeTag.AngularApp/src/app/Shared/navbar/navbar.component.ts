@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { NavigationStart, Router } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
 declare var $: any;
 @Component({
@@ -8,13 +9,18 @@ declare var $: any;
 })
 export class NavbarComponent implements OnInit {
 
-  constructor(public translateService: TranslateService) { }
+  constructor(public translateService: TranslateService, private router : Router) { }
 
   ngOnInit(): void {
     $( "#toggle-button" ).click(function() {
       $( "#mobil" ).toggle( "slow", function() {
         // Animation complete.
       });
+    });
+    this.router.events.subscribe((event) => {
+      if (event instanceof NavigationStart) {
+        $('#navbModal').removeClass('fade').modal('hide');
+      }
     });
   }
 
